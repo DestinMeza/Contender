@@ -50,6 +50,7 @@ public class PlayerControler : MonoBehaviour
             }
             return;
         }
+        if(GameManager.game.gameState == GameState.GameStart) return;
         Movement();
         if(Input.GetButtonDown("Submit")){
             Fire();

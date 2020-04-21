@@ -52,7 +52,7 @@ MeshRenderer:
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RenderingLayerMask: 1
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56e1f6ef6f551264bb8e3f7521772360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visbilityDistance: 100
+  visbilityDistance: 200
   ring: {fileID: 350585053374944937}
 --- !u!54 &6411449429034814382
 Rigidbody:
