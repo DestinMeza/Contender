@@ -19,7 +19,7 @@ public class RingController : MonoBehaviour
 
     void OnTriggerExit(Collider col){
         if(col.gameObject.GetComponentInParent<PlayerControler>()){
-            gameObject.SetActive(false);
+            ring.enabled = false;
         }
     }
 }

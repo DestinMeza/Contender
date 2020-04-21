@@ -112,10 +112,15 @@ public class PlayerControler : MonoBehaviour
     void OnTriggerEnter(Collider col){
         if(col.gameObject.tag == "EBullet"){
             Debug.Log("Hit!");
+            rb.velocity = Vector3.forward * speed.z;
+            rb.useGravity = true;
+            crashTime = Time.time;
+            crash = true;
         }
     }
     void OnCollisionEnter(Collision col){
         if(crash) return;
+        rb.velocity = Vector3.forward * speed.z;
         rb.useGravity = true;
         Debug.Log(col.collider.name);
         crashTime = Time.time;

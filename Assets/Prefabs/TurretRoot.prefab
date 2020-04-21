@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6687077876561994719}
   m_Layer: 0
   m_Name: TurretRoot
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,6 +48,9 @@ MonoBehaviour:
   turret: {fileID: 2477318194756083367}
   enemyBulletPrefab: {fileID: 8789902785856773530, guid: 6353dde58b6f60743b1e9bdc5a250846,
     type: 3}
+  firingDis: 140
+  firingOffsetZ: 11
+  firingOffsetY: 2
   maxBullets: 5
   fireInterval: 1
 --- !u!1 &5066527149041767184
@@ -61,7 +64,7 @@ GameObject:
   - component: {fileID: 1795641620580602557}
   m_Layer: 0
   m_Name: FirePos
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,7 +77,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5066527149041767184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.03, z: 1.19}
+  m_LocalPosition: {x: 0, y: 2.22, z: 1.73}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2477318194756083367}
@@ -91,7 +94,7 @@ GameObject:
   - component: {fileID: 8870668196638557741}
   m_Layer: 0
   m_Name: TurretTop
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,7 +124,7 @@ GameObject:
   - component: {fileID: 6362653872781747535}
   m_Layer: 0
   m_Name: TurretBase
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +155,7 @@ GameObject:
   - component: {fileID: 6086275858975335450}
   m_Layer: 0
   m_Name: Turret
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,7 +189,7 @@ GameObject:
   - component: {fileID: 2900136678438885915}
   m_Layer: 0
   m_Name: TurretCollider
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -284,7 +287,7 @@ GameObject:
   - component: {fileID: 2477318194756083367}
   m_Layer: 0
   m_Name: TurretTopRoot
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

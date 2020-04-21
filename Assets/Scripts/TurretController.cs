@@ -7,6 +7,9 @@ public class TurretController : MonoBehaviour
     public Transform turretFirePos;
     public Transform turret;
     public GameObject enemyBulletPrefab;
+    public float firingDis = 140;
+    public float firingOffsetZ = 11;
+    public float firingOffsetY = 2;
     public int maxBullets = 5;
     public float fireInterval = 1;
     float lastShot;
@@ -24,11 +27,11 @@ public class TurretController : MonoBehaviour
     void Update()
     {
         Vector3 playerPos = PlayerControler.player.transform.position;
-        playerPos.z += 11;
-        playerPos.y -= 2;
+        playerPos.z += firingOffsetZ;
+        playerPos.y -= firingOffsetY;
         Vector3 diff = playerPos - turret.transform.position;
         turret.forward = diff.normalized;
-        if(diff.magnitude < 80 && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0){
+        if(diff.magnitude < firingDis && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0){
             Fire(diff);
         }
     }

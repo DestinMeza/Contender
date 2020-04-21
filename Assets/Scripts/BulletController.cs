@@ -22,4 +22,10 @@ public class BulletController : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+
+    void OnTriggerEnter(Collider col){
+        if(col.gameObject.tag == "Solid"){
+            gameObject.SetActive(false);
+        }
+    }
 }
