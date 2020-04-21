@@ -11,11 +11,12 @@ public class BulletController : MonoBehaviour
     void Awake(){
         rb = GetComponent<Rigidbody>();
     }
-    void Start()
+    public void SetDir(Vector3 dir)
     {
-        rb.velocity = Vector3.forward * speed;
+        transform.forward = dir.normalized;
+        rb.velocity = Vector3.zero;
+        rb.AddForce(dir.normalized * speed, ForceMode.VelocityChange);
     }
-
     void Update(){
         if(Time.time - startTime > bulletLifetime){
             gameObject.SetActive(false);

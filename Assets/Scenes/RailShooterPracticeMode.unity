@@ -862,6 +862,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: speed.z
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448107, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_Mass

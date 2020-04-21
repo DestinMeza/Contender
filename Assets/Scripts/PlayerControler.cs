@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     public static PlayerControler player;
-    public Vector3 speed = new Vector3(30,-20, 100);
+    public Vector3 speed = new Vector3(30,-20, 50);
     public float maxSpeedChange = 10;
     public GameObject bulletPrefab;
     public int maxBullets = 14;
@@ -89,6 +89,7 @@ public class PlayerControler : MonoBehaviour
                 bullets[i].gameObject.SetActive(true);
                 bullets[i].startTime = Time.time;
                 bullets[i].gameObject.transform.position = firePos1.position;
+                bullets[i].SetDir(Vector3.forward);
                 break;
             }
         }
@@ -97,6 +98,7 @@ public class PlayerControler : MonoBehaviour
                 bullets[i].gameObject.SetActive(true);
                 bullets[i].startTime = Time.time;
                 bullets[i].gameObject.transform.position = firePos2.position;
+                bullets[i].SetDir(Vector3.forward);
                 return;
             }
         }
@@ -107,7 +109,11 @@ public class PlayerControler : MonoBehaviour
             GameManager.game.IncrementScore();
         }
     }
-
+    void OnTriggerEnter(Collider col){
+        if(col.GetComponentInParent<BulletController>().gameObject.tag == "EBullet"){
+            Debug.Log("Hit!");
+        }
+    }
     void OnCollisionEnter(Collision col){
         if(crash) return;
         rb.useGravity = true;

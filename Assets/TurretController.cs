@@ -23,23 +23,28 @@ public class TurretController : MonoBehaviour
     }
     void Update()
     {
-        Vector3 diff = PlayerControler.player.transform.position - turret.transform.position;
-        turret.forward = diff;
-        if(diff.magnitude < 50){
+        Vector3 playerPos = PlayerControler.player.transform.position;
+        playerPos.z += 11;
+        playerPos.y -= 2;
+        Vector3 diff = playerPos - turret.transform.position;
+        turret.forward = diff.normalized;
+        if(diff.magnitude < 80 && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0){
             Fire(diff);
         }
     }
 
-    void Fire(Vector3 diff){
-        if(Time.time - lastShot > fireInterval)
-        for(int i = 0; i < bullets.Length; i++){
-            if(!bullets[i].gameObject.activeSelf){
-                bullets[i].gameObject.SetActive(true);
-                bullets[i].transform.forward = diff;
-                bullets[i].startTime = Time.time;
-                bullets[i].gameObject.transform.position = turretFirePos.position;
-                return;
-            }
+    void Fire(Vector3 dir){
+        if(Time.time - lastShot > fireInterval){
+            for(int i = 0; i < bullets.Length; i++){
+                if(!bullets[i].gameObject.activeSelf){
+                    bullets[i].gameObject.SetActive(true);
+                    bullets[i].SetDir(dir);
+                    bullets[i].transform.position = turretFirePos.transform.position;
+                    bullets[i].startTime = Time.time;
+                    lastShot = Time.time;
+                    return;
+                }
+            }    
         }
     }
 }
