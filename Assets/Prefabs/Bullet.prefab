@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8789902785119324388}
   - component: {fileID: 8789902785119324391}
   - component: {fileID: 8789902785119324390}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c987f8a4feabd484ab0b69c8f0595dba, type: 2}
+  - {fileID: 2100000, guid: 88de6b4b0a757564b856360e3ba2a43d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -155,3 +155,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 250
+  bulletLifetime: 5
+  startTime: 0
