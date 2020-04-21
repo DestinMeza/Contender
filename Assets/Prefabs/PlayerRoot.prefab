@@ -9883,7 +9883,7 @@ MonoBehaviour:
   maxSpeedChange: 10
   bulletPrefab: {fileID: 8789902785856773530, guid: 97ff3db3639190641bdd54dcde13467c,
     type: 3}
-  maxBullets: 14
+  maxBullets: 20
   firePos1: {fileID: 5716020992011513453}
   firePos2: {fileID: 5716020992366437460}
   crash: 0
