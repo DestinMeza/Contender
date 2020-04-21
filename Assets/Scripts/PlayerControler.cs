@@ -110,7 +110,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnTriggerEnter(Collider col){
-        if(col.GetComponentInParent<BulletController>().gameObject.tag == "EBullet"){
+        if(col.gameObject.tag == "EBullet"){
             Debug.Log("Hit!");
         }
     }
