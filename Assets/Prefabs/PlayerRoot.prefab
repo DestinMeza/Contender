@@ -9886,6 +9886,9 @@ MonoBehaviour:
   maxBullets: 14
   firePos1: {fileID: 5716020992011513453}
   firePos2: {fileID: 5716020992366437460}
+  crash: 0
+  crashDuration: 3
+  crashTime: 0
 --- !u!54 &5716020993019448107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10017,7 +10020,7 @@ GameObject:
   - component: {fileID: 5174631649596778591}
   - component: {fileID: 5020589891739237345}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

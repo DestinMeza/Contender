@@ -11,6 +11,9 @@ public class PlayerControler : MonoBehaviour
     public int maxBullets = 14;
     public Transform firePos1;
     public Transform firePos2;
+    public bool crash;
+    public float crashDuration = 3;
+    public float crashTime;
     BulletController[] bullets;
     Vector3 targetVelocity;
     Rigidbody rb;
@@ -29,6 +32,8 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
+        crashTime = Time.time;
+        crash = false;
         bullets = new BulletController[maxBullets];
         for(int i = 0; i < maxBullets; i++){
             GameObject bullet = Instantiate(bulletPrefab);
@@ -38,30 +43,36 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Update(){
+        if(crash)
+        {
+            if(Time.time - crashTime > crashDuration){
+                gameObject.SetActive(false);
+            }
+            return;
+        }
         Movement();
         if(Input.GetButtonDown("Submit")){
             Fire();
         }
     }
     void FixedUpdate(){
-
-            Vector3 velocityChange = targetVelocity - rb.velocity;
-            Vector3 xyChange = velocityChange;
-            xyChange.z = 0;
-            if(xyChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
-                xyChange = xyChange.normalized * maxSpeedChange;
-                velocityChange.x = xyChange.x;
-                velocityChange.y = xyChange.y;
-            }
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        if(crash) return;
+        Vector3 velocityChange = targetVelocity - rb.velocity;
+        Vector3 xyChange = velocityChange;
+        xyChange.z = 0;
+        if(xyChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
+            xyChange = xyChange.normalized * maxSpeedChange;
+            velocityChange.x = xyChange.x;
+            velocityChange.y = xyChange.y;
+        }
+        rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
     void Movement(){
-
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
         bool shift = Input.GetKey(KeyCode.LeftShift);
 
-        if(shift && Mathf.Abs(x) < 2){
+        if(shift){
             x *= 2;
         }
 
@@ -95,5 +106,14 @@ public class PlayerControler : MonoBehaviour
         if(col.name == "RingCollider"){
             GameManager.game.IncrementScore();
         }
+    }
+
+    void OnCollisionEnter(Collision col){
+        if(crash) return;
+        rb.useGravity = true;
+        Debug.Log(col.collider.name);
+        crashTime = Time.time;
+        crash = true;
+        
     }
 }
