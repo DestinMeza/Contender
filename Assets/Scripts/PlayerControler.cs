@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
+    public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 100);
     public float maxSpeedChange = 10;
     public GameObject bulletPrefab;
@@ -17,6 +18,12 @@ public class PlayerControler : MonoBehaviour
 
     void Awake()
     {
+        if(player == null){
+            player = this;
+        }
+        else{
+            Destroy(gameObject);
+        }
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
@@ -35,7 +42,6 @@ public class PlayerControler : MonoBehaviour
         if(Input.GetButtonDown("Submit")){
             Fire();
         }
-        
     }
     void FixedUpdate(){
 
@@ -82,6 +88,12 @@ public class PlayerControler : MonoBehaviour
                 bullets[i].gameObject.transform.position = firePos2.position;
                 return;
             }
+        }
+    }
+
+    void OnTriggerExit(Collider col){
+        if(col.name == "RingCollider"){
+            GameManager.game.IncrementScore();
         }
     }
 }
