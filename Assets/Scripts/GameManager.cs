@@ -53,9 +53,6 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GamePlaying;
     }
     void GameplayUpdate(){
-        if(!PlayerControler.player.gameObject.activeSelf){
-            gameState = GameState.GameOver;
-        }
         scoreText.text = string.Format("Rings :{0}", score);
     }
 
