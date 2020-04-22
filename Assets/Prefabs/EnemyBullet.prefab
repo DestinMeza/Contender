@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b8635309c7d31646a0bcc3d0141a993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameOfParticle: EnemyBlasterSparks
   speed: 300
   bulletLifetime: 5
   startTime: 0

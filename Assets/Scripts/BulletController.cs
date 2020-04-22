@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    public string nameOfParticle;
     public float speed = 250;
     public float bulletLifetime = 5;
     public float startTime = 0;
@@ -25,6 +26,7 @@ public class BulletController : MonoBehaviour
 
     void OnTriggerEnter(Collider col){
         if(col.gameObject.tag == "Solid"){
+            ParticleManager.particleMan.Play(nameOfParticle, transform.position);
             gameObject.SetActive(false);
         }
     }

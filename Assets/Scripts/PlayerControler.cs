@@ -90,7 +90,7 @@ public class PlayerControler : MonoBehaviour
                 bullets[i].gameObject.SetActive(true);
                 bullets[i].startTime = Time.time;
                 bullets[i].gameObject.transform.position = firePos1.position;
-                bullets[i].SetDir(Vector3.forward);
+                bullets[i].SetDir(firePos1.forward);
                 break;
             }
         }
@@ -99,7 +99,7 @@ public class PlayerControler : MonoBehaviour
                 bullets[i].gameObject.SetActive(true);
                 bullets[i].startTime = Time.time;
                 bullets[i].gameObject.transform.position = firePos2.position;
-                bullets[i].SetDir(Vector3.forward);
+                bullets[i].SetDir(firePos2.forward);
                 return;
             }
         }
@@ -121,11 +121,11 @@ public class PlayerControler : MonoBehaviour
     }
     void OnCollisionEnter(Collision col){
         if(crash) return;
+        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
         rb.velocity = Vector3.forward * speed.z;
         rb.useGravity = true;
         Debug.Log(col.collider.name);
         crashTime = Time.time;
         crash = true;
-        
     }
 }

@@ -31,7 +31,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5716020992430707029}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &5847836476922146952
 CanvasRenderer:
@@ -4872,7 +4872,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 9.02}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5716020993019448100}
+  m_Father: {fileID: 5716020992430707029}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!222 &5716020991518700924
@@ -9916,10 +9916,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5716020991518700926}
   - {fileID: 9036692533484579527}
   - {fileID: 5805810418046892142}
   m_Father: {fileID: 5716020993019448100}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5716020993019448101
 GameObject:
@@ -9935,7 +9936,7 @@ GameObject:
   - component: {fileID: 5716020993019448105}
   m_Layer: 0
   m_Name: PlayerRoot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9951,7 +9952,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5716020991518700926}
   - {fileID: 5716020992430707029}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -10048,7 +10048,7 @@ Transform:
   - {fileID: 5716020991912972291}
   - {fileID: 5174631649596778591}
   m_Father: {fileID: 5716020992430707029}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3299281930716791384
 MeshFilter:
@@ -10110,7 +10110,7 @@ GameObject:
   - component: {fileID: 5020589891739237345}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
