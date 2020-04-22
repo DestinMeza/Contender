@@ -50,7 +50,7 @@ MonoBehaviour:
   enemyBulletPrefab: {fileID: 8789902785856773530, guid: 6353dde58b6f60743b1e9bdc5a250846,
     type: 3}
   firingDis: 140
-  firingOffsetZ: 11
+  firingOffsetZ: 13
   firingOffsetY: 2
   maxBullets: 5
   fireInterval: 1

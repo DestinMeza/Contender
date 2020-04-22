@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public enum GameState{
     GameStart,
     GamePlaying,
@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public static GameManager game;
     public GameObject stageSet;
+    public Text scoreText;
     public TurretController[] turrets;
     public GameState gameState = GameState.GameStart; 
     public Vector3 initalPos = new Vector3(0, 5, 0);
@@ -55,6 +56,7 @@ public class GameManager : MonoBehaviour
         if(!PlayerControler.player.gameObject.activeSelf){
             gameState = GameState.GameOver;
         }
+        scoreText.text = string.Format("Rings :{0}", score);
     }
 
     void GameOverUpdate(){
