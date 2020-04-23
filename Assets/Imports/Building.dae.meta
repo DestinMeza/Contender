@@ -1,39 +1,9 @@
 fileFormatVersion: 2
-guid: d33b8990bfc40204399b013ffa01724c
+guid: 213ff1ad088340b439235ed4ccb189e8
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Decal
-    second: {fileID: 2100000, guid: dfe38e5b8daeaa54c943cd5b0e030e03, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Decals
-    second: {fileID: 2100000, guid: cc9d05bf04b83aa408da9a3e4d508295, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Engine
-    second: {fileID: 2100000, guid: ace4f1df5b09a5d478f2784e25b5aab8, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: MidSection
-    second: {fileID: 2100000, guid: cbe51ffb3bf5fde4282d04631e37eedf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Whole
-    second: {fileID: 2100000, guid: 855f9b4c9d13e5c4cb2840926542f145, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Wings
-    second: {fileID: 2100000, guid: 3dfa086fc3a98d44da8538b079f9e5ce, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0

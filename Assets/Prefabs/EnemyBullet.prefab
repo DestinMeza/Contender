@@ -248,6 +248,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfParticle: EnemyBlasterSparks
-  speed: 300
+  speed: 100
   bulletLifetime: 5
   startTime: 0

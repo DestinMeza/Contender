@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         gameState = GameState.GamePlaying;
     }
     void GameplayUpdate(){
-        scoreText.text = string.Format("Rings :{0}", score);
+        scoreText.text = string.Format("Rings : {0}", score);
     }
 
     void GameOverUpdate(){

@@ -31,7 +31,7 @@ public class TurretController : MonoBehaviour
         playerPos.y -= firingOffsetY;
         Vector3 diff = playerPos - turret.transform.position;
         turret.forward = diff.normalized;
-        if(diff.magnitude < firingDis && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0){
+        if(diff.magnitude < firingDis && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0.3f){
             Fire(diff);
         }
     }

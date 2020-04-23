@@ -51,7 +51,10 @@ public class PlayerControler : MonoBehaviour
             return;
         }
         if(GameManager.game.gameState == GameState.GameStart) return;
+
         Movement();
+        ClampPosition();
+        
         if(Input.GetButtonDown("Submit")){
             Fire();
         }
@@ -68,6 +71,14 @@ public class PlayerControler : MonoBehaviour
         }
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
+
+    void ClampPosition(){
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        pos.x = Mathf.Clamp01(pos.x);
+        pos.y = Mathf.Clamp01(pos.y);
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+    }
+
     void Movement(){
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
