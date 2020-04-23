@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1228496896683020814}
   - component: {fileID: 6687077876561994719}
+  - component: {fileID: 8301342578943470015}
   - component: {fileID: 4361883281204039496}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretRoot
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -54,6 +55,19 @@ MonoBehaviour:
   firingOffsetY: 2
   maxBullets: 5
   fireInterval: 3
+--- !u!114 &8301342578943470015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228496896683020815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!54 &4361883281204039496
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,7 +93,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1795641620580602557}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FirePos
   m_TagString: Solid
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -109,7 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8870668196638557741}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretTop
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -139,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6362653872781747535}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretBase
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -170,7 +184,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6086275858975335450}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Turret
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -204,7 +218,7 @@ GameObject:
   - component: {fileID: 7343154527546269360}
   - component: {fileID: 7942194596193808905}
   - component: {fileID: 2900136678438885915}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretCollider
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -302,7 +316,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2477318194756083367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TurretTopRoot
   m_TagString: Solid
   m_Icon: {fileID: 0}

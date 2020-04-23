@@ -4,7 +4,6 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - EBullet
   - Solid
   layers:
   - Default
@@ -16,10 +15,10 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - PlayerBlaster
+  - EnemyBlaster
   - 
   - 
   - 

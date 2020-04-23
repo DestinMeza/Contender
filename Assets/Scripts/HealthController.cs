@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour
 {
 
     public delegate void OnDeath(HealthController health);
-    public static event OnDeath onDeath = delegate {};
+    public static OnDeath onDeath = delegate {};
 
     public int maxHealth = 3;
     int health;
@@ -23,9 +23,9 @@ public class HealthController : MonoBehaviour
     }
     public void TakeDamage(int damage){
         health -= damage;
+        Debug.Log(gameObject.name + "Took Damage");
         if(health <= 0){
             health = 0;
-            gameObject.SetActive(false);
             onDeath(this);
         }
     }

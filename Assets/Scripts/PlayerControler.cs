@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
+
+    public delegate bool OnCrash(PlayerControler player);
+    public static OnCrash onCrash;
     public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 50);
     public float maxSpeedChange = 10;
@@ -14,6 +17,7 @@ public class PlayerControler : MonoBehaviour
     public bool crash;
     public float crashDuration = 3;
     public float crashTime;
+
     BulletController[] bullets;
     Vector3 targetVelocity;
     Rigidbody rb;
@@ -32,6 +36,7 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
+        HealthController.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
         bullets = new BulletController[maxBullets];
@@ -54,7 +59,7 @@ public class PlayerControler : MonoBehaviour
 
         Movement();
         ClampPosition();
-        
+
         if(Input.GetButtonDown("Submit")){
             Fire();
         }
@@ -116,27 +121,33 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
+    void Crash(HealthController health){
+        if(crash) return;
+        crash = true;
+        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
+        rb.velocity = Vector3.forward * speed.z;
+        rb.useGravity = true;
+        crashTime = Time.time;
+        onCrash(this);
+    }
+
+    void Crash(){
+        if(crash) return;
+        crash = true;
+        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
+        rb.velocity = Vector3.forward * speed.z;
+        rb.useGravity = true;
+        crashTime = Time.time;
+        onCrash(this);
+    }
+
     void OnTriggerExit(Collider col){
         if(col.name == "RingCollider"){
             GameManager.game.IncrementScore();
         }
     }
-    void OnTriggerEnter(Collider col){
-        if(col.gameObject.tag == "EBullet"){
-            Debug.Log("Hit!");
-            rb.velocity = Vector3.forward * speed.z;
-            rb.useGravity = true;
-            crashTime = Time.time;
-            crash = true;
-        }
-    }
     void OnCollisionEnter(Collision col){
         if(crash) return;
-        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
-        rb.velocity = Vector3.forward * speed.z;
-        rb.useGravity = true;
-        Debug.Log(col.collider.name);
-        crashTime = Time.time;
-        crash = true;
+        Crash();
     }
 }

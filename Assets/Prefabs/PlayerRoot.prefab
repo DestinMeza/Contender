@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 1243644543034079748}
   - component: {fileID: 236492739151748903}
   - component: {fileID: 7963807901157273266}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CrossHair2
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 5716020991449974550}
   - component: {fileID: 5716020991449974551}
   - component: {fileID: 5716020991449974544}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EngineColor
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4854,9 +4854,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5716020991565531072}
   - component: {fileID: 5716020991565531079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Reflection Probe
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4869,7 +4869,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5716020991565531073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.48, z: -0.31}
+  m_LocalPosition: {x: 0, y: 0.029, z: -0.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5805810418046892142}
@@ -4890,7 +4890,7 @@ ReflectionProbe:
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 0, y: 0, z: 0}
+  m_BoxSize: {x: 1, y: 1, z: 1}
   m_BoxOffset: {x: 0, y: 0, z: 0}
   m_NearClip: 0.3
   m_FarClip: 1000
@@ -4900,7 +4900,7 @@ ReflectionProbe:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IntensityMultiplier: 1.5
+  m_IntensityMultiplier: 2.76
   m_BlendDistance: 1
   m_HDR: 1
   m_BoxProjection: 0
@@ -4919,9 +4919,9 @@ GameObject:
   - component: {fileID: 5716020991912972291}
   - component: {fileID: 5716020991912972289}
   - component: {fileID: 5716020991912972290}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cannons
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5000,9 +5000,9 @@ GameObject:
   - component: {fileID: 5716020991942819491}
   - component: {fileID: 5716020991942819489}
   - component: {fileID: 5716020991942819490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EngineColor (1)
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9752,7 +9752,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5716020992011513453}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePos1
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -9782,7 +9782,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5716020992366437460}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: FirePos2
   m_TagString: Untagged
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
@@ -9812,9 +9812,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5716020992430707029}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Heading
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9846,11 +9846,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5716020993019448100}
   - component: {fileID: 5716020993019448106}
+  - component: {fileID: 2826073995892855356}
   - component: {fileID: 5716020993019448107}
   - component: {fileID: 5716020993019448105}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PlayerRoot
-  m_TagString: Player
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9892,6 +9893,19 @@ MonoBehaviour:
   crash: 0
   crashDuration: 3
   crashTime: 0
+--- !u!114 &2826073995892855356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716020993019448101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 3
 --- !u!54 &5716020993019448107
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9938,9 +9952,9 @@ GameObject:
   - component: {fileID: 5805810418046892142}
   - component: {fileID: 3299281930716791384}
   - component: {fileID: 9148479922425478817}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: JediETA
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10023,9 +10037,9 @@ GameObject:
   - component: {fileID: 4419627888808956302}
   - component: {fileID: 2782806642462762911}
   - component: {fileID: 5960348196135077487}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CrossHair1
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10112,9 +10126,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5174631649596778591}
   - component: {fileID: 5020589891739237345}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collider
-  m_TagString: Player
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
