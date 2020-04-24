@@ -6,7 +6,7 @@ public class HealthController : MonoBehaviour
 {
 
     public delegate void OnDeath(HealthController health);
-    public static OnDeath onDeath = delegate {};
+    public OnDeath onDeath = delegate {};
 
     public int maxHealth = 3;
     int health;

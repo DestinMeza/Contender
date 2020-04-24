@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {   
+        PlayerControler.onDeath += Reset;
         turrets = stageSet.GetComponentsInChildren<TurretController>();
         score = 0;
         gameState = GameState.GameStart;
-        
     }
 
     void Update(){
@@ -43,10 +43,12 @@ public class GameManager : MonoBehaviour
             if(!turrets[i].gameObject.activeSelf) turrets[i].gameObject.SetActive(true);
         }
         score = 0;
+        CameraController.cameraMain.transform.position = CameraController.cameraMain.target.position;
         PlayerControler.player.gameObject.SetActive(true);
         PlayerControler.player.transform.position = initalPos;
         PlayerControler.player.transform.rotation = Quaternion.identity;
         PlayerControler.player.crash = false;
+        PlayerControler.player.GetComponent<Animator>().SetBool("crashing", false);
         PlayerControler.player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
         PlayerControler.player.GetComponent<Rigidbody>().inertiaTensorRotation = Quaternion.identity;
         PlayerControler.player.GetComponent<Rigidbody>().useGravity = false;
@@ -54,6 +56,10 @@ public class GameManager : MonoBehaviour
     }
     void GameplayUpdate(){
         scoreText.text = string.Format("Rings : {0}", score);
+    }
+
+    void Reset(PlayerControler player){
+        gameState = GameState.GameOver;
     }
 
     void GameOverUpdate(){

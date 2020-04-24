@@ -7,6 +7,8 @@ public class PlayerControler : MonoBehaviour
 
     public delegate bool OnCrash(PlayerControler player);
     public static OnCrash onCrash;
+    public delegate void OnDeath(PlayerControler player);
+    public static OnDeath onDeath;
     public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 50);
     public float maxSpeedChange = 10;
@@ -36,7 +38,8 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
-        HealthController.onDeath += Crash;
+        HealthController health = GetComponentInParent<HealthController>();
+        health.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
         bullets = new BulletController[maxBullets];
@@ -51,12 +54,16 @@ public class PlayerControler : MonoBehaviour
         if(crash)
         {
             if(Time.time - crashTime > crashDuration){
+                onDeath(this);
                 gameObject.SetActive(false);
             }
             return;
         }
-        if(GameManager.game.gameState == GameState.GameStart) return;
-
+        if(GameManager.game.gameState == GameState.GameStart){
+            return;
+        }
+        
+        onCrash(this);
         Movement();
         ClampPosition();
 
@@ -123,7 +130,9 @@ public class PlayerControler : MonoBehaviour
 
     void Crash(HealthController health){
         if(crash) return;
+        anim.Play("PlayerCrash");
         crash = true;
+        anim.SetBool("crashing", crash);
         rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
         rb.velocity = Vector3.forward * speed.z;
         rb.useGravity = true;
@@ -133,7 +142,9 @@ public class PlayerControler : MonoBehaviour
 
     void Crash(){
         if(crash) return;
+        anim.Play("PlayerCrash");
         crash = true;
+        anim.SetBool("crashing", crash);
         rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
         rb.velocity = Vector3.forward * speed.z;
         rb.useGravity = true;
@@ -147,7 +158,10 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        if(crash) return;
+        if(crash) {
+            onDeath(this);
+            gameObject.SetActive(false);
+        }
         Crash();
     }
 }

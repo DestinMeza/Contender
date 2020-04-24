@@ -16,6 +16,8 @@ public class TurretController : MonoBehaviour
     BulletController[] bullets;
 
     void Start(){
+        HealthController health = GetComponentInParent<HealthController>();
+        health.onDeath += Explode;
         lastShot = Time.time;
         bullets = new BulletController[maxBullets];
         for(int i = 0; i < maxBullets; i++){
@@ -34,6 +36,10 @@ public class TurretController : MonoBehaviour
         if(diff.magnitude < firingDis && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0.3f){
             Fire(diff);
         }
+    }
+
+    void Explode(HealthController health){
+        gameObject.SetActive(false);
     }
 
     void Fire(Vector3 dir){
