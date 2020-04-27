@@ -6,11 +6,10 @@ public class TurretController : MonoBehaviour
 {
     public Transform turretFirePos;
     public Transform turret;
-    public GameObject enemyBulletPrefab;
+    public string enemyBulletPrefab;
     public float firingDis = 140;
     public float firingOffsetZ = 11;
     public float firingOffsetY = 2;
-    public int maxBullets = 5;
     public float fireInterval = 1;
     float lastShot;
     BulletController[] bullets;
@@ -19,12 +18,6 @@ public class TurretController : MonoBehaviour
         HealthController health = GetComponentInParent<HealthController>();
         health.onDeath += Explode;
         lastShot = Time.time;
-        bullets = new BulletController[maxBullets];
-        for(int i = 0; i < maxBullets; i++){
-            GameObject bullet = Instantiate(enemyBulletPrefab);
-            bullets[i] = bullet.GetComponent<BulletController>();
-            bullet.gameObject.SetActive(false);
-        }
     }
     void Update()
     {
@@ -44,16 +37,10 @@ public class TurretController : MonoBehaviour
 
     void Fire(Vector3 dir){
         if(Time.time - lastShot > fireInterval){
-            for(int i = 0; i < bullets.Length; i++){
-                if(!bullets[i].gameObject.activeSelf){
-                    bullets[i].gameObject.SetActive(true);
-                    bullets[i].SetDir(dir);
-                    bullets[i].transform.position = turretFirePos.transform.position;
-                    bullets[i].startTime = Time.time;
-                    lastShot = Time.time;
-                    return;
-                }
-            }    
+            lastShot = Time.time;
+            GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, turretFirePos.position);
+            bullet.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet.GetComponentInParent<BulletController>().SetDir(turretFirePos.forward);
         }
     }
 }

@@ -5,15 +5,14 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
 
-    public delegate bool OnCrash(PlayerControler player);
-    public static OnCrash onCrash;
+    public delegate void OnCrash(PlayerControler player);
+    public static OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
-    public static OnDeath onDeath;
+    public static OnDeath onDeath = delegate {};
     public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 50);
     public float maxSpeedChange = 10;
-    public GameObject bulletPrefab;
-    public int maxBullets = 14;
+    public string bulletPrefab;
     public Transform firePos1;
     public Transform firePos2;
     public bool crash;
@@ -42,14 +41,11 @@ public class PlayerControler : MonoBehaviour
         health.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
-        bullets = new BulletController[maxBullets];
-        for(int i = 0; i < maxBullets; i++){
-            GameObject bullet = Instantiate(bulletPrefab);
-            bullets[i] = bullet.GetComponent<BulletController>();
-            bullet.gameObject.SetActive(false);
-        }
     }
 
+    void OnEnable(){
+        onCrash(this);
+    }
     void Update(){
         if(crash)
         {
@@ -62,10 +58,9 @@ public class PlayerControler : MonoBehaviour
         if(GameManager.game.gameState == GameState.GameStart){
             return;
         }
-        
         onCrash(this);
-        Movement();
         ClampPosition();
+        Movement();
 
         if(Input.GetButtonDown("Submit")){
             Fire();
@@ -108,24 +103,14 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Fire(){
-        for(int i = 0; i < bullets.Length; i++){
-            if(!bullets[i].gameObject.activeSelf){
-                bullets[i].gameObject.SetActive(true);
-                bullets[i].startTime = Time.time;
-                bullets[i].gameObject.transform.position = firePos1.position;
-                bullets[i].SetDir(firePos1.forward);
-                break;
-            }
-        }
-        for(int i = 0; i < bullets.Length; i++){
-            if(!bullets[i].gameObject.activeSelf){
-                bullets[i].gameObject.SetActive(true);
-                bullets[i].startTime = Time.time;
-                bullets[i].gameObject.transform.position = firePos2.position;
-                bullets[i].SetDir(firePos2.forward);
-                return;
-            }
-        }
+
+        GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
+        bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
+        bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
+
+        GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
+        bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
+        bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
     }
 
     void Crash(HealthController health){

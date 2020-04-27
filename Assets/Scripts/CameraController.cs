@@ -26,21 +26,20 @@ public class CameraController : MonoBehaviour
     void Start(){
         PlayerControler.onCrash += Crash;
     }
-
     void FixedUpdate(){
         if(target == null) return;
 
         if(Application.isPlaying){
             Vector3 targetPos = target.transform.position;
+            Vector3 pos = transform.position;
             if(!playerCrashing){
-                Vector3 pos = transform.position;
                 transform.position = Vector3.SmoothDamp(
                     pos,
                     new Vector3(targetPos.x + offset.x, targetPos.y + offset.y, targetPos.z + offset.z),
                     ref velocity,
                     smoothTime
                 );
-                transform.LookAt(targetPos);
+                transform.eulerAngles = Vector3.forward;
             }
             else{
                 Vector3 camLoc2 = transform.position;
@@ -56,7 +55,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    bool Crash(PlayerControler player){
-        return playerCrashing = player.crash;
+    void Crash(PlayerControler player){
+        playerCrashing = player.crash;
     }
 }
