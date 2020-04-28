@@ -6,8 +6,15 @@ public class DamageController : MonoBehaviour
 {
     public string hitSound = "laserHit";
     public string hitParticles = "Explosion";
+    int defaultDmg;
     public int damage = 1;
 
+    void Awake(){
+        defaultDmg = damage;
+    }
+    void OnEnable(){
+        damage = defaultDmg;
+    }
     void OnCollisionEnter(Collision col){
         Hit(col.gameObject);
     }

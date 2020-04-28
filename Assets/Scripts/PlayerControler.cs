@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class PlayerControler : MonoBehaviour
 {
-
+    enum BlasterState{
+        SingleFire,
+        DoubleFire,
+        MegaFire
+    }
+    BlasterState blasterState = BlasterState.SingleFire;
     public delegate void OnCrash(PlayerControler player);
     public static OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
     public static OnDeath onDeath = delegate {};
+    public delegate void OnBoost();
+    public static OnBoost onBoost = delegate {};
     public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 50);
+    Vector3 defaultSpeed;
     public float maxSpeedChange = 10;
     public string bulletPrefab;
+    public Transform firePosMain;
     public Transform firePos1;
     public Transform firePos2;
+    public float boostMeterMax = 1;
+    public float boostMeter = 1;
     public bool crash;
     public float crashDuration = 3;
     public float crashTime;
-
+    HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
     Rigidbody rb;
@@ -37,13 +48,16 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
-        HealthController health = GetComponentInParent<HealthController>();
+        defaultSpeed = speed;
+        health = GetComponentInParent<HealthController>();
         health.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
     }
 
     void OnEnable(){
+        boostMeter = boostMeterMax;
+        blasterState = BlasterState.SingleFire;
         onCrash(this);
     }
     void Update(){
@@ -62,7 +76,7 @@ public class PlayerControler : MonoBehaviour
         ClampPosition();
         Movement();
 
-        if(Input.GetButtonDown("Submit")){
+        if(Input.GetButtonDown("Fire1")){
             Fire();
         }
     }
@@ -89,12 +103,31 @@ public class PlayerControler : MonoBehaviour
     void Movement(){
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        bool shift = Input.GetKey(KeyCode.LeftShift);
-
-        if(shift){
+        float boostAxis = Input.GetAxis("Boost");
+        float breakAxis = Input.GetAxis("Break");
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
+            speed = defaultSpeed * 0.5f;
+        }
+        else if(boostAxis > 0.3f || Input.GetKey(KeyCode.LeftShift)){
+            if(boostMeter > 0){
+                boostMeter -= 0.5f * Time.deltaTime;
+                speed = defaultSpeed * 1.5f;
+            }
+            else{
+                speed = defaultSpeed;
+            }
+        }
+        else if(Input.GetKey(KeyCode.LeftControl)){
+            speed.x = defaultSpeed.x * 1.5f;
             x *= 2;
         }
+        else{
+            if(boostMeter < boostMeterMax)boostMeter += 0.25f * Time.deltaTime;
+            speed = defaultSpeed;
+        }
 
+        
+        onBoost();
         targetVelocity = new Vector3(x, y, 0).normalized + Vector3.forward;
         targetVelocity = Vector3.Scale(targetVelocity, speed);
 
@@ -103,14 +136,29 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Fire(){
-
-        GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
-        bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
-        bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
-
-        GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
-        bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
-        bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+        if(blasterState == BlasterState.SingleFire){
+            GameObject bullet = SpawnManager.Spawn(bulletPrefab, firePosMain.position);
+            bullet.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
+        }
+        if(blasterState == BlasterState.DoubleFire){
+            GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
+            bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
+            GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
+            bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+        }
+        if(blasterState == BlasterState.DoubleFire){
+            GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
+            bullet1.GetComponentInParent<DamageController>().damage *= 2;
+            bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
+            GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
+            bullet2.GetComponentInParent<DamageController>().damage *= 2;
+            bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
+            bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+        }
     }
 
     void Crash(HealthController health){
@@ -143,10 +191,21 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
+        health.TakeDamage(1);
+        Vector3 diff = Vector3.Cross(player.transform.position, col.transform.position);
+        float dot = Vector3.Dot(player.transform.position, col.transform.position);
+        if(diff.normalized.magnitude > dot){
+            rb.AddForce(diff.normalized * speed.z, ForceMode.Impulse);
+        }
+        else{
+            rb.AddForce(-diff.normalized * speed.z, ForceMode.Impulse);
+        }
         if(crash) {
             onDeath(this);
             gameObject.SetActive(false);
         }
-        Crash();
+        if(health.health <= 0){
+            Crash();
+        }
     }
 }
