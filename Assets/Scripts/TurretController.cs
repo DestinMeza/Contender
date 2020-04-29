@@ -12,8 +12,6 @@ public class TurretController : MonoBehaviour
     public float firingOffsetY = 2;
     public float fireInterval = 1;
     float lastShot;
-    BulletController[] bullets;
-
     void Start(){
         HealthController health = GetComponentInParent<HealthController>();
         health.onDeath += Explode;

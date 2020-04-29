@@ -29,6 +29,7 @@ public class PlayerControler : MonoBehaviour
     public bool crash;
     public float crashDuration = 3;
     public float crashTime;
+    bool breaking = false;
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
@@ -76,7 +77,7 @@ public class PlayerControler : MonoBehaviour
         ClampPosition();
         Movement();
 
-        if(Input.GetButtonDown("Fire1")){
+        if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)){
             Fire();
         }
     }
@@ -105,11 +106,9 @@ public class PlayerControler : MonoBehaviour
         float y = Input.GetAxis("Vertical");
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
-        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
-            speed = defaultSpeed * 0.5f;
-        }
-        else if(boostAxis > 0.3f || Input.GetKey(KeyCode.LeftShift)){
-            if(boostMeter > 0){
+        
+        if(boostAxis > 0.3f || Input.GetKey(KeyCode.LeftShift) && breaking == false){
+            if(boostMeter > 0 && breaking == false){
                 boostMeter -= 0.5f * Time.deltaTime;
                 speed = defaultSpeed * 1.5f;
             }
@@ -117,15 +116,21 @@ public class PlayerControler : MonoBehaviour
                 speed = defaultSpeed;
             }
         }
-        else if(Input.GetKey(KeyCode.LeftControl)){
-            speed.x = defaultSpeed.x * 1.5f;
-            x *= 2;
-        }
         else{
             if(boostMeter < boostMeterMax)boostMeter += 0.25f * Time.deltaTime;
             speed = defaultSpeed;
         }
-
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
+            speed.z = defaultSpeed.z * 0.5f;
+            breaking = true;
+        }
+        else{
+            breaking = false;
+        }
+        if(Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Bank")){
+            speed.x = defaultSpeed.x * 1.5f;
+            x *= 2;
+        }
         
         onBoost();
         targetVelocity = new Vector3(x, y, 0).normalized + Vector3.forward;

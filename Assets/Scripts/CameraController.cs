@@ -42,9 +42,10 @@ public class CameraController : MonoBehaviour
                 transform.eulerAngles = Vector3.forward;
             }
             else{
-                Vector3 camLoc2 = transform.position;
-                camLoc2 = targetPos;
-                camLoc2.z += 20;
+                
+                Vector3 camLoc2 = targetPos;
+                camLoc2.z += 40;
+                camLoc2.y += 6;
                 transform.position = camLoc2;
                 transform.LookAt(PlayerControler.player.transform.position);
             }
