@@ -33,6 +33,8 @@ public class CameraController : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
             if(!playerCrashing){
+                pos.y = Mathf.Clamp(transform.position.y, 0, 58);
+                pos.x = Mathf.Clamp(transform.position.x, -30, 30);
                 transform.position = Vector3.SmoothDamp(
                     pos,
                     new Vector3(targetPos.x + offset.x, targetPos.y + offset.y, targetPos.z + offset.z),
