@@ -16,6 +16,8 @@ public class PlayerControler : MonoBehaviour
     public static OnDeath onDeath = delegate {};
     public delegate void OnBoost();
     public static OnBoost onBoost = delegate {};
+    public delegate void OnFireBomb(int count);
+    public static OnFireBomb onFireBomb = delegate {};
     public static PlayerControler player;
     public Vector3 speed = new Vector3(30,-20, 50);
     Vector3 defaultSpeed;
@@ -29,6 +31,7 @@ public class PlayerControler : MonoBehaviour
     public bool crash;
     public float crashDuration = 3;
     public float crashTime;
+    public int bombAmmo;
     bool breaking = false;
     HealthController health;
     BulletController[] bullets;
@@ -77,9 +80,17 @@ public class PlayerControler : MonoBehaviour
         ClampPosition();
         Movement();
 
+        if(Input.GetButtonDown("Fire2")){
+            if(bombAmmo < 0) return;
+            bombAmmo--;
+            onFireBomb(bombAmmo);
+            return;
+        }
+
         if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)){
             Fire();
         }
+        
     }
     void FixedUpdate(){
         if(crash) return;
@@ -120,7 +131,7 @@ public class PlayerControler : MonoBehaviour
             if(boostMeter < boostMeterMax)boostMeter += 0.25f * Time.deltaTime;
             speed = defaultSpeed;
         }
-        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.B)){
             speed.z = defaultSpeed.z * 0.5f;
             breaking = true;
         }
@@ -193,6 +204,11 @@ public class PlayerControler : MonoBehaviour
     void OnTriggerExit(Collider col){
         if(col.name == "RingCollider"){
             GameManager.game.IncrementScore();
+        }
+        if(col.tag == "BombPowerup"){
+            bombAmmo++;
+            onFireBomb(bombAmmo);
+            col.gameObject.SetActive(false);
         }
     }
     void OnCollisionEnter(Collision col){
