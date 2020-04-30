@@ -153,11 +153,13 @@ public class PlayerControler : MonoBehaviour
 
     void Fire(){
         if(blasterState == BlasterState.SingleFire){
+            AudioManager.Play("BlasterSound");
             GameObject bullet = SpawnManager.Spawn(bulletPrefab, firePosMain.position);
             bullet.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
         }
         if(blasterState == BlasterState.DoubleFire){
+            AudioManager.Play("BlasterSound");
             GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
             bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
@@ -166,6 +168,7 @@ public class PlayerControler : MonoBehaviour
             bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
         }
         if(blasterState == BlasterState.DoubleFire){
+            AudioManager.Play("BlasterSound");
             GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
             bullet1.GetComponentInParent<DamageController>().damage *= 2;
             bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
@@ -213,6 +216,7 @@ public class PlayerControler : MonoBehaviour
     }
     void OnCollisionEnter(Collision col){
         health.TakeDamage(1);
+        anim.Play("PlayerHit");
         Vector3 diff = Vector3.Cross(player.transform.position, col.transform.position);
         float dot = Vector3.Dot(player.transform.position, col.transform.position);
         if(diff.normalized.magnitude > dot){

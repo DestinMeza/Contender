@@ -23,7 +23,9 @@ public class DamageController : MonoBehaviour
     }
     void Hit(GameObject g){
         HealthController h = g.GetComponentInParent<HealthController>();
+        Animator animator = g.GetComponentInParent<Animator>();
         if(h == null) return;
+        if(animator != null) animator.Play("Hit");
         h.TakeDamage(damage);    
     }
 }

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/RailShooterPracticeMode.unity
+    guid: c3d36f4cbdc99e54c93a36121b182a1e
   m_configObjects: {}
