@@ -31,7 +31,9 @@ public class PlayerControler : MonoBehaviour
     public bool crash;
     public float crashDuration = 3;
     public float crashTime;
+    public float collisionShield = 0.5f;
     public int bombAmmo;
+    float lastCollisionTime;
     bool breaking = false;
     HealthController health;
     BulletController[] bullets;
@@ -206,6 +208,7 @@ public class PlayerControler : MonoBehaviour
 
     void OnTriggerExit(Collider col){
         if(col.name == "RingCollider"){
+            AudioManager.Play("RingSound");
             GameManager.game.IncrementScore();
         }
         if(col.tag == "BombPowerup"){
@@ -215,8 +218,11 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        health.TakeDamage(1);
-        anim.Play("PlayerHit");
+        if(Time.time - lastCollisionTime > collisionShield){
+            lastCollisionTime = Time.time;
+            health.TakeDamage(1);
+            if(!crash)anim.Play("PlayerHit");
+        }
         Vector3 diff = Vector3.Cross(player.transform.position, col.transform.position);
         float dot = Vector3.Dot(player.transform.position, col.transform.position);
         if(diff.normalized.magnitude > dot){
