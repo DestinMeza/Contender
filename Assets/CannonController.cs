@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class CannonController : MonoBehaviour
 {
-    public float cannonRotSpeed = 0.7f;
+    public float cannonRotMod = 0.8f;
     Vector3 velocity = Vector3.zero;
     public Transform resetTransform;
 
@@ -16,6 +16,6 @@ public class CannonController : MonoBehaviour
         Vector3 resetPos = resetTransform.forward;
         x = Mathf.Clamp(x, 0, 5);
         y = Mathf.Clamp(y, 0, 5);
-        transform.forward = Vector3.Lerp(aimDir, resetPos, cannonRotSpeed);
+        transform.forward = Vector3.Lerp(aimDir, resetPos, cannonRotMod);
     }
 }

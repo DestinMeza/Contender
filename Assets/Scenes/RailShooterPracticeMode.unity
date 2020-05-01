@@ -15441,6 +15441,31 @@ PrefabInstance:
       propertyPath: cannonRotSpeed
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 1079778487475153338, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: crossHairs
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079778487475153338, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 1491029581976180666, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: m_Name
+      value: FiringDir
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771452220398260689, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2771452220398260689, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2826073995892855356, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: health
@@ -15535,7 +15560,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: speed.x
-      value: 15
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
@@ -15552,7 +15577,19 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 112
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5805810418046892142, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5805810418046892142, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5716020991912972290, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}
+    - {fileID: 5716020991912972289, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}
 --- !u!1001 &2080497581
 PrefabInstance:

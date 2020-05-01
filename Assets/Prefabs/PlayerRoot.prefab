@@ -5003,7 +5003,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb314586327a7d40affcea39e9202ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cannonRotSpeed: 0.7
+  cannonRotMod: 0.8
   resetTransform: {fileID: 5805810418046892142}
 --- !u!1 &5716020992011513454
 GameObject:

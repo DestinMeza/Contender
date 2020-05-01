@@ -116,6 +116,7 @@ public class PlayerControler : MonoBehaviour
 
     void Movement(){
         float x = Input.GetAxis("Horizontal");
+        transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
         float y = Input.GetAxis("Vertical");
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
