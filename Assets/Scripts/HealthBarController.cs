@@ -6,13 +6,11 @@ using UnityEngine.UI;
 public class HealthBarController : MonoBehaviour
 {
 
-    public Image image;
+    public Image[] healthBars;
     public HealthController player;
 
-    int maxHealth;
-
     void Awake(){
-        maxHealth = player.maxHealth;
+        healthBars = GetComponentsInChildren<Image>();
     }
 
     void OnEnable(){
@@ -21,6 +19,8 @@ public class HealthBarController : MonoBehaviour
     }
 
     void ChangeHeath(){
-        image.fillAmount = (float)player.health/(float)maxHealth;
+        for(int i = 0; i < healthBars.Length; i++){
+            healthBars[i].enabled = (i < player.health);
+        }
     }
 }
