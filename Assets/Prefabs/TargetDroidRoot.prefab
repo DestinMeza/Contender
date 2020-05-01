@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3925879775973650400}
   m_Layer: 10
   m_Name: Cylinder
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 2797933350218941829}
   m_Layer: 10
   m_Name: TargetDroid
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

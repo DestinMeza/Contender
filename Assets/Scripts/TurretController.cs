@@ -30,6 +30,7 @@ public class TurretController : MonoBehaviour
     }
 
     void Explode(HealthController health){
+        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
         gameObject.SetActive(false);
     }
 

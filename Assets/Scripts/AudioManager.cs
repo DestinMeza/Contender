@@ -33,19 +33,10 @@ public class AudioManager : MonoBehaviour
     }
     public static void Play(string clipName){
 
-        for(int i = 0; i < audioMan.clips.Length; i++){
-            if (clipName == audioMan.clips[i].name){
-                int index = audioMan.currentSound;
-                AudioSource source = audioMan.sfxPool[index];
-                source.clip = audioMan.clips[i];
-                source.Play();
-                audioMan.currentSound = (index + 1) % audioMan.maxSources;
-                return;
-            }
-        }
+        Play(clipName, 1, 1, false, audioMan.transform.position, 0);
         
     }
-    public static void Play(string clipName, float pitch, float volume, bool loop){
+    public static void Play(string clipName, float pitch, float volume, bool loop, Vector3 pos, float spatialBlend){
 
         for(int i = 0; i < audioMan.clips.Length; i++){
             if (clipName == audioMan.clips[i].name){
@@ -55,8 +46,11 @@ public class AudioManager : MonoBehaviour
                 source.pitch = pitch;
                 source.volume = volume;
                 source.clip = audioMan.clips[i];
+                source.gameObject.transform.position = pos;
+                source.spatialBlend = spatialBlend;
                 source.Play();
                 audioMan.currentSound = (index + 1) % audioMan.maxSources;
+                
                 return;
             }
         }
