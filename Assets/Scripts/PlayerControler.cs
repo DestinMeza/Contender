@@ -116,7 +116,7 @@ public class PlayerControler : MonoBehaviour
 
     void Movement(){
         float x = Input.GetAxis("Horizontal");
-        transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
+        //transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
         float y = Input.GetAxis("Vertical");
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
@@ -183,6 +183,10 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
+    public void TransitionLock(){
+        onDeath(this);
+    }
+
     void Crash(HealthController health){
         if(crash) return;
         anim.Play("PlayerCrash");
@@ -211,6 +215,7 @@ public class PlayerControler : MonoBehaviour
         if(col.name == "RingCollider"){
             AudioManager.Play("RingSound");
             GameManager.game.IncrementScore();
+            col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
         if(col.tag == "BombPowerup"){
             bombAmmo++;
