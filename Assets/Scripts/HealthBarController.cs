@@ -9,7 +9,7 @@ public class HealthBarController : MonoBehaviour
     public Image[] healthBars;
     public HealthController player;
 
-    void Awake(){
+    void Start(){
         healthBars = GetComponentsInChildren<Image>();
     }
 

@@ -28,7 +28,6 @@ public class BombCountController : MonoBehaviour
             countParent.SetActive(false);
             iconParent.SetActive(true);
             for(int i = 0; i < bombIcons.Length; i++){
-                
                 bombIcons[i].enabled = (i < count);
             }
         }

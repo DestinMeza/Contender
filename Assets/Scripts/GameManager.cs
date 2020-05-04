@@ -34,7 +34,6 @@ public class GameManager : MonoBehaviour
         PlayerControler.onDeath += GameOver;
         enemies = enemiesParent.GetComponentsInChildren<HealthController>();
         rings = ringsParent.GetComponentsInChildren<RingController>();
-
         score = 0;
         gameState = GameState.GameStart;
     }

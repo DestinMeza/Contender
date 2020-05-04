@@ -1,7 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum FlyingModes{
+        Rail,
+        AllRange,
+        TransitionLock
+    }
 public class PlayerControler : MonoBehaviour
 {
     enum BlasterState{
@@ -9,7 +13,9 @@ public class PlayerControler : MonoBehaviour
         DoubleFire,
         MegaFire
     }
+
     BlasterState blasterState = BlasterState.SingleFire;
+    public FlyingModes flyingModes = FlyingModes.Rail;
     public delegate void OnCrash(PlayerControler player);
     public static OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
@@ -19,8 +25,10 @@ public class PlayerControler : MonoBehaviour
     public delegate void OnFireBomb(int count);
     public static OnFireBomb onFireBomb = delegate {};
     public static PlayerControler player;
-    public Vector3 speed = new Vector3(30,-20, 50);
-    Vector3 defaultSpeed;
+    public Vector3 speedRail = new Vector3(30,-20, 50);
+    public Vector3 speedAllRange = new Vector3(50,-40, 50);
+    Vector3 defaultSpeedRail;
+    Vector3 defaultSpeedAllRange;
     public float maxSpeedChange = 10;
     public string bulletPrefab;
     public Transform firePosMain;
@@ -35,6 +43,7 @@ public class PlayerControler : MonoBehaviour
     public int bombAmmo;
     float lastCollisionTime;
     bool breaking = false;
+    bool transition = false;
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
@@ -54,13 +63,19 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
-        defaultSpeed = speed;
+        defaultSpeedRail = speedRail;
+        defaultSpeedAllRange = speedAllRange;
+        TransitionController.onTransition += TransitionLock;
         health = GetComponentInParent<HealthController>();
         health.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
+        breaking = false;
     }
 
+    void TransitionLock(bool transition){
+        this.transition = transition;
+    }
     void OnEnable(){
         boostMeter = boostMeterMax;
         blasterState = BlasterState.SingleFire;
@@ -80,13 +95,14 @@ public class PlayerControler : MonoBehaviour
         }
         onCrash(this);
         ClampPosition();
-        Movement();
-
+        if(flyingModes == FlyingModes.TransitionLock)return;
+        if(flyingModes == FlyingModes.Rail)RailMovement();
+        if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
+        
         if(Input.GetButtonDown("Fire2")){
-            if(bombAmmo < 0) return;
+            if(bombAmmo <= 0) return;
             bombAmmo--;
             onFireBomb(bombAmmo);
-            return;
         }
 
         if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)){
@@ -96,15 +112,29 @@ public class PlayerControler : MonoBehaviour
     }
     void FixedUpdate(){
         if(crash) return;
-        Vector3 velocityChange = targetVelocity - rb.velocity;
-        Vector3 xyChange = velocityChange;
-        xyChange.z = 0;
-        if(xyChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
-            xyChange = xyChange.normalized * maxSpeedChange;
-            velocityChange.x = xyChange.x;
-            velocityChange.y = xyChange.y;
+        if(flyingModes == FlyingModes.Rail){
+            Vector3 velocityChange = targetVelocity - rb.velocity;
+            Vector3 xyChange = velocityChange;
+            xyChange.z = 0;
+            if(xyChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
+                xyChange = xyChange.normalized * maxSpeedChange;
+                velocityChange.x = xyChange.x;
+                velocityChange.y = xyChange.y;
+            }
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
         }
-        rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        else{
+            Vector3 velocityChange = targetVelocity - rb.velocity;
+            Vector3 dirChange = velocityChange;
+            if(dirChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
+                dirChange = dirChange.normalized * maxSpeedChange;
+                velocityChange.x = dirChange.x;
+                velocityChange.y = dirChange.y;
+                velocityChange.z = dirChange.z;
+            }
+            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        }
     }
 
     void ClampPosition(){
@@ -114,9 +144,8 @@ public class PlayerControler : MonoBehaviour
         transform.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
-    void Movement(){
+    void RailMovement(){
         float x = Input.GetAxis("Horizontal");
-        //transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
         float y = Input.GetAxis("Vertical");
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
@@ -124,31 +153,74 @@ public class PlayerControler : MonoBehaviour
         if(boostAxis > 0.3f || Input.GetKey(KeyCode.LeftShift) && breaking == false){
             if(boostMeter > 0 && breaking == false){
                 boostMeter -= 0.5f * Time.deltaTime;
-                speed = defaultSpeed * 1.5f;
+                speedRail = defaultSpeedRail * 1.5f;
             }
             else{
-                speed = defaultSpeed;
+                speedRail = defaultSpeedRail;
             }
         }
         else{
             if(boostMeter < boostMeterMax)boostMeter += 0.25f * Time.deltaTime;
-            speed = defaultSpeed;
+            speedRail = defaultSpeedRail;
         }
+        onBoost();
+
         if(breakAxis > 0.3f || Input.GetKey(KeyCode.B)){
-            speed.z = defaultSpeed.z * 0.5f;
+            speedRail.z = defaultSpeedRail.z * 0.5f;
             breaking = true;
         }
         else{
             breaking = false;
         }
         if(Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Bank")){
-            speed.x = defaultSpeed.x * 1.5f;
+            speedRail.x = defaultSpeedRail.x * 1.5f;
             x *= 2;
         }
         
-        onBoost();
         targetVelocity = new Vector3(x, y, 0).normalized + Vector3.forward;
-        targetVelocity = Vector3.Scale(targetVelocity, speed);
+        targetVelocity = Vector3.Scale(targetVelocity, speedRail);
+
+        anim.SetFloat("xVel", x);
+        anim.SetFloat("yVel", -y);
+    }
+
+    void AllRangeMovement(){
+        float x = Input.GetAxis("Horizontal");
+        transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
+        float y = Input.GetAxis("Vertical");
+        float boostAxis = Input.GetAxis("Boost");
+        float breakAxis = Input.GetAxis("Break");
+        
+        if(boostAxis > 0.3f || Input.GetKey(KeyCode.LeftShift) && breaking == false){
+            if(boostMeter > 0 && breaking == false){
+                boostMeter -= 0.5f * Time.deltaTime;
+                speedAllRange = defaultSpeedAllRange * 1.5f;
+            }
+            else{
+                speedAllRange = defaultSpeedAllRange;
+            }
+        }
+        else{
+            if(boostMeter < boostMeterMax)boostMeter += 0.25f * Time.deltaTime;
+            speedAllRange = defaultSpeedAllRange;
+        }
+        onBoost();
+
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.B)){
+            speedAllRange.z = defaultSpeedAllRange.z * 0.5f;
+            breaking = true;
+        }
+        else{
+            breaking = false;
+        }
+        if(Input.GetKey(KeyCode.LeftControl) || Input.GetButton("Bank")){
+            speedAllRange.x = defaultSpeedAllRange.x * 1.5f;
+            x *= 2;
+        }
+
+        Vector3 v = new Vector3(x, y, 0).normalized + Vector3.forward;
+        v = Vector3.Scale(v, speedAllRange); 
+        targetVelocity = transform.right * v.x + transform.up * v.y + transform.forward * v.z;
 
         anim.SetFloat("xVel", x);
         anim.SetFloat("yVel", -y);
@@ -182,18 +254,13 @@ public class PlayerControler : MonoBehaviour
             bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
         }
     }
-
-    public void TransitionLock(){
-        onDeath(this);
-    }
-
     void Crash(HealthController health){
         if(crash) return;
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
         rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
-        rb.velocity = Vector3.forward * speed.z;
+        rb.velocity = Vector3.forward * speedRail.z;
         rb.useGravity = true;
         crashTime = Time.time;
         onCrash(this);
@@ -205,7 +272,7 @@ public class PlayerControler : MonoBehaviour
         crash = true;
         anim.SetBool("crashing", crash);
         rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
-        rb.velocity = Vector3.forward * speed.z;
+        rb.velocity = Vector3.forward * speedRail.z;
         rb.useGravity = true;
         crashTime = Time.time;
         onCrash(this);
@@ -232,10 +299,10 @@ public class PlayerControler : MonoBehaviour
         Vector3 diff = Vector3.Cross(player.transform.position, col.transform.position);
         float dot = Vector3.Dot(player.transform.position, col.transform.position);
         if(diff.normalized.magnitude > dot){
-            rb.AddForce(diff.normalized * speed.z, ForceMode.Impulse);
+            rb.AddForce(diff.normalized * speedRail.z, ForceMode.Impulse);
         }
         else{
-            rb.AddForce(-diff.normalized * speed.z, ForceMode.Impulse);
+            rb.AddForce(-diff.normalized * speedRail.z, ForceMode.Impulse);
         }
         if(crash) {
             onDeath(this);

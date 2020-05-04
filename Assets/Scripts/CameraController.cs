@@ -5,11 +5,11 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class CameraController : MonoBehaviour
 {
-    public float speed = 100;
     public float smoothTime = 0.5f;
     public bool playerCrashing;
     public Transform target;
-    public Vector3 offset = new Vector3(0, 1, -5);
+    public Vector3 railOffset = new Vector3(0, 1, -15);
+    public Vector3 allRangeOffset = new Vector3(0, 1, -20);
     Vector3 velocity = Vector3.zero;
     public static CameraController cameraMain;
     Camera cam;
@@ -33,15 +33,28 @@ public class CameraController : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
             if(!playerCrashing){
-                pos.y = Mathf.Clamp(transform.position.y, 0, 58);
-                pos.x = Mathf.Clamp(transform.position.x, -30, 30);
-                transform.position = Vector3.SmoothDamp(
-                    pos,
-                    new Vector3(targetPos.x + offset.x, targetPos.y + offset.y, targetPos.z + offset.z),
-                    ref velocity,
-                    smoothTime
-                );
-                transform.eulerAngles = Vector3.forward;
+                if(PlayerControler.player.flyingModes == FlyingModes.Rail){
+                    pos.y = Mathf.Clamp(transform.position.y, 0, 58);
+                    pos.x = Mathf.Clamp(transform.position.x, -30, 30);
+                    transform.position = Vector3.SmoothDamp(
+                        pos,
+                        targetPos + railOffset,
+                        ref velocity,
+                        smoothTime
+                    );
+                    transform.eulerAngles = transform.forward;
+                }
+                if(PlayerControler.player.flyingModes == FlyingModes.AllRange){
+                    Vector3 targetOrientation = target.position + target.right * allRangeOffset.x + target.up * allRangeOffset.y + target.forward * allRangeOffset.z;
+                    transform.position = Vector3.SmoothDamp(
+                        pos,
+                        targetOrientation,
+                        ref velocity,
+                        smoothTime
+                    );
+                    Quaternion look = Quaternion.LookRotation(target.position-transform.position, Vector3.up);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, look, 0.5f);
+                }
             }
             else{
                 
@@ -54,7 +67,7 @@ public class CameraController : MonoBehaviour
         }
     
         else{
-            transform.position = target.position + offset;
+            transform.position = target.position + railOffset;
         }
     }
 
