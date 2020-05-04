@@ -15,7 +15,7 @@ public class CannonController : MonoBehaviour
         Vector3 aimDir = new Vector3(x,-y,0);
         Vector3 resetPos = resetTransform.forward;
         x = Mathf.Clamp(x, 0, 5);
-        y = Mathf.Clamp(y, 0, 5);
+        y = Mathf.Clamp(y, 0, 2);
         transform.forward = Vector3.Lerp(aimDir, resetPos, cannonRotMod);
     }
 }

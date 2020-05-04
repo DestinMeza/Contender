@@ -4,15 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 public class TransitionController : MonoBehaviour
 {
-    public delegate void OnTransition(bool isTransition);
+    public delegate void OnTransition(FlyingModes transition);
     public static event OnTransition onTransition = delegate {};
-    bool isTransition;
+
+    public FlyingModes transitionState = FlyingModes.Rail;
+    FlyingModes flyingModes = FlyingModes.Rail;
+    void Start(){
+        flyingModes = FlyingModes.Rail;
+    }
     void OnTriggerEnter(Collider col){
         PlayerControler player = col.GetComponentInParent<PlayerControler>();
         if(player != null){
-            if(isTransition) isTransition = false;
-            else isTransition = true;
-            onTransition(isTransition);
+            if(flyingModes < FlyingModes.TransitionLock){
+                flyingModes = FlyingModes.TransitionLock;
+            }
+            if(flyingModes == FlyingModes.TransitionLock){
+                flyingModes = transitionState;
+            }
+            onTransition(flyingModes);
         }
     }
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 public enum FlyingModes{
-        Rail,
-        AllRange,
-        TransitionLock
-    }
+    Rail,
+    AllRange,
+    TransitionLock
+}
 public class PlayerControler : MonoBehaviour
 {
     enum BlasterState{
@@ -15,7 +15,7 @@ public class PlayerControler : MonoBehaviour
     }
 
     BlasterState blasterState = BlasterState.SingleFire;
-    public FlyingModes flyingModes = FlyingModes.Rail;
+    public static FlyingModes flyingModes = FlyingModes.Rail;
     public delegate void OnCrash(PlayerControler player);
     public static OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
@@ -43,7 +43,6 @@ public class PlayerControler : MonoBehaviour
     public int bombAmmo;
     float lastCollisionTime;
     bool breaking = false;
-    bool transition = false;
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
@@ -73,8 +72,8 @@ public class PlayerControler : MonoBehaviour
         breaking = false;
     }
 
-    void TransitionLock(bool transition){
-        this.transition = transition;
+    void TransitionLock(FlyingModes transition){
+        flyingModes = transition;
     }
     void OnEnable(){
         boostMeter = boostMeterMax;
@@ -98,7 +97,7 @@ public class PlayerControler : MonoBehaviour
         if(flyingModes == FlyingModes.TransitionLock)return;
         if(flyingModes == FlyingModes.Rail)RailMovement();
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
-        
+
         if(Input.GetButtonDown("Fire2")){
             if(bombAmmo <= 0) return;
             bombAmmo--;
