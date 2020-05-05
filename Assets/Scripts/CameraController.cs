@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
                 }
                 if(PlayerControler.flyingModes == FlyingModes.TransitionLock){
                     Vector3 camLocTran = targetPos;
-                    camLocTran.z += -10;
+                    camLocTran.z += -8;
                     camLocTran.x += 7;
                     camLocTran.y += 2;
 

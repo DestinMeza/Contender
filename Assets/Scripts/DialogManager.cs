@@ -12,6 +12,7 @@ public class DialogManager : MonoBehaviour
     public GameObject dialogArea;
     Queue<IEnumerator> dialogQueue = new Queue<IEnumerator>();
     public Text dialogBoxText;
+    public Text characterNameText;
         void Awake(){
         DialogTriggerController.onTriggerSet += GetTrigger;
         StopAllCoroutines();
@@ -47,7 +48,8 @@ public class DialogManager : MonoBehaviour
         foreach (char letter in dialogs[i])
         {
             sentence += letter;
-            dialogBoxText.text = string.Format("{0}: {1}",characterName, sentence);
+            characterNameText.text = characterName;
+            dialogBoxText.text = string.Format("{0}", sentence);
             yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(textScrollInterval);
         }
