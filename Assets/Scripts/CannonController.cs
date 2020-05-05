@@ -7,6 +7,10 @@ public class CannonController : MonoBehaviour
     public float cannonRotMod = 0.8f;
     Vector3 velocity = Vector3.zero;
     public Transform resetTransform;
+    MeshRenderer cannonMesh;
+    void Awake(){
+        cannonMesh = GetComponentInParent<MeshRenderer>();
+    }
 
     void Update()
     {

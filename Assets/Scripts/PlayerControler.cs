@@ -6,16 +6,20 @@ public enum FlyingModes{
     AllRange,
     TransitionLock
 }
-public class PlayerControler : MonoBehaviour
-{
-    enum BlasterState{
+public enum BlasterState{
         SingleFire,
         DoubleFire,
         MegaFire
-    }
 
-    BlasterState blasterState = BlasterState.SingleFire;
-    public static FlyingModes flyingModes = FlyingModes.Rail;
+}
+
+public class PlayerControler : MonoBehaviour
+{
+    
+    public BlasterState blasterState = BlasterState.SingleFire;
+    public static FlyingModes flyingModes = FlyingModes.TransitionLock;
+    public delegate void OnBlasterChange(BlasterState blaster);
+    public static OnBlasterChange onBlasterChange = delegate {};
     public delegate void OnCrash(PlayerControler player);
     public static OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
@@ -79,6 +83,7 @@ public class PlayerControler : MonoBehaviour
     void OnEnable(){
         boostMeter = boostMeterMax;
         blasterState = BlasterState.SingleFire;
+        onBlasterChange(blasterState);
         onCrash(this);
     }
     void Update(){
@@ -95,7 +100,10 @@ public class PlayerControler : MonoBehaviour
         }
         onCrash(this);
         ClampPosition();
-        if(flyingModes == FlyingModes.TransitionLock)StraightenPlayer();
+        if(flyingModes == FlyingModes.TransitionLock){
+            StraightenPlayer();
+            return;
+        }
         if(flyingModes == FlyingModes.Rail)RailMovement();
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
 
@@ -111,6 +119,7 @@ public class PlayerControler : MonoBehaviour
     }
 
     void StraightenPlayer(){
+        transform.forward = Vector3.forward;
         targetVelocity = Vector3.forward;
         targetVelocity = Vector3.Scale(targetVelocity, speedRail);
     }
