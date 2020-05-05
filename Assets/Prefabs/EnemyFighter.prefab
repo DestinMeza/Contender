@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7585058066274590512}
   - component: {fileID: 4215091577116812233}
   - component: {fileID: 5666803432582065233}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: EnemyFighter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59,6 +59,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: c90cd828d6a8f394e91118c041cccaff, type: 2}
+  - {fileID: 2100000, guid: c90cd828d6a8f394e91118c041cccaff, type: 2}
   - {fileID: 2100000, guid: 855f9b4c9d13e5c4cb2840926542f145, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -91,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 0.5, z: 5}
-  m_Center: {x: 0.0344972, y: 0.026888654, z: 0.49520707}
+  m_Size: {x: 2.5, y: 0.9101529, z: 5}
+  m_Center: {x: 0.03449726, y: 0.070314646, z: 0.49520707}
 --- !u!1 &4473822868795615425
 GameObject:
   m_ObjectHideFlags: 0
@@ -102,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1619569940703051701}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FiringPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -132,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 643232402671308947}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: FiringPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -164,9 +166,10 @@ GameObject:
   - component: {fileID: 8636743119616240891}
   - component: {fileID: 133787661694906114}
   - component: {fileID: 8793680881580875522}
-  m_Layer: 0
+  - component: {fileID: 4000032841627315705}
+  m_Layer: 10
   m_Name: EnemyFighter
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -216,3 +219,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149d9918b2c0a4b438636266408b0024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4000032841627315705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636743119616240890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 1
+  health: 1

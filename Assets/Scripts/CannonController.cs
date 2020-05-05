@@ -12,10 +12,9 @@ public class CannonController : MonoBehaviour
     {
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
-        Vector3 aimDir = new Vector3(x,-y,0);
+        Vector3 aimDir = new Vector3(x,-y,0).normalized + Vector3.forward;
+        aimDir = transform.right * aimDir.x + transform.up * aimDir.y + transform.forward * aimDir.z;
         Vector3 resetPos = resetTransform.forward;
-        x = Mathf.Clamp(x, 0, 5);
-        y = Mathf.Clamp(y, 0, 2);
         transform.forward = Vector3.Lerp(aimDir, resetPos, cannonRotMod);
     }
 }

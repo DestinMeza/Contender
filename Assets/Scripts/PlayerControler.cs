@@ -94,7 +94,7 @@ public class PlayerControler : MonoBehaviour
         }
         onCrash(this);
         ClampPosition();
-        if(flyingModes == FlyingModes.TransitionLock)return;
+        if(flyingModes == FlyingModes.TransitionLock)StraightenPlayer();
         if(flyingModes == FlyingModes.Rail)RailMovement();
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
 
@@ -108,6 +108,11 @@ public class PlayerControler : MonoBehaviour
             Fire();
         }
         
+    }
+
+    void StraightenPlayer(){
+        targetVelocity = Vector3.forward;
+        targetVelocity = Vector3.Scale(targetVelocity, speedRail);
     }
     void FixedUpdate(){
         if(crash) return;
@@ -185,7 +190,7 @@ public class PlayerControler : MonoBehaviour
 
     void AllRangeMovement(){
         float x = Input.GetAxis("Horizontal");
-        transform.forward = (transform.forward + transform.right * x * Time.deltaTime * 0.5f).normalized;
+        transform.forward = (transform.forward + transform.right * x * Time.deltaTime).normalized;
         float y = Input.GetAxis("Vertical");
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");

@@ -5057,11 +5057,11 @@ ReflectionProbe:
   m_NearClip: 0.3
   m_FarClip: 1000
   m_ShadowDistance: 100
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 1}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.8000001, g: 0.8000001, b: 0.8000001, a: 1}
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 7939
+    m_Bits: 1795
   m_IntensityMultiplier: 2.76
   m_BlendDistance: 1
   m_HDR: 1
@@ -5118,8 +5118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbb314586327a7d40affcea39e9202ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cannonRotMod: 0.8
-  resetTransform: {fileID: 5805810418046892142}
+  cannonRotMod: 0.7
+  resetTransform: {fileID: 5716020992430707029}
 --- !u!1 &5716020992011513454
 GameObject:
   m_ObjectHideFlags: 0
@@ -5260,10 +5260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9514edd56bde20d4b983c1de0dacc277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flyingModes: 0
-  speedRail: {x: 30, y: -20, z: 50}
-  speedAllRange: {x: 30, y: -10, z: 30}
-  maxSpeedChange: 10
+  speedRail: {x: 30, y: -20, z: 30}
+  speedAllRange: {x: 10, y: -10, z: 20}
+  maxSpeedChange: 5
   bulletPrefab: Bullet
   firePosMain: {fileID: 3518203700240104145}
   firePos1: {fileID: 5716020992011513453}

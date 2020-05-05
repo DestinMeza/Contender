@@ -50,17 +50,18 @@ public class CameraController : MonoBehaviour
                         pos,
                         targetOrientation,
                         ref velocity,
-                        smoothTime
+                        smoothTime -0.2f
                     );
                     Quaternion look = Quaternion.LookRotation(target.position-transform.position, Vector3.up);
                     transform.rotation = Quaternion.Slerp(transform.rotation, look, 0.5f);
                 }
                 if(PlayerControler.flyingModes == FlyingModes.TransitionLock){
                     Vector3 camLocTran = targetPos;
+                    camLocTran.z += -10;
+                    camLocTran.x += 7;
+                    camLocTran.y += 2;
+
                     transform.position = camLocTran;
-                    camLocTran.z += 15;
-                    camLocTran.x += 20;
-                    camLocTran.y += 3;
                     transform.LookAt(PlayerControler.player.transform.position);
                 }
             }

@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class EnemyShipControler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    void Start(){
+        HealthController health = GetComponentInParent<HealthController>();
+        health.onDeath += Explode;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    void Explode(HealthController health){
+        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        gameObject.SetActive(false);
     }
 }
