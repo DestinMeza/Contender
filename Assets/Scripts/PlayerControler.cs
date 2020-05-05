@@ -31,6 +31,7 @@ public class PlayerControler : MonoBehaviour
     Vector3 defaultSpeedAllRange;
     public float maxSpeedChange = 10;
     public string bulletPrefab;
+    public string bombPrefab;
     public Transform firePosMain;
     public Transform firePos1;
     public Transform firePos2;
@@ -99,8 +100,7 @@ public class PlayerControler : MonoBehaviour
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
 
         if(Input.GetButtonDown("Fire2")){
-            if(bombAmmo <= 0) return;
-            bombAmmo--;
+            FireBomb();
             onFireBomb(bombAmmo);
         }
 
@@ -234,29 +234,38 @@ public class PlayerControler : MonoBehaviour
         if(blasterState == BlasterState.SingleFire){
             AudioManager.Play("BlasterSound");
             GameObject bullet = SpawnManager.Spawn(bulletPrefab, firePosMain.position);
-            bullet.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
         }
         if(blasterState == BlasterState.DoubleFire){
             AudioManager.Play("BlasterSound");
             GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
-            bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
             GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
-            bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
         }
-        if(blasterState == BlasterState.DoubleFire){
+        if(blasterState == BlasterState.MegaFire){
             AudioManager.Play("BlasterSound");
             GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
             bullet1.GetComponentInParent<DamageController>().damage *= 2;
-            bullet1.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
             GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
             bullet2.GetComponentInParent<DamageController>().damage *= 2;
-            bullet2.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
         }
+    }
+
+    void FireBomb(){
+        BBombController lastBomb = FindObjectOfType<BBombController>();
+        if(lastBomb == null){
+            if(bombAmmo < 1) return;
+            bombAmmo--;
+            GameObject bomb = SpawnManager.Spawn(bombPrefab, firePosMain.position);
+            bomb.GetComponentInParent<BBombController>().SetDir(firePosMain.forward);
+        }
+        else{
+            lastBomb.Explode();
+        }
+
     }
     void Crash(HealthController health){
         if(crash) return;

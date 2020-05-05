@@ -19555,7 +19555,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefabs:
-  - {fileID: 8636743119616240890, guid: 5f4e78053dff08c4eb7aad3d7e512baa, type: 3}
+  - {fileID: 3691650243865386064, guid: 1f9af3b26df62b045852886151962fa2, type: 3}
   - {fileID: 8789902785856773530, guid: 97ff3db3639190641bdd54dcde13467c, type: 3}
   - {fileID: 8789902785856773530, guid: 6353dde58b6f60743b1e9bdc5a250846, type: 3}
 --- !u!1001 &2019836700
@@ -20074,6 +20074,16 @@ PrefabInstance:
         type: 3}
       propertyPath: maxSpeedChange
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: bombAmmo
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: bombPrefab
+      value: BBombRoot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}

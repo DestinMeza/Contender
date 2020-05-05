@@ -38,7 +38,6 @@ public class TurretController : MonoBehaviour
         if(Time.time - lastShot > fireInterval){
             lastShot = Time.time;
             GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, turretFirePos.position);
-            bullet.GetComponentInParent<BulletController>().startTime = Time.time;
             bullet.GetComponentInParent<BulletController>().SetDir(turretFirePos.forward);
         }
     }
