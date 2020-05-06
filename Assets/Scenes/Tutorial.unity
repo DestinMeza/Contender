@@ -22046,6 +22046,7 @@ MonoBehaviour:
   - {fileID: 8789902785856773530, guid: 97ff3db3639190641bdd54dcde13467c, type: 3}
   - {fileID: 8789902785856773530, guid: 6353dde58b6f60743b1e9bdc5a250846, type: 3}
   - {fileID: 538561973966866658, guid: ab48efb89fa04994d84cd503428ae2f5, type: 3}
+  - {fileID: 806285352398832049, guid: f5462e498a46f6c4fa564997e2b7ffc7, type: 3}
 --- !u!1001 &2019836700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22712,6 +22713,11 @@ PrefabInstance:
         type: 3}
       propertyPath: enemy.m_Bits
       value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: chargedBulletPrefab
+      value: ChargedBulletRoot
       objectReference: {fileID: 0}
     - target: {fileID: 6457097395460601585, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}

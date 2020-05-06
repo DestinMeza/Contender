@@ -38,12 +38,13 @@ public class PlayerControler : MonoBehaviour
     public static PlayerControler player;
     public Vector3 speedRail = new Vector3(30,-20, 50);
     public Vector3 speedAllRange = new Vector3(50,-40, 50);
-    Vector3 chargeShotDir;
+    Transform chargeShotPos;
     Vector3 defaultSpeedRail;
     Vector3 defaultSpeedAllRange;
     public float maxSpeedChange = 10;
     public string bulletPrefab;
     public string bombPrefab;
+    public string chargedBulletPrefab;
     public Transform firePosMain;
     public Transform firePos1;
     public Transform firePos2;    
@@ -282,11 +283,12 @@ public class PlayerControler : MonoBehaviour
         if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
             chargeFire = ChargeFire.Charging;
             Vector3 pos = crossHair.transform.position - cam.transform.position;
-            Ray lockOnRay = cam.ScreenPointToRay(transform.position);
+            Ray lockOnRay = new Ray(cam.transform.position, pos * 10000);
             RaycastHit hit;
-            if(Physics.Raycast(lockOnRay, out hit, 10000, enemy, QueryTriggerInteraction.Collide)){
+            if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
+                Transform enemyTransform = hit.collider.GetComponentInParent<Transform>();
+                chargeShotPos = enemyTransform;
                 chargeFire = ChargeFire.Waiting;
-                chargeShotDir = hit.point;
             }
             else{
                 chargeFire = ChargeFire.Searching;
@@ -297,10 +299,10 @@ public class PlayerControler : MonoBehaviour
         }
 
         if(chargeFire == ChargeFire.Waiting && Input.GetButtonDown("Fire1")){
-            chargeFire = ChargeFire.Release;
+            FireChargeShot();
         }
         else if(chargeFire == ChargeFire.Searching && Input.GetButtonDown("Fire1")){
-            chargeFire = ChargeFire.Release;
+            FireChargeShot();
         }
     }
 
@@ -319,7 +321,10 @@ public class PlayerControler : MonoBehaviour
     //     }
     // }
     void FireChargeShot(){
-
+        AudioManager.Play("BlasterSound");
+        GameObject chargedBullet = SpawnManager.Spawn(chargedBulletPrefab, firePosMain.position);
+        chargedBullet.GetComponentInParent<ChargedBulletController>().SetDir(chargeShotPos);
+        chargeFire = ChargeFire.Release;
     }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
