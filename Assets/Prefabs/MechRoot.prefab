@@ -197,9 +197,10 @@ GameObject:
   - component: {fileID: 5092508215870295679}
   - component: {fileID: 9049868988009986102}
   - component: {fileID: 1022319999422686216}
+  - component: {fileID: 2986948832308773400}
   m_Layer: 10
   m_Name: MechRoot
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,6 +280,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &2986948832308773400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4021464608306804237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  health: 2
 --- !u!1 &4192123065598557591
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +589,7 @@ GameObject:
   - component: {fileID: 747778013916694172}
   m_Layer: 10
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

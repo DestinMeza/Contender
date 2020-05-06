@@ -8,6 +8,7 @@ TagManager:
   - EBullet
   - BombPowerup
   - DialogTrigger
+  - BlasterPowerup
   layers:
   - Default
   - TransparentFX

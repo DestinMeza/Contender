@@ -306,9 +306,15 @@ public class PlayerControler : MonoBehaviour
             GameManager.game.IncrementScore();
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
+    }
+    void OnTriggerEnter(Collider col){
         if(col.tag == "BombPowerup"){
             bombAmmo++;
             onFireBomb(bombAmmo);
+            col.gameObject.SetActive(false);
+        }
+        if(col.tag == "BlasterPowerup"){
+            if(blasterState < BlasterState.MegaFire) blasterState++;
             col.gameObject.SetActive(false);
         }
     }

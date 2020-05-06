@@ -17,15 +17,18 @@ public class MechController : MonoBehaviour
     float lastShot;
     float reloadTime;
     Rigidbody rb;
+    HealthController health;
     void Awake(){
         rb = GetComponent<Rigidbody>();
+        health = GetComponent<HealthController>();
     }
-
+    void Start(){
+        health.onDeath += Explode;
+    }
     void Update(){
         Vector3 diff = PlayerControler.player.transform.position - transform.position;
         headOfMech.forward = Vector3.Dot(PlayerControler.player.transform.forward, transform.forward) < 0.3f ? diff.normalized : transform.forward;
         headOfMech.eulerAngles += new Vector3(-90,0,0);
-        Debug.Log(Vector3.Dot(diff.normalized, transform.forward));
         if(diff.magnitude < firingDistance && Vector3.Dot(diff.normalized, transform.forward) > 0){
             Fire(diff + firingOffset);
         }
@@ -46,7 +49,10 @@ public class MechController : MonoBehaviour
             fireIndex++;
         }
     }
-
+    void Explode(HealthController health){
+        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        gameObject.SetActive(false);
+    }
     public void MoveForward(){
         rb.AddForce(transform.forward * moveForce, ForceMode.Impulse);
     }

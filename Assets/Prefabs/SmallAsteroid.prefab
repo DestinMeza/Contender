@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7912731555185129789
+--- !u!1 &538561973966866658
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,66 +8,65 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5762669187952950240}
-  - component: {fileID: 5264148460517349786}
-  - component: {fileID: 6077824075181067757}
-  - component: {fileID: 3843080525702797220}
+  - component: {fileID: 4913700531243764785}
+  - component: {fileID: 2983099779673949724}
+  - component: {fileID: 727455826771498218}
+  - component: {fileID: 6636164267467313782}
   m_Layer: 0
-  m_Name: Asteroid1
+  m_Name: SmallAsteroid
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5762669187952950240
+--- !u!4 &4913700531243764785
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912731555185129789}
+  m_GameObject: {fileID: 538561973966866658}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
-  - {fileID: 9032228408042666361}
+  - {fileID: 3918953826933816720}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5264148460517349786
+--- !u!114 &2983099779673949724
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912731555185129789}
+  m_GameObject: {fileID: 538561973966866658}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
-  health: 3
---- !u!114 &6077824075181067757
+  maxHealth: 1
+  health: 1
+--- !u!114 &727455826771498218
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912731555185129789}
+  m_GameObject: {fileID: 538561973966866658}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16b5d3d48c114f84c826ee40c71f78a3, type: 3}
+  m_Script: {fileID: 11500000, guid: 693d6d02065a4c045aeb1642caa5f4e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefabName: SmallAsteroid
---- !u!54 &3843080525702797220
+--- !u!54 &6636164267467313782
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7912731555185129789}
+  m_GameObject: {fileID: 538561973966866658}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -77,7 +76,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1 &8145347026085948926
+--- !u!1 &8312684718147256170
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,46 +84,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9032228408042666361}
-  - component: {fileID: 9085769085318114361}
-  - component: {fileID: 261577150312736500}
-  - component: {fileID: 214217274357748859}
+  - component: {fileID: 3918953826933816720}
+  - component: {fileID: 7994721853123760369}
+  - component: {fileID: 4963161269174035793}
+  - component: {fileID: 2718626462869644547}
   m_Layer: 0
-  m_Name: Asteroid1
+  m_Name: Asteroid2
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9032228408042666361
+--- !u!4 &3918953826933816720
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145347026085948926}
+  m_GameObject: {fileID: 8312684718147256170}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 5762669187952950240}
+  m_Father: {fileID: 4913700531243764785}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &9085769085318114361
+--- !u!33 &7994721853123760369
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145347026085948926}
+  m_GameObject: {fileID: 8312684718147256170}
   m_Mesh: {fileID: -1579241630799410176, guid: 0cf5a0851646cb247b31796e1451fa09, type: 3}
---- !u!23 &261577150312736500
+--- !u!23 &4963161269174035793
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145347026085948926}
+  m_GameObject: {fileID: 8312684718147256170}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -157,16 +156,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &214217274357748859
+--- !u!135 &2718626462869644547
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145347026085948926}
+  m_GameObject: {fileID: 8312684718147256170}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 4.8660707
+  m_Radius: 4.9277887
   m_Center: {x: 0, y: 0, z: 0}
