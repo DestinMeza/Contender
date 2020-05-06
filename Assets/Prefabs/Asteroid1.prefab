@@ -89,6 +89,7 @@ GameObject:
   - component: {fileID: 9085769085318114361}
   - component: {fileID: 261577150312736500}
   - component: {fileID: 214217274357748859}
+  - component: {fileID: 2885057550644322904}
   m_Layer: 0
   m_Name: Asteroid1
   m_TagString: Solid
@@ -170,3 +171,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4.8660707
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &2885057550644322904
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8145347026085948926}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 4.7770004, y: 4.9280005, z: 4.7770004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.072000004, z: 0}
+  m_TimeToStationary: 0.5

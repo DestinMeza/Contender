@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1448061901971727622}
   - component: {fileID: 7585058066274590512}
   - component: {fileID: 4215091577116812233}
-  - component: {fileID: 5666803432582065233}
+  - component: {fileID: 5360026841797365324}
   m_Layer: 10
   m_Name: EnemyFighter
   m_TagString: Untagged
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2469051733181716245}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 8636743119616240891}
   m_RootOrder: 0
@@ -82,7 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5666803432582065233
+--- !u!65 &5360026841797365324
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,8 +93,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.5, y: 0.9101529, z: 5}
-  m_Center: {x: 0.03449726, y: 0.070314646, z: 0.49520707}
+  m_Size: {x: 3.532382, y: 0.68075943, z: 5.003758}
+  m_Center: {x: 0.026898026, y: -0.07361959, z: 0.49520707}
 --- !u!1 &4473822868795615425
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,8 +46,10 @@ public class PlayerControler : MonoBehaviour
     public float crashTime;
     public float collisionShield = 0.5f;
     public int bombAmmo;
+    public GameObject crossHair;
     float lastCollisionTime;
     bool breaking = false;
+    
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
@@ -278,6 +280,7 @@ public class PlayerControler : MonoBehaviour
     }
     void Crash(HealthController health){
         if(crash) return;
+        crossHair.SetActive(false);
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
@@ -290,6 +293,7 @@ public class PlayerControler : MonoBehaviour
 
     void Crash(){
         if(crash) return;
+        crossHair.SetActive(false);
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
@@ -306,6 +310,10 @@ public class PlayerControler : MonoBehaviour
             GameManager.game.IncrementScore();
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
+        if(col.name == "AllRangeModeBounds"){
+            rb.velocity *= -1;
+            transform.forward *= -1;
+        }
     }
     void OnTriggerEnter(Collider col){
         if(col.tag == "BombPowerup"){
@@ -319,25 +327,20 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        if(Time.time - lastCollisionTime > collisionShield){
+        if(health.health <= 0){
+            Crash();
+        }
+        else if(Time.time - lastCollisionTime > collisionShield){
             lastCollisionTime = Time.time;
             health.TakeDamage(1);
             if(!crash)anim.Play("PlayerHit");
-        }
-        Vector3 diff = Vector3.Cross(player.transform.position, col.transform.position);
-        float dot = Vector3.Dot(player.transform.position, col.transform.position);
-        if(diff.normalized.magnitude > dot){
-            rb.AddForce(diff.normalized * speedRail.z, ForceMode.Impulse);
-        }
-        else{
-            rb.AddForce(-diff.normalized * speedRail.z, ForceMode.Impulse);
         }
         if(crash) {
             onDeath(this);
             gameObject.SetActive(false);
         }
-        if(health.health <= 0){
-            Crash();
-        }
+        
+        Vector3 diff = rb.velocity - col.transform.position;
+        rb.AddForce(diff.normalized*-1 + new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0), ForceMode.Impulse);
     }
 }
