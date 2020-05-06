@@ -22710,8 +22710,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448106, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
-      propertyPath: maxSpeedChange
-      value: 1
+      propertyPath: enemy.m_Bits
+      value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 6457097395460601585, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}

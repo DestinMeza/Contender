@@ -5399,9 +5399,11 @@ MonoBehaviour:
   firePosMain: {fileID: 3518203700240104145}
   firePos1: {fileID: 5716020992011513453}
   firePos2: {fileID: 5716020992366437460}
+  crash: 0
   boostMeterMax: 1
   boostMeter: 1
-  crash: 0
+  lockHoldDuration: 1
+  lockOnDistance: 200
   crashDuration: 3
   crashTime: 0
   collisionShield: 0.5

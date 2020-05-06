@@ -15,7 +15,14 @@ public enum BlasterState{
 
 public class PlayerControler : MonoBehaviour
 {
-    
+    public enum ChargeFire {
+        Charging,
+        Searching,
+        Waiting,
+        Release
+    }
+    public LayerMask enemy;
+    public ChargeFire chargeFire = ChargeFire.Waiting;
     public BlasterState blasterState = BlasterState.SingleFire;
     public static FlyingModes flyingModes = FlyingModes.TransitionLock;
     public delegate void OnBlasterChange(BlasterState blaster);
@@ -31,6 +38,7 @@ public class PlayerControler : MonoBehaviour
     public static PlayerControler player;
     public Vector3 speedRail = new Vector3(30,-20, 50);
     public Vector3 speedAllRange = new Vector3(50,-40, 50);
+    Vector3 chargeShotDir;
     Vector3 defaultSpeedRail;
     Vector3 defaultSpeedAllRange;
     public float maxSpeedChange = 10;
@@ -38,10 +46,13 @@ public class PlayerControler : MonoBehaviour
     public string bombPrefab;
     public Transform firePosMain;
     public Transform firePos1;
-    public Transform firePos2;
+    public Transform firePos2;    
+    public bool crash;
     public float boostMeterMax = 1;
     public float boostMeter = 1;
-    public bool crash;
+    public float lockHoldDuration = 1;
+    public float lockOnDistance = 500;
+    float lockHoldStart = 0;
     public float crashDuration = 3;
     public float crashTime;
     public float collisionShield = 0.5f;
@@ -49,12 +60,12 @@ public class PlayerControler : MonoBehaviour
     public GameObject crossHair;
     float lastCollisionTime;
     bool breaking = false;
-    
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
     Rigidbody rb;
     Animator anim;
+    Camera cam;
 
     void Awake()
     {
@@ -64,6 +75,7 @@ public class PlayerControler : MonoBehaviour
         else{
             Destroy(gameObject);
         }
+        cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
     }
@@ -113,11 +125,7 @@ public class PlayerControler : MonoBehaviour
             FireBomb();
             onFireBomb(bombAmmo);
         }
-
-        if(Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space)){
-            Fire();
-        }
-        
+        Fire();
     }
 
     void StraightenPlayer(){
@@ -203,6 +211,7 @@ public class PlayerControler : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         transform.forward = (transform.forward + transform.right * x * Time.deltaTime).normalized;
         float y = Input.GetAxis("Vertical");
+        transform.up = (transform.up + transform.right * x * Time.deltaTime).normalized;
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
         
@@ -242,29 +251,76 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Fire(){
-        if(blasterState == BlasterState.SingleFire){
-            AudioManager.Play("BlasterSound");
-            GameObject bullet = SpawnManager.Spawn(bulletPrefab, firePosMain.position);
-            bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
+
+        if(chargeFire == ChargeFire.Release && Input.GetButtonDown("Fire1")){
+            switch (blasterState){
+                case BlasterState.SingleFire:
+                    AudioManager.Play("BlasterSound");
+                    GameObject bullet = SpawnManager.Spawn(bulletPrefab, firePosMain.position);
+                    bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
+                    break;
+                case BlasterState.DoubleFire:
+                    AudioManager.Play("BlasterSound");
+                    GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
+                    bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
+                    GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
+                    bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+                break;
+                case BlasterState.MegaFire:
+                    AudioManager.Play("BlasterSound");
+                    bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
+                    bullet1.GetComponentInParent<DamageController>().damage *= 2;
+                    bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
+                    bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
+                    bullet2.GetComponentInParent<DamageController>().damage *= 2;
+                    bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+                break;
+            }
+            lockHoldStart = Time.time;
         }
-        if(blasterState == BlasterState.DoubleFire){
-            AudioManager.Play("BlasterSound");
-            GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
-            bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
-            GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
-            bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+        
+        if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
+            chargeFire = ChargeFire.Charging;
+            Vector3 pos = crossHair.transform.position - cam.transform.position;
+            Ray lockOnRay = cam.ScreenPointToRay(transform.position);
+            RaycastHit hit;
+            if(Physics.Raycast(lockOnRay, out hit, 10000, enemy, QueryTriggerInteraction.Collide)){
+                chargeFire = ChargeFire.Waiting;
+                chargeShotDir = hit.point;
+            }
+            else{
+                chargeFire = ChargeFire.Searching;
+            }
         }
-        if(blasterState == BlasterState.MegaFire){
-            AudioManager.Play("BlasterSound");
-            GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
-            bullet1.GetComponentInParent<DamageController>().damage *= 2;
-            bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
-            GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
-            bullet2.GetComponentInParent<DamageController>().damage *= 2;
-            bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
+        else if(!Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
+            chargeFire = ChargeFire.Release;
+        }
+
+        if(chargeFire == ChargeFire.Waiting && Input.GetButtonDown("Fire1")){
+            chargeFire = ChargeFire.Release;
+        }
+        else if(chargeFire == ChargeFire.Searching && Input.GetButtonDown("Fire1")){
+            chargeFire = ChargeFire.Release;
         }
     }
 
+    // void OnDrawGizmos(){
+    //     Vector3 pos = crossHair.transform.position - cam.transform.position;
+    //     Ray lockOnRay = new Ray(cam.transform.position, pos);
+    //     RaycastHit hit;
+        
+    //     if(Physics.Raycast(lockOnRay, out hit, 10000, enemy, QueryTriggerInteraction.Collide)){
+    //         Gizmos.DrawSphere(hit.point, 10);
+    //         Gizmos.color = Color.red;
+    //     }
+    //     else{
+    //         Gizmos.DrawRay(lockOnRay.origin, lockOnRay.direction * 10000);
+    //         Gizmos.color = Color.white;
+    //     }
+    // }
+    void FireChargeShot(){
+
+    }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
         if(lastBomb == null){
