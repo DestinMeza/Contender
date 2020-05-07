@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfParticle: 
-  speed: 60
+  speed: 100
   bulletLifetime: 5
   lifeTime: 5
 --- !u!114 &7966652107378774763

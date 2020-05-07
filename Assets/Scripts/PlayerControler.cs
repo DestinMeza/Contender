@@ -22,7 +22,7 @@ public class PlayerControler : MonoBehaviour
         Release
     }
     public LayerMask enemy;
-    public ChargeFire chargeFire = ChargeFire.Waiting;
+    public ChargeFire chargeFire = ChargeFire.Release;
     public BlasterState blasterState = BlasterState.SingleFire;
     public static FlyingModes flyingModes = FlyingModes.TransitionLock;
     public delegate void OnBlasterChange(BlasterState blaster);
@@ -47,7 +47,7 @@ public class PlayerControler : MonoBehaviour
     public string chargedBulletPrefab;
     public Transform firePosMain;
     public Transform firePos1;
-    public Transform firePos2;    
+    public Transform firePos2;
     public bool crash;
     public float boostMeterMax = 1;
     public float boostMeter = 1;
@@ -212,7 +212,6 @@ public class PlayerControler : MonoBehaviour
         float x = Input.GetAxis("Horizontal");
         transform.forward = (transform.forward + transform.right * x * Time.deltaTime).normalized;
         float y = Input.GetAxis("Vertical");
-        transform.up = (transform.up + transform.right * x * Time.deltaTime).normalized;
         float boostAxis = Input.GetAxis("Boost");
         float breakAxis = Input.GetAxis("Break");
         
@@ -278,10 +277,10 @@ public class PlayerControler : MonoBehaviour
                 break;
             }
             lockHoldStart = Time.time;
+            anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
         
         if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
-            chargeFire = ChargeFire.Charging;
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos * 10000);
             RaycastHit hit;
@@ -289,20 +288,24 @@ public class PlayerControler : MonoBehaviour
                 Transform enemyTransform = hit.collider.GetComponentInParent<Transform>();
                 chargeShotPos = enemyTransform;
                 chargeFire = ChargeFire.Waiting;
+                anim.SetInteger("ChargeFireState", (int)chargeFire);
             }
             else{
                 chargeFire = ChargeFire.Searching;
+                anim.SetInteger("ChargeFireState", (int)chargeFire);
             }
+            if(chargeFire == ChargeFire.Searching && Input.GetButtonDown("Fire1")){
+                chargeFire = ChargeFire.Waiting;
+                FireChargeShot();
+            }
+            
         }
-        else if(!Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
-            chargeFire = ChargeFire.Release;
-        }
-
         if(chargeFire == ChargeFire.Waiting && Input.GetButtonDown("Fire1")){
             FireChargeShot();
         }
-        else if(chargeFire == ChargeFire.Searching && Input.GetButtonDown("Fire1")){
-            FireChargeShot();
+        else if(!Input.GetButton("Fire1") && chargeFire == ChargeFire.Charging){
+            chargeFire = ChargeFire.Release;
+            anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
     }
 
@@ -320,11 +323,14 @@ public class PlayerControler : MonoBehaviour
     //         Gizmos.color = Color.white;
     //     }
     // }
+
     void FireChargeShot(){
         AudioManager.Play("BlasterSound");
         GameObject chargedBullet = SpawnManager.Spawn(chargedBulletPrefab, firePosMain.position);
         chargedBullet.GetComponentInParent<ChargedBulletController>().SetDir(chargeShotPos);
         chargeFire = ChargeFire.Release;
+        chargeShotPos = null;
+        anim.SetInteger("ChargeFireState", (int)chargeFire);
     }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
@@ -337,7 +343,6 @@ public class PlayerControler : MonoBehaviour
         else{
             lastBomb.Explode();
         }
-
     }
     void Crash(HealthController health){
         if(crash) return;

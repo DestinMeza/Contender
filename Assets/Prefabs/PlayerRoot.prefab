@@ -25,10 +25,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1564931706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -40}
-  m_LocalScale: {x: 0.6666667, y: 0.6666667, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 20}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
-  m_Father: {fileID: 1055051901677506646}
+  m_Father: {fileID: 1740333405899393309}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1564931708
@@ -250,6 +250,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677304766147463688}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2800194431589271487
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1740333405899393309}
+  m_Layer: 9
+  m_Name: Recticles
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1740333405899393309
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2800194431589271487}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1564931707}
+  - {fileID: 1055051901677506646}
+  m_Father: {fileID: 5716020991912972291}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4047532385095231526
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,13 +306,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4047532385095231526}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 60}
   m_LocalScale: {x: 3, y: 3, z: 1}
-  m_Children:
-  - {fileID: 1564931707}
-  m_Father: {fileID: 5716020991912972291}
-  m_RootOrder: 3
+  m_Children: []
+  m_Father: {fileID: 1740333405899393309}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4472870335698264227
 SpriteRenderer:
@@ -5183,7 +5214,7 @@ Transform:
   - {fileID: 3518203700240104145}
   - {fileID: 5716020992011513453}
   - {fileID: 5716020992366437460}
-  - {fileID: 1055051901677506646}
+  - {fileID: 1740333405899393309}
   m_Father: {fileID: 5805810418046892142}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5390,12 +5421,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9514edd56bde20d4b983c1de0dacc277, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemy:
+    serializedVersion: 2
+    m_Bits: 1024
+  chargeFire: 3
   blasterState: 0
   speedRail: {x: 30, y: -20, z: 30}
   speedAllRange: {x: 10, y: -10, z: 20}
   maxSpeedChange: 2
   bulletPrefab: Bullet
   bombPrefab: BBombRoot
+  chargedBulletPrefab: ChargedBulletRoot
   firePosMain: {fileID: 3518203700240104145}
   firePos1: {fileID: 5716020992011513453}
   firePos2: {fileID: 5716020992366437460}
