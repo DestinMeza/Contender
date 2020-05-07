@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 486974060687660282}
   - component: {fileID: 8732021885839545042}
   m_Layer: 0
-  m_Name: PipeRoot
+  m_Name: LazerRoot
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,7 +351,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visbilityDistance: 200
-  lazer: {fileID: 8615472470399546552}
+  lazer: {fileID: 8615472470399546554}
 --- !u!54 &486974060687660282
 Rigidbody:
   m_ObjectHideFlags: 0

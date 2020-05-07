@@ -11199,8 +11199,8 @@ RectTransform:
   m_Father: {fileID: 1604300136}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.24878366, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.24878366, y: 0.10859982}
+  m_AnchorMax: {x: 0.96500003, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12044,8 +12044,8 @@ MonoBehaviour:
   smoothTime: 0.4
   playerCrashing: 0
   target: {fileID: 1569691531}
-  railOffset: {x: 0, y: 1, z: -15}
-  allRangeOffset: {x: 0, y: 1, z: -20}
+  railOffset: {x: 0, y: 1, z: -20}
+  allRangeOffset: {x: 0, y: 1, z: -25}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
