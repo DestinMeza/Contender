@@ -333,12 +333,12 @@ public class PlayerControler : MonoBehaviour
     // }
 
     void FireChargeShot(){
+        chargeFire = ChargeFire.Release;
+        anim.SetInteger("ChargeFireState", (int)chargeFire);
         AudioManager.Play("BlasterSound");
         GameObject chargedBullet = SpawnManager.Spawn(chargedBulletPrefab, firePosMain.position);
         chargedBullet.GetComponentInParent<ChargedBulletController>().SetDir(chargeShotPos);
-        chargeFire = ChargeFire.Release;
         chargeShotPos = null;
-        anim.SetInteger("ChargeFireState", (int)chargeFire);
     }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
