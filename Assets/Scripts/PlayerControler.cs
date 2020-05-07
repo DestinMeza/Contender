@@ -82,6 +82,7 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
+        onFireBomb(bombAmmo);
         defaultSpeedRail = speedRail;
         defaultSpeedAllRange = speedAllRange;
         TransitionController.onTransition += TransitionLock;
@@ -277,36 +278,43 @@ public class PlayerControler : MonoBehaviour
                 break;
             }
             lockHoldStart = Time.time;
+            chargeFire = ChargeFire.Charging;
             anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
         
-        if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire != ChargeFire.Waiting){
+        if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos * 10000);
             RaycastHit hit;
             if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
-                Transform enemyTransform = hit.collider.GetComponentInParent<Transform>();
-                chargeShotPos = enemyTransform;
-                chargeFire = ChargeFire.Waiting;
-                anim.SetInteger("ChargeFireState", (int)chargeFire);
+                if(hit.collider.GetComponentInParent<HealthController>()){
+                    Transform enemyTransform = hit.collider.GetComponentInParent<Transform>();
+                    chargeShotPos = enemyTransform;
+                    chargeFire = ChargeFire.Waiting;
+                    anim.SetInteger("ChargeFireState", (int)chargeFire);
+                }
+                else{
+                    chargeFire = ChargeFire.Searching;
+                    anim.SetInteger("ChargeFireState", (int)chargeFire);
+                }
             }
             else{
                 chargeFire = ChargeFire.Searching;
                 anim.SetInteger("ChargeFireState", (int)chargeFire);
             }
-            if(chargeFire == ChargeFire.Searching && Input.GetButtonDown("Fire1")){
-                chargeFire = ChargeFire.Waiting;
-                FireChargeShot();
-            }
             
+        }
+        if(chargeFire == ChargeFire.Searching && Input.GetButtonUp("Fire1")){
+            FireChargeShot();
         }
         if(chargeFire == ChargeFire.Waiting && Input.GetButtonDown("Fire1")){
             FireChargeShot();
         }
-        else if(!Input.GetButton("Fire1") && chargeFire == ChargeFire.Charging){
+        if(!Input.GetButton("Fire1") && chargeFire == ChargeFire.Charging){
             chargeFire = ChargeFire.Release;
             anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
+
     }
 
     // void OnDrawGizmos(){

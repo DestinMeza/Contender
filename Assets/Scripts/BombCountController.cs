@@ -9,13 +9,11 @@ public class BombCountController : MonoBehaviour
     public GameObject countParent;
     public GameObject iconParent;
     public Text countText;
-
     void Awake(){
         bombIcons = iconParent.GetComponentsInChildren<Image>();
     }
     void OnEnable(){
         PlayerControler.onFireBomb += SetBombCount;
-        SetBombCount(PlayerControler.player.bombAmmo);
     }
 
     public void SetBombCount (int count){
