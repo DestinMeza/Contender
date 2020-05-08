@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5264148460517349786}
   - component: {fileID: 6077824075181067757}
   - component: {fileID: 3843080525702797220}
+  - component: {fileID: 4906500897248518667}
   m_Layer: 0
   m_Name: Asteroid1
   m_TagString: Solid
@@ -78,6 +79,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4906500897248518667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7912731555185129789}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c25f46e67ad19e4a8baa3f4894f6efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitSound: 
+  hitParticles: 
+  damage: 1
 --- !u!1 &8145347026085948926
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +106,6 @@ GameObject:
   - component: {fileID: 9085769085318114361}
   - component: {fileID: 261577150312736500}
   - component: {fileID: 214217274357748859}
-  - component: {fileID: 2885057550644322904}
   m_Layer: 0
   m_Name: Asteroid1
   m_TagString: Solid
@@ -172,22 +187,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 4.8660707
   m_Center: {x: 0, y: 0, z: 0}
---- !u!208 &2885057550644322904
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8145347026085948926}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 4.7770004, y: 4.9280005, z: 4.7770004}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: -0.072000004, z: 0}
-  m_TimeToStationary: 0.5
 --- !u!1 &8318810370038305947
 GameObject:
   m_ObjectHideFlags: 0

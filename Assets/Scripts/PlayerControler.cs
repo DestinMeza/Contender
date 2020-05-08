@@ -79,15 +79,13 @@ public class PlayerControler : MonoBehaviour
         cam = Camera.main;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
+        health = GetComponentInParent<HealthController>();
     }
 
     void Start(){
         onFireBomb(bombAmmo);
         defaultSpeedRail = speedRail;
         defaultSpeedAllRange = speedAllRange;
-        TransitionController.onTransition += TransitionLock;
-        health = GetComponentInParent<HealthController>();
-        health.onDeath += Crash;
         crashTime = Time.time;
         crash = false;
         breaking = false;
@@ -101,6 +99,12 @@ public class PlayerControler : MonoBehaviour
         blasterState = BlasterState.SingleFire;
         onBlasterChange(blasterState);
         onCrash(this);
+        health.onDeath += Crash;
+        TransitionController.onTransition += TransitionLock;
+    }
+    void OnDisable(){
+        health.onDeath -= Crash;
+        TransitionController.onTransition -= TransitionLock;
     }
     void Update(){
         if(crash)

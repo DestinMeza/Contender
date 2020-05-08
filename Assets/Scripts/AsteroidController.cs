@@ -23,6 +23,12 @@ public class AsteroidController : MonoBehaviour
             }
         }
     }
+    void OnTriggerExit(Collider col){
+        if(col.name == "AllRangeModeBounds"){
+            rb.velocity *= -1;
+            transform.forward *= -1;
+        }
+    }
     void Explode(HealthController health){
         GameObject smallAsteroid = SpawnManager.Spawn(asteroidPrefabName, transform.position + Random.insideUnitSphere);
         smallAsteroid.GetComponent<Rigidbody>().velocity = Random.insideUnitSphere;

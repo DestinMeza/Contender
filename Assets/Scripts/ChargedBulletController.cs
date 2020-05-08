@@ -8,6 +8,7 @@ public class ChargedBulletController : MonoBehaviour
     public float speed = 100;
     public float bulletLifetime = 5;
     public float lifeTime = 5;
+    public float minimalTrackDist = 2.0f;
     bool exploding = false;
     Transform enemyPos;
     Rigidbody rb;
@@ -46,6 +47,13 @@ public class ChargedBulletController : MonoBehaviour
         else{
             Vector3 dir = enemyPos.position - transform.position;
             rb.AddForce(dir.normalized * speed, ForceMode.Impulse);
+            if(dir.magnitude < minimalTrackDist){
+                StopCoroutine(LifeTime());
+                rb.velocity = Vector3.zero;
+                exploding = true;
+                anim.Play("ChargedExplosion");
+                ParticleManager.particleMan.Play(nameOfParticle, transform.position);
+            }
         }
         rb.velocity = new Vector3(
             Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),

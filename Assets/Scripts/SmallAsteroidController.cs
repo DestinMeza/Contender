@@ -5,8 +5,10 @@ using UnityEngine;
 public class SmallAsteroidController : MonoBehaviour
 {
     HealthController health;
+    Rigidbody rb;
     void Awake(){
         health = GetComponent<HealthController>();
+        rb = GetComponentInParent<Rigidbody>();
     }
     void OnEnable()
     {
@@ -14,5 +16,12 @@ public class SmallAsteroidController : MonoBehaviour
     }
     void Explode(HealthController health){
         gameObject.SetActive(false);
+    }
+
+    void OnTriggerExit(Collider col){
+        if(col.name == "AllRangeModeBounds"){
+            rb.velocity *= -1;
+            transform.forward *= -1;
+        }
     }
 }
