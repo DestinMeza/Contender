@@ -71,6 +71,7 @@ public class PlayerControler : MonoBehaviour
     Vector3 targetVelocity;
     Rigidbody rb;
     Animator anim;
+    public Camera minimapCam;
     Camera cam;
 
     void Awake()
@@ -81,7 +82,9 @@ public class PlayerControler : MonoBehaviour
         else{
             Destroy(gameObject);
         }
+        
         cam = Camera.main;
+        minimapCam = GetComponentInChildren<Camera>();
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         health = GetComponentInParent<HealthController>();

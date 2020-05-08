@@ -90,7 +90,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2469051733181716245}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 3.532382, y: 0.68075943, z: 5.003758}
@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 9215951692937696184}
   - component: {fileID: 2769026074185843802}
   - component: {fileID: 8577949439776065819}
+  - component: {fileID: 2614184933470234731}
   m_Layer: 14
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -190,6 +191,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2614184933470234731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3757058518752634727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0110719e20db29646908420802203b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4473822868795615425
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149d9918b2c0a4b438636266408b0024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obsticles:
+    serializedVersion: 2
+    m_Bits: 26423
 --- !u!114 &4000032841627315705
 MonoBehaviour:
   m_ObjectHideFlags: 0
