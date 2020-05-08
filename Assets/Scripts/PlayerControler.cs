@@ -38,6 +38,7 @@ public class PlayerControler : MonoBehaviour
     public static PlayerControler player;
     public Vector3 speedRail = new Vector3(30,-20, 50);
     public Vector3 speedAllRange = new Vector3(50,-40, 50);
+    public Vector3 lockOnOffset = new Vector3(0,0,60);
     Transform chargeShotPos;
     Vector3 defaultSpeedRail;
     Vector3 defaultSpeedAllRange;
@@ -45,6 +46,9 @@ public class PlayerControler : MonoBehaviour
     public string bulletPrefab;
     public string bombPrefab;
     public string chargedBulletPrefab;
+    public GameObject lockedOnEnemy;
+    public GameObject crossHair;
+    public LockOnCrossHairController lockOnCrossHairs;
     public Transform firePosMain;
     public Transform firePos1;
     public Transform firePos2;
@@ -53,14 +57,15 @@ public class PlayerControler : MonoBehaviour
     public float boostMeter = 1;
     public float lockHoldDuration = 1;
     public float lockOnDistance = 500;
-    float lockHoldStart = 0;
+    float lockHoldStart;
     public float crashDuration = 3;
     public float crashTime;
     public float collisionShield = 0.5f;
     public int bombAmmo;
-    public GameObject crossHair;
     float lastCollisionTime;
     bool breaking = false;
+    bool charged = false;
+    public Transform enemyTransform;
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
@@ -286,14 +291,15 @@ public class PlayerControler : MonoBehaviour
             anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
         
-        if(Time.time - lockHoldStart > lockHoldDuration && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
+        if(charged && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos * 10000);
             RaycastHit hit;
             if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
                 if(hit.collider.GetComponentInParent<HealthController>()){
-                    Transform enemyTransform = hit.collider.GetComponentInParent<Transform>();
+                    enemyTransform = hit.collider.GetComponentInParent<Transform>();
                     chargeShotPos = enemyTransform;
+                    lockedOnEnemy = enemyTransform.GetComponentInParent<HealthController>().gameObject;
                     chargeFire = ChargeFire.Waiting;
                     anim.SetInteger("ChargeFireState", (int)chargeFire);
                 }
@@ -308,6 +314,9 @@ public class PlayerControler : MonoBehaviour
             }
             
         }
+        if(chargeFire == ChargeFire.Charging && Time.time - lockHoldStart > lockHoldDuration){
+            charged = true;
+        }
         if(chargeFire == ChargeFire.Searching && Input.GetButtonUp("Fire1")){
             FireChargeShot();
         }
@@ -315,11 +324,21 @@ public class PlayerControler : MonoBehaviour
             FireChargeShot();
         }
         if(!Input.GetButton("Fire1") && chargeFire == ChargeFire.Charging){
+            charged = false;
             chargeFire = ChargeFire.Release;
             anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
-
+        anim.SetInteger("ChargeFireState", (int)chargeFire);
+        if(lockedOnEnemy != null){
+            if(!lockedOnEnemy.gameObject.activeSelf){
+                enemyTransform = null;
+                lockedOnEnemy = null;
+            } 
+        }
+        if(lockOnCrossHairs!= null) lockOnCrossHairs.LockOnCrossHairs(lockedOnEnemy);
     }
+
+    
 
     // void OnDrawGizmos(){
     //     Vector3 pos = crossHair.transform.position - cam.transform.position;
@@ -337,6 +356,7 @@ public class PlayerControler : MonoBehaviour
     // }
 
     void FireChargeShot(){
+        charged = false;
         chargeFire = ChargeFire.Release;
         anim.SetInteger("ChargeFireState", (int)chargeFire);
         AudioManager.Play("BlasterSound");
