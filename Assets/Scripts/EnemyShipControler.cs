@@ -50,7 +50,7 @@ public class EnemyShipControler : MonoBehaviour
     void CheckObsticles(){
         Ray ray = new Ray(transform.position, rb.velocity.normalized);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 100000, obsticles, QueryTriggerInteraction.Collide)){
+        if(Physics.Raycast(ray, out hit, 5000, obsticles, QueryTriggerInteraction.Collide)){
             if(hit.collider.gameObject.tag == "Solid"){
                 Transform obsticle = hit.collider.GetComponentInParent<Transform>();
                 Vector3 diff = obsticle.transform.position - transform.position;

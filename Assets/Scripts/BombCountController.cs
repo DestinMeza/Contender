@@ -16,6 +16,9 @@ public class BombCountController : MonoBehaviour
         PlayerControler.onFireBomb += SetBombCount;
     }
 
+    void OnDisable(){
+        PlayerControler.onFireBomb -= SetBombCount;
+    }
     public void SetBombCount (int count){
         if(count > bombIcons.Length){
             countParent.SetActive(true);

@@ -24,15 +24,15 @@ public class PlayerControler : MonoBehaviour
     public delegate void OnLoop(bool looping);
     public static event OnLoop onLoop = delegate{};
     public delegate void OnBlasterChange(BlasterState blaster);
-    public static OnBlasterChange onBlasterChange = delegate {};
+    public static event OnBlasterChange onBlasterChange = delegate {};
     public delegate void OnCrash(PlayerControler player);
-    public static OnCrash onCrash = delegate {};
+    public static event OnCrash onCrash = delegate {};
     public delegate void OnDeath(PlayerControler player);
-    public static OnDeath onDeath = delegate {};
+    public static event OnDeath onDeath = delegate {};
     public delegate void OnBoost();
-    public static OnBoost onBoost = delegate {};
+    public static event OnBoost onBoost = delegate {};
     public delegate void OnFireBomb(int count);
-    public static OnFireBomb onFireBomb = delegate {};
+    public static event OnFireBomb onFireBomb = delegate {};
     public static PlayerControler player;
     public Vector3 speedRail = new Vector3(30,-20, 50);
     public Vector3 speedAllRange = new Vector3(50,-40, 50);
@@ -90,12 +90,12 @@ public class PlayerControler : MonoBehaviour
     }
 
     void Start(){
-        onFireBomb(bombAmmo);
         defaultSpeedRail = speedRail;
         defaultSpeedAllRange = speedAllRange;
         crashTime = Time.time;
         crash = false;
         breaking = false;
+        onFireBomb(bombAmmo);
     }
 
     void TransitionLock(FlyingModes transition){
@@ -106,6 +106,7 @@ public class PlayerControler : MonoBehaviour
         blasterState = BlasterState.SingleFire;
         onBlasterChange(blasterState);
         onCrash(this);
+        onFireBomb(bombAmmo);
         health.onDeath += Crash;
         TransitionController.onTransition += TransitionLock;
     }
@@ -144,6 +145,7 @@ public class PlayerControler : MonoBehaviour
         if(Input.GetAxis("Boost") > 0.5f && Input.GetAxis("Break") > 0.5f){
             looping = true;
             rb.velocity = Vector3.zero;
+            rb.velocity = transform.forward * defaultSpeedRail.z/2;
             anim.Play("PlayerLoop");
         }
     }
@@ -342,7 +344,7 @@ public class PlayerControler : MonoBehaviour
             if(!lockedOnEnemy.gameObject.activeSelf){
                 enemyTransform = null;
                 lockedOnEnemy = null;
-            } 
+            }
         }
         if(lockOnCrossHairs!= null) lockOnCrossHairs.LockOnCrossHairs(lockedOnEnemy);
     }
@@ -425,8 +427,8 @@ public class PlayerControler : MonoBehaviour
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
         if(col.name == "AllRangeModeBounds"){
-            rb.velocity *= -1;
-            transform.forward *= -1;
+            looping = true;
+            anim.Play("PlayerLoop");
         }
     }
     void OnTriggerEnter(Collider col){
@@ -441,19 +443,23 @@ public class PlayerControler : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
+        rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
+
         if(health.health <= 0){
             Crash();
         }
         else if(Time.time - lastCollisionTime > collisionShield){
             lastCollisionTime = Time.time;
             health.TakeDamage(1);
-            if(!crash)anim.Play("PlayerHit");
+            if(!crash || !looping){
+                anim.Play("Hit");
+                anim.Play("HitFlash");
+            }
         }
         if(crash) {
             onDeath(this);
             gameObject.SetActive(false);
         }
-        rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
         
     }
 }

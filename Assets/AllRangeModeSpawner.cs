@@ -32,12 +32,12 @@ public class AllRangeModeSpawner : MonoBehaviour
         while(enabled){
             if(numShips < maxSpawnedAtATime){
                 if(totalDeadShips >= 50 && maxChasingShips >= currentNumberChasing){
-                    SpawnManager.Spawn(shipChasingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.insideUnitSphere * 2);
+                    SpawnManager.Spawn(shipChasingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.insideUnitSphere);
                     currentNumberChasing++;
                     numShips++;
                 }
                 else{
-                    GameObject enemyShip = SpawnManager.Spawn(shipTrainingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.insideUnitSphere * 2);
+                    GameObject enemyShip = SpawnManager.Spawn(shipTrainingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.onUnitSphere);
                     enemyShip.GetComponentInParent<EnemyShipControler>().SetDir(gameObject);
                     numShips++;
                 }
