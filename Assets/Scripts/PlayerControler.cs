@@ -1,11 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum FlyingModes{
-    Rail,
-    AllRange,
-    TransitionLock
-}
+
 public enum BlasterState{
         SingleFire,
         DoubleFire,
@@ -21,10 +17,12 @@ public class PlayerControler : MonoBehaviour
         Waiting,
         Release
     }
+    public static FlyingModes flyingModes;
     public LayerMask enemy;
     public ChargeFire chargeFire = ChargeFire.Release;
     public BlasterState blasterState = BlasterState.SingleFire;
-    public static FlyingModes flyingModes = FlyingModes.TransitionLock;
+    public delegate void OnLoop(bool looping);
+    public static event OnLoop onLoop = delegate{};
     public delegate void OnBlasterChange(BlasterState blaster);
     public static OnBlasterChange onBlasterChange = delegate {};
     public delegate void OnCrash(PlayerControler player);
@@ -63,6 +61,7 @@ public class PlayerControler : MonoBehaviour
     public float collisionShield = 0.5f;
     public int bombAmmo;
     float lastCollisionTime;
+    bool looping = false;
     bool breaking = false;
     bool charged = false;
     public Transform enemyTransform;
@@ -127,19 +126,26 @@ public class PlayerControler : MonoBehaviour
             return;
         }
         onCrash(this);
-        ClampPosition();
         if(flyingModes == FlyingModes.TransitionLock){
             StraightenPlayer();
             return;
         }
-        if(flyingModes == FlyingModes.Rail)RailMovement();
-        if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
-
         if(Input.GetButtonDown("Fire2")){
             FireBomb();
             onFireBomb(bombAmmo);
         }
         Fire();
+        if(looping) return;
+        ClampPosition();
+        if(flyingModes == FlyingModes.Rail)RailMovement();
+        if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
+
+        
+        if(Input.GetAxis("Boost") > 0.5f && Input.GetAxis("Break") > 0.5f){
+            looping = true;
+            rb.velocity = Vector3.zero;
+            anim.Play("PlayerLoop");
+        }
     }
 
     void StraightenPlayer(){
@@ -148,7 +154,7 @@ public class PlayerControler : MonoBehaviour
         targetVelocity = Vector3.Scale(targetVelocity, speedRail);
     }
     void FixedUpdate(){
-        if(crash) return;
+        if(crash || looping) return;
         if(flyingModes == FlyingModes.Rail){
             Vector3 velocityChange = targetVelocity - rb.velocity;
             Vector3 xyChange = velocityChange;
@@ -366,6 +372,8 @@ public class PlayerControler : MonoBehaviour
         GameObject chargedBullet = SpawnManager.Spawn(chargedBulletPrefab, firePosMain.position);
         chargedBullet.GetComponentInParent<ChargedBulletController>().SetDir(chargeShotPos);
         chargeShotPos = null;
+        enemyTransform = null;
+        lockedOnEnemy = null;
     }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
@@ -404,11 +412,16 @@ public class PlayerControler : MonoBehaviour
         crashTime = Time.time;
         onCrash(this);
     }
-
+    public void LoopAllRange(){
+        if(flyingModes == FlyingModes.AllRange)
+        transform.forward *= -1;
+        looping = false;
+        onLoop(looping);
+    }
     void OnTriggerExit(Collider col){
         if(col.name == "RingCollider"){
             AudioManager.Play("RingSound");
-            GameManager.game.IncrementScore();
+            GameManager.game.IncrementRingScore();
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
         if(col.name == "AllRangeModeBounds"){
@@ -440,8 +453,7 @@ public class PlayerControler : MonoBehaviour
             onDeath(this);
             gameObject.SetActive(false);
         }
+        rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
         
-        Vector3 diff = rb.velocity - col.transform.position;
-        rb.AddForce(diff.normalized*-1 + new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0), ForceMode.Impulse);
     }
 }

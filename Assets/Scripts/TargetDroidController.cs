@@ -6,7 +6,7 @@ public class TargetDroidController : MonoBehaviour
 {
     // Start is called before the first frame update
     HealthController health;
-
+    public string deathParticles = "ExplosionSmallObject";
     void Awake(){
         health = GetComponent<HealthController>();
     }
@@ -16,6 +16,7 @@ public class TargetDroidController : MonoBehaviour
     }
 
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
         gameObject.SetActive(false);
     }

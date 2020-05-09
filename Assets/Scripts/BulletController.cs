@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
-    public string nameOfParticle;
+    public string nameOfParticle = "BlasterSparks";
     public float speed = 250;
     public float bulletLifetime = 5;
     public float lifeTime = 5;
@@ -32,6 +32,12 @@ public class BulletController : MonoBehaviour
         gameObject.SetActive(false);
     }
     void OnTriggerEnter(Collider col){
+        if(col.gameObject.tag == "Solid"){
+            ParticleManager.particleMan.Play(nameOfParticle, transform.position);
+            gameObject.SetActive(false);
+        }
+    }
+    void OnCollisionEnter(Collision col){
         if(col.gameObject.tag == "Solid"){
             ParticleManager.particleMan.Play(nameOfParticle, transform.position);
             gameObject.SetActive(false);

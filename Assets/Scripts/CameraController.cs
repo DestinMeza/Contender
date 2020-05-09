@@ -7,7 +7,9 @@ public class CameraController : MonoBehaviour
 {
     public float smoothTime = 0.5f;
     public bool playerCrashing;
+    public bool looping;
     public Transform target;
+    public Transform heading;
     public Vector3 railOffset = new Vector3(0, 1, -15);
     public Vector3 allRangeOffset = new Vector3(0, 1, -20);
     Vector3 velocity = Vector3.zero;
@@ -25,6 +27,7 @@ public class CameraController : MonoBehaviour
 
     void Start(){
         PlayerControler.onCrash += Crash;
+        PlayerControler.onLoop += DoingALoop;
     }
     void FixedUpdate(){
         if(target == null) return;
@@ -32,7 +35,11 @@ public class CameraController : MonoBehaviour
         if(Application.isPlaying){
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
-            if(!playerCrashing){
+            if(looping){
+                transform.LookAt(PlayerControler.player.transform.position);
+                transform.position = heading.forward + allRangeOffset;
+            } 
+            else if(!playerCrashing){
                 if(PlayerControler.flyingModes == FlyingModes.Rail){
                     pos.y = Mathf.Clamp(transform.position.y, 0, 58);
                     pos.x = Mathf.Clamp(transform.position.x, -30, 30);
@@ -82,5 +89,9 @@ public class CameraController : MonoBehaviour
 
     void Crash(PlayerControler player){
         playerCrashing = player.crash;
+    }
+
+    void DoingALoop(bool looping){
+        this.looping = looping;
     }
 }

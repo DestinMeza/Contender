@@ -9,6 +9,7 @@ public class MechController : MonoBehaviour
     public Transform firingPos2;
     public Vector3 firingOffset = new Vector3(0,2,15);
     public string enemyBulletPrefab;
+    public string deathParticles = "ExplosionDeathParticles";
     public float moveForce = 5;
     public float firingDistance = 200;
     public float fireInterval = 0.5f;
@@ -50,6 +51,7 @@ public class MechController : MonoBehaviour
         }
     }
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
         gameObject.SetActive(false);
     }

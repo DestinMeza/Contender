@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class EnemyShipControler : MonoBehaviour
 {
+    public delegate void OnDeathCalculation();
+    public static event OnDeathCalculation onDeathCalculation = delegate {};
     float speed = 20;
     public LayerMask obsticles;
     Rigidbody rb;
     GameObject origin;
+    public string deathParticles = "ExplosionSmallObject";
     bool leftTriggerArea = false;
     void Awake(){
         rb = GetComponent<Rigidbody>();
+        origin = FindObjectOfType<AllRangeModeSpawner>().gameObject;
+    }
+    public void SetDir(GameObject origin){
+        this.origin = origin;
+        transform.forward = origin.transform.position - transform.position;
     }
     void Start(){
         HealthController health = GetComponentInParent<HealthController>();
         health.onDeath += Explode;
     }
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        onDeathCalculation();
         gameObject.SetActive(false);
     }
     void Update(){

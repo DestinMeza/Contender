@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SmallAsteroidController : MonoBehaviour
 {
+    public string deathParticles = "ExplosionSmallObject";
     HealthController health;
     Rigidbody rb;
     void Awake(){
@@ -15,6 +16,7 @@ public class SmallAsteroidController : MonoBehaviour
         health.onDeath += Explode;
     }
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         gameObject.SetActive(false);
     }
 

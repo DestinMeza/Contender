@@ -70,6 +70,7 @@ MonoBehaviour:
   speed: 100
   bulletLifetime: 5
   lifeTime: 5
+  minimalTrackDist: 2
 --- !u!95 &806285352398832047
 Animator:
   serializedVersion: 3
@@ -196,7 +197,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &806285352785138047
 GameObject:

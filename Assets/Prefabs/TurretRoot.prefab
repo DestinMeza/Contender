@@ -53,6 +53,7 @@ MonoBehaviour:
   firingDis: 140
   firingOffset: {x: 0, y: 2, z: 11}
   fireInterval: 3
+  deathParticles: ExplosionSmallObject
 --- !u!114 &8301342578943470015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,7 +67,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
-  health: 0
+  health: 1
+  scoreValue: 5
+  projectScore: 1
 --- !u!54 &4361883281204039496
 Rigidbody:
   m_ObjectHideFlags: 0

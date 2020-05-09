@@ -5,6 +5,8 @@ using UnityEngine;
 public class HealthController : MonoBehaviour
 {
 
+    public delegate void OnIncreaseScore(int score);
+    public static event OnIncreaseScore onIncreaseScore = delegate{};
     public delegate void OnDeath(HealthController health);
     public OnDeath onDeath = delegate {};
 
@@ -13,6 +15,8 @@ public class HealthController : MonoBehaviour
 
     public int maxHealth = 3;
     public int health;
+    public int scoreValue = 5;
+    public bool projectScore = false;
 
     void OnEnable(){
         health = maxHealth;
@@ -32,6 +36,12 @@ public class HealthController : MonoBehaviour
         if(health <= 0){
             health = 0;
             onDeath(this);
+            if(projectScore) onIncreaseScore(scoreValue);
         }
+    }
+
+    public void IncreaseHeath(int health){
+        this.health += health;
+        onHealthChange();
     }
 }

@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 4000032841627315705}
   - component: {fileID: 6919467873336613128}
   m_Layer: 10
-  m_Name: EnemyFighter
+  m_Name: EnemyFighterRoot
   m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,6 +332,7 @@ MonoBehaviour:
   obsticles:
     serializedVersion: 2
     m_Bits: 26423
+  deathParticles: ExplosionSmallObject
 --- !u!114 &4000032841627315705
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +347,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 1
   health: 1
+  scoreValue: 50
+  projectScore: 0
 --- !u!114 &6919467873336613128
 MonoBehaviour:
   m_ObjectHideFlags: 0

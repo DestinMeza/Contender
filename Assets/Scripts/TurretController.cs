@@ -10,6 +10,7 @@ public class TurretController : MonoBehaviour
     public float firingDis = 140;
     public Vector3 firingOffset = new Vector3(0,2,11);
     public float fireInterval = 1;
+    public string deathParticles = "ExplosionSmallObject";
     float lastShot;
     void Start(){
         HealthController health = GetComponentInParent<HealthController>();
@@ -27,6 +28,7 @@ public class TurretController : MonoBehaviour
     }
 
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
         gameObject.SetActive(false);
     }

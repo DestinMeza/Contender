@@ -16,7 +16,7 @@ public class RingController : MonoBehaviour
             ring.enabled = true;
         }
         if(PlayerControler.player.transform.position.z > transform.position.z + 10 && !triggered){
-            GameManager.game.ResetScore();
+            GameManager.game.ResetRingScore();
             gameObject.SetActive(false);
         }
     }

@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
     }
 
     public static GameObject Spawn(string objName, Vector3 pos){
-        
+        if(objName == null) return null;
         for(int i = 0; i < spawner.prefabs.Length; i++){
             if(objName == spawner.prefabs[i].name){
                 

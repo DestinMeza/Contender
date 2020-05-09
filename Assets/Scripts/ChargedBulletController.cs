@@ -40,7 +40,10 @@ public class ChargedBulletController : MonoBehaviour
     }
     public void Update(){
         
-        if(exploding) rb.velocity = Vector3.zero;
+        if(exploding){
+            rb.velocity = Vector3.zero;
+            return;
+        } 
         if(enemyPos == null){
             rb.AddForce(transform.forward * speed, ForceMode.Impulse);
         }
@@ -74,6 +77,15 @@ public class ChargedBulletController : MonoBehaviour
         ParticleManager.particleMan.Play(nameOfParticle, transform.position);
     }
     void OnTriggerEnter(Collider col){
+        if(col.gameObject.tag == "Solid"){
+            StopCoroutine(LifeTime());
+            rb.velocity = Vector3.zero;
+            exploding = true;
+            anim.Play("ChargedExplosion");
+            ParticleManager.particleMan.Play(nameOfParticle, transform.position);
+        }
+    }
+    void OnCollisionEnter(Collision col){
         if(col.gameObject.tag == "Solid"){
             StopCoroutine(LifeTime());
             rb.velocity = Vector3.zero;

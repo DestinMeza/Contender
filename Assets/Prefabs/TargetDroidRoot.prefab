@@ -299,7 +299,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1
-  health: 0
+  health: 1
+  scoreValue: 5
+  projectScore: 1
 --- !u!114 &8750868504524408037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,6 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5cac43589a99a4fa91c9aa5bec7ceb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticles: ExplosionSmallObject
 --- !u!95 &998561045191193162
 Animator:
   serializedVersion: 3

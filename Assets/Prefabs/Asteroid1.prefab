@@ -50,6 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   health: 3
+  scoreValue: 20
+  projectScore: 1
 --- !u!114 &6077824075181067757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,6 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asteroidPrefabName: SmallAsteroid
+  deathParticles: ExplosionLargeObject
 --- !u!54 &3843080525702797220
 Rigidbody:
   m_ObjectHideFlags: 0

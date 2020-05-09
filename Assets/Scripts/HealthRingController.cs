@@ -8,7 +8,8 @@ public class HealthRingController : MonoBehaviour
     void OnTriggerEnter(Collider col){
         PlayerControler player = col.GetComponentInParent<PlayerControler>();
         if(player != null){
-            player.GetComponentInParent<HealthController>().health += health;
+            col.GetComponentInParent<HealthController>().IncreaseHeath(health);
+            gameObject.SetActive(false);
         }
     }
 }

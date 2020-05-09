@@ -5,6 +5,7 @@ using UnityEngine;
 public class AsteroidController : MonoBehaviour
 {    
     public string asteroidPrefabName;
+    public string deathParticles = "ExplosionLargeObject";
     HealthController health;
     Rigidbody rb;
     void Awake(){
@@ -36,6 +37,7 @@ public class AsteroidController : MonoBehaviour
         smallAsteroid.GetComponent<Rigidbody>().velocity = Random.insideUnitSphere;
         smallAsteroid = SpawnManager.Spawn(asteroidPrefabName, transform.position + Random.insideUnitSphere);
         smallAsteroid.GetComponent<Rigidbody>().velocity = Random.insideUnitSphere;
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
         gameObject.SetActive(false);
     }
 }

@@ -459,6 +459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lockOnOffset: {x: 0, y: 0, z: 60}
+  resetScale: {x: 10, y: 10, z: 1}
   resetParent: {fileID: 2800194431589271487}
 --- !u!1 &5269684981923380761
 GameObject:
@@ -489,7 +490,7 @@ Transform:
   m_LocalScale: {x: 800, y: 800.0003, z: 600.0001}
   m_Children: []
   m_Father: {fileID: 5716020993019448100}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!20 &7978924845083450919
 Camera:
@@ -564,8 +565,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
-  m_Father: {fileID: 5716020993019448100}
-  m_RootOrder: 2
+  m_Father: {fileID: 5716020992430707029}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1238948190651368216
 MeshFilter:
@@ -5633,6 +5634,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5805810418046892142}
+  - {fileID: 6253525395407499421}
   m_Father: {fileID: 5716020993019448100}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5671,7 +5673,6 @@ Transform:
   m_Children:
   - {fileID: 5174631649596778591}
   - {fileID: 5716020992430707029}
-  - {fileID: 6253525395407499421}
   - {fileID: 85257775150246710}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -5716,6 +5717,7 @@ MonoBehaviour:
   collisionShield: 0.5
   bombAmmo: 3
   enemyTransform: {fileID: 0}
+  minimapCam: {fileID: 0}
 --- !u!114 &2826073995892855356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5730,6 +5732,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   health: 10
+  scoreValue: 5
+  projectScore: 0
 --- !u!114 &8023269124603670139
 MonoBehaviour:
   m_ObjectHideFlags: 0

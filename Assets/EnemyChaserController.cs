@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class EnemyChaserController : MonoBehaviour
 {
+    public delegate void OnDeathCalculation();
+    public static event OnDeathCalculation onDeathCalulation = delegate{};
     public float rotationalDamp = 0.5f;
     public float speed = 30;
     public float maxFollowDistance = 30;
+    public string deathParticles = "ExplosionSmallObject";
     public Transform target;
     public FlyingModes flyingModes;
     Rigidbody rb;
@@ -20,6 +23,10 @@ public class EnemyChaserController : MonoBehaviour
     }
     void OnDisable(){
         TransitionController.onTransition -= ModeCheck;
+    }
+    void Start(){
+        HealthController health = GetComponentInParent<HealthController>();
+        health.onDeath += Explode;
     }
     void Update()
     {
@@ -68,6 +75,14 @@ public class EnemyChaserController : MonoBehaviour
                 Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
             );
         }
+    }
+
+    
+    void Explode(HealthController health){
+        ParticleManager.particleMan.Play(deathParticles, transform.position);
+        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        onDeathCalulation();
+        gameObject.SetActive(false);
     }
 
     void OnCollisionEnter(Collision col){
