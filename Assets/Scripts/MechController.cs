@@ -23,10 +23,18 @@ public class MechController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         health = GetComponent<HealthController>();
     }
-    void Start(){
+    void OnEnable(){
         health.onDeath += Explode;
     }
+
+    void OnDisable(){
+        health.onDeath -= Explode;
+    }    
     void Update(){
+        TrackPlayer();
+    }
+
+    void TrackPlayer(){
         Vector3 diff = PlayerControler.player.transform.position - transform.position;
         headOfMech.forward = Vector3.Dot(PlayerControler.player.transform.forward, transform.forward) < 0.3f ? diff.normalized : transform.forward;
         headOfMech.eulerAngles += new Vector3(-90,0,0);

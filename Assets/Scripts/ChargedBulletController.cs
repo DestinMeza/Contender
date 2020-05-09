@@ -62,7 +62,7 @@ public class ChargedBulletController : MonoBehaviour
             Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
             Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
             Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
-            );
+        );
         
     }
     public void SetDir(Transform enemy)

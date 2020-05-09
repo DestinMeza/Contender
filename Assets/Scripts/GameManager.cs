@@ -21,9 +21,9 @@ public class GameManager : MonoBehaviour
     public int ringScore = 0;
     public int hitScore = 0;
     public static GameManager game;
+    public List <GameObject> enemyObjects;
+    public GameObject[] triggerObjects;
     public GameObject AllRangeModeSpawner;
-    public GameObject enemiesParent;
-    public GameObject ringsParent;
     public GameObject gameOverSign;
     public GameObject playerUI;
     public Text ringScoreText;
@@ -45,13 +45,18 @@ public class GameManager : MonoBehaviour
     {   
         PlayerControler.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
-        enemies = enemiesParent.GetComponentsInChildren<HealthController>();
-        rings = ringsParent.GetComponentsInChildren<RingController>();
+        TransitionController.onTransition += TransitionStateChange;
         score = 0;
         ringScore = 0;
         hitScore = 0;
+        for (int i = 0; i < triggerObjects.Length; i++){
+            GameObject[] enemies = triggerObjects[i].GetComponent<TriggerAreaController>().enemys;
+            foreach(GameObject g in enemies){
+                enemyObjects.Add(g);
+            }
+        }
         gameState = GameState.GameStart;
-        TransitionController.onTransition += TransitionStateChange;
+        
     }
 
     void TransitionStateChange(FlyingModes currentState){
@@ -73,13 +78,6 @@ public class GameManager : MonoBehaviour
         }
     }
     void Setup(){
-        
-        foreach(HealthController enemy in enemies){
-            if(!enemy.gameObject.activeSelf) enemy.gameObject.SetActive(true);
-        }
-        foreach(RingController ring in rings){
-            if(!ring.gameObject.activeSelf) ring.gameObject.SetActive(true);
-        }
         gameOverSign.SetActive(false);
         score = 0;
         ringScore = 0;

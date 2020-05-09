@@ -11,14 +11,26 @@ public class TurretController : MonoBehaviour
     public Vector3 firingOffset = new Vector3(0,2,11);
     public float fireInterval = 1;
     public string deathParticles = "ExplosionSmallObject";
+
     float lastShot;
-    void Start(){
-        HealthController health = GetComponentInParent<HealthController>();
+    HealthController health;
+    
+    void Awake(){
+        health = GetComponentInParent<HealthController>();
+    }
+    void OnEnable(){
         health.onDeath += Explode;
         lastShot = Time.time;
     }
+    void OnDisable(){
+        health.onDeath += Explode;
+    }
     void Update()
     {
+        TrackPlayer();
+    }
+
+    void TrackPlayer(){
         Vector3 playerPos = PlayerControler.player.transform.position;
         Vector3 diff = playerPos - turret.transform.position;
         turret.forward = diff.normalized;

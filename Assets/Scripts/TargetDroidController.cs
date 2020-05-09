@@ -10,11 +10,14 @@ public class TargetDroidController : MonoBehaviour
     void Awake(){
         health = GetComponent<HealthController>();
     }
-    void Start()
+    void OnEnable()
     {
         health.onDeath += Explode;
     }
 
+    void OnDisable(){
+        health.onDeath -= Explode;
+    }
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);

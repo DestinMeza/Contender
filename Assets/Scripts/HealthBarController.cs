@@ -18,6 +18,10 @@ public class HealthBarController : MonoBehaviour
         ChangeHeath();
     }
 
+    void OnDisable(){
+        player.onHealthChange -= ChangeHeath;
+    }
+
     void ChangeHeath(){
         for(int i = 0; i < healthBars.Length; i++){
             healthBars[i].enabled = (i < player.health);
