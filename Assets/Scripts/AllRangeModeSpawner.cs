@@ -9,9 +9,11 @@ public class AllRangeModeSpawner : MonoBehaviour
     public string shipChasingName = "EnemyChaserRoot";
     public int maxSpawnedAtATime = 40;
     public int maxChasingShips = 1;
-    int currentNumberChasing = 0;
-    int numShips = 0;
+    public int totalForOtherShips = 15;
     public int totalDeadShips = 0;
+    public int currentNumberChasing = 0;
+    public int numShips = 0;
+    
     void Start(){
         StartCoroutine(SpawnShips());
         EnemyShipControler.onDeathCalculation += ShipDied;
@@ -23,27 +25,38 @@ public class AllRangeModeSpawner : MonoBehaviour
         EnemyChaserController.onDeathCalulation -= ChasingShipDied;
     }
     void ShipDied(){
+        totalDeadShips++;
         numShips--;
     }
     void ChasingShipDied(){
+        totalDeadShips++;
         currentNumberChasing--;
     }
     IEnumerator SpawnShips(){
         while(enabled){
-            if(numShips < maxSpawnedAtATime){
-                if(totalDeadShips >= 50 && maxChasingShips >= currentNumberChasing){
-                    SpawnManager.Spawn(shipChasingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.insideUnitSphere);
+            for(int i = numShips; i < maxSpawnedAtATime; i++){
+                Vector3 spawnPos = spawnLoc[Random.Range(0, spawnLoc.Length-1)].position;
+
+                spawnPos += new Vector3(
+                    Random.Range(spawnPos.x*-2, spawnPos.x*2), 
+                    Random.Range(spawnPos.y*-2, spawnPos.y*2), 
+                    Random.Range(spawnPos.y*-2, spawnPos.y*2)
+                );
+
+                if(totalDeadShips >= totalForOtherShips && maxChasingShips > currentNumberChasing){
+                    SpawnManager.Spawn(shipChasingName, spawnPos);
                     currentNumberChasing++;
                     numShips++;
                 }
                 else{
-                    GameObject enemyShip = SpawnManager.Spawn(shipTrainingName, spawnLoc[Random.Range(0, spawnLoc.Length-1)].position + Random.onUnitSphere);
+                    
+                    GameObject enemyShip = SpawnManager.Spawn(shipTrainingName, spawnPos);
                     enemyShip.GetComponentInParent<EnemyShipControler>().SetDir(gameObject);
                     numShips++;
                 }
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSeconds(2);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(4);
         }
     }
 }

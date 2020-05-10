@@ -20,14 +20,14 @@ public class AsteroidController : MonoBehaviour
         if(col.gameObject.GetComponentInParent<AsteroidController>()){
             Rigidbody otherAsteroid = col.gameObject.GetComponentInParent<Rigidbody>();
             if(otherAsteroid.velocity.magnitude > rb.velocity.magnitude){
-                rb.velocity = otherAsteroid.velocity.normalized - rb.velocity.normalized;
+                rb.AddForce((otherAsteroid.velocity - rb.velocity).normalized, ForceMode.Force);
             }
         }
     }
     void OnTriggerExit(Collider col){
         if(col.name == "AllRangeModeBounds"){
-            rb.velocity *= -1;
-            transform.forward *= -1;
+            rb.velocity *= -1/2;
+            transform.forward *= -1/2;
         }
     }
     void Explode(HealthController health){

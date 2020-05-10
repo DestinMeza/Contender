@@ -50,11 +50,11 @@ public class EnemyShipControler : MonoBehaviour
     void CheckObsticles(){
         Ray ray = new Ray(transform.position, rb.velocity.normalized);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 5000, obsticles, QueryTriggerInteraction.Collide)){
+        if(Physics.Raycast(ray, out hit, 500, obsticles, QueryTriggerInteraction.Collide)){
             if(hit.collider.gameObject.tag == "Solid"){
                 Transform obsticle = hit.collider.GetComponentInParent<Transform>();
                 Vector3 diff = obsticle.transform.position - transform.position;
-                Quaternion rotation = Quaternion.LookRotation(Vector3.Cross(diff, transform.right.normalized));
+                Quaternion rotation = Quaternion.LookRotation(Vector3.Cross(diff.normalized, transform.right.normalized));
                 transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
             }
         }
@@ -62,7 +62,7 @@ public class EnemyShipControler : MonoBehaviour
 
     void TurnTowardsOrigin(){
         Vector3 diff = origin.transform.position - transform.position;
-        Quaternion rotation = Quaternion.LookRotation(diff);
+        Quaternion rotation = Quaternion.LookRotation(diff.normalized);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
     }
     void OnTriggerExit(Collider col){

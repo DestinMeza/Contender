@@ -153,6 +153,8 @@ public class PlayerControler : MonoBehaviour
     }
 
     void StraightenPlayer(){
+        anim.SetFloat("xVel", 0);
+        anim.SetFloat("yVel", 0);
         transform.forward = Vector3.forward;
         targetVelocity = Vector3.forward;
         targetVelocity = Vector3.Scale(targetVelocity, speedRail);
