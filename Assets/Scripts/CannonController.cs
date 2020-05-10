@@ -7,8 +7,8 @@ public class CannonController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 aimDir = new Vector3(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical"), 0);
-        aimDir = (resetTransform.right * aimDir.x) + (resetTransform.up * aimDir.y) + resetTransform.forward;
-        transform.forward = Vector3.Lerp(resetTransform.localPosition.normalized, aimDir.normalized, aimDir.normalized.magnitude * Time.fixedDeltaTime);
+        Vector3 joyInput = new Vector3(Input.GetAxis("Horizontal"), -Input.GetAxis("Vertical"), 0);
+        Vector3 aimDirToLocalSpace = (transform.right * joyInput.x) + (transform.up * joyInput.y) + transform.forward;
+        transform.forward = Vector3.Lerp(resetTransform.transform.forward, aimDirToLocalSpace.normalized, joyInput.magnitude /4);
     }
 }

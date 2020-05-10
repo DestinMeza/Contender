@@ -5,52 +5,54 @@ using UnityEngine;
 public class LazerController : MonoBehaviour
 {
     public Transform[] explosionPositions;
-    public string particleName = "ExplosionLargeObject";
+    public string particleName = "ExplosionLazerPart";
     public float visbilityDistance = 200;
-    public GameObject lazer;
     HealthController health;
+    Animator anim;
+    bool exploding = false;
 
     void Awake(){
         health = GetComponent<HealthController>();
+        anim = GetComponent<Animator>();
     }
     void OnEnable(){
-        health.onHealthChange += FlashLazer;
+        health.onHealthDecrease += FlashLazer;
         health.onDeath += Explode;
     }
 
     void OnDisable(){
-        health.onHealthChange -= FlashLazer;
+        health.onHealthDecrease = FlashLazer;
         health.onDeath -= Explode;
     }
 
     void Update(){
         Vector3 dis = PlayerControler.player.transform.position - transform.position;
-        if(dis.magnitude > visbilityDistance){
-            lazer.SetActive(false);
+        if(dis.magnitude < visbilityDistance){
+            anim.SetTrigger("Activate");
         }
         else{
-            lazer.SetActive(true);
+            anim.ResetTrigger("Activate");
         }
     }
 
-    void FlashLazer(){
-        StopCoroutine(LazerFlash());
-        StartCoroutine(LazerFlash());
+    public void TurnOffLazer(){
+        gameObject.SetActive(false);
     }
-    IEnumerator LazerFlash(){
-        lazer.SetActive(false);
-        yield return new WaitForSeconds(1);
-        lazer.SetActive(true);
+
+    void FlashLazer(){
+        if(exploding) return;
+        anim.Play("LazerFlash");
     }
     void Explode(HealthController health){
-        health.TakeDamage(health.health);
+        if(exploding) return;
+        exploding = true;
         foreach(Transform t in explosionPositions){
             ParticleManager.particleMan.Play(particleName, t.position);
-            gameObject.SetActive(false);
+            anim.Play("LazerExplode");
         }
     }
 
     void OnCollisionEnter(Collision col){
-        Explode(health);
+        if(col.gameObject.GetComponentInParent<PlayerControler>()) Explode(health);
     }
 }

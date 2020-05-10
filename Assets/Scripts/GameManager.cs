@@ -16,21 +16,23 @@ public enum FlyingModes{
 }
 public class GameManager : MonoBehaviour
 {
+    public delegate void OnLifeChange(int lives);
+    public static OnLifeChange onLifeChange = delegate{};
     public static FlyingModes flyingModes = FlyingModes.TransitionLock;
     public int score = 0;
     public int ringScore = 0;
     public int hitScore = 0;
+    public int lives = 3;
     public static GameManager game;
     public List <GameObject> enemyObjects;
     public GameObject[] triggerObjects;
     public GameObject AllRangeModeSpawner;
     public GameObject gameOverSign;
     public GameObject playerUI;
+    public PlayerControler player;
     public Text ringScoreText;
     public Text scoreText;
     public Text hitScoreText;
-    public RingController[] rings;
-    public HealthController[] enemies;
     public GameState gameState = GameState.GameStart; 
     public Vector3 initalPos = new Vector3(0, 5, 0);
     void Awake(){
@@ -49,6 +51,8 @@ public class GameManager : MonoBehaviour
         score = 0;
         ringScore = 0;
         hitScore = 0;
+        lives = 3;
+        onLifeChange(lives);
         for (int i = 0; i < triggerObjects.Length; i++){
             GameObject[] enemies = triggerObjects[i].GetComponent<TriggerAreaController>().enemys;
             foreach(GameObject g in enemies){
@@ -56,7 +60,7 @@ public class GameManager : MonoBehaviour
             }
         }
         gameState = GameState.GameStart;
-        
+        StartCoroutine(TrackPlayerPos());
     }
 
     void TransitionStateChange(FlyingModes currentState){
@@ -79,40 +83,51 @@ public class GameManager : MonoBehaviour
     }
     void Setup(){
         gameOverSign.SetActive(false);
-        score = 0;
-        ringScore = 0;
-        hitScore = 0;
-        CameraController.cameraMain.transform.position = CameraController.cameraMain.target.position;
-        PlayerControler.player.gameObject.SetActive(true);
-        ResetPlayerPos();
-        playerUI.gameObject.SetActive(true);
         gameState = GameState.GamePlaying;
     }
 
-    void ResetPlayerPos(){
-        PlayerControler.player.transform.position = initalPos;
-        PlayerControler.player.transform.rotation = Quaternion.identity;
-        PlayerControler.player.crash = false;
-        PlayerControler.player.GetComponent<Animator>().SetBool("crashing", false);
-        PlayerControler.player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        PlayerControler.player.GetComponent<Rigidbody>().inertiaTensorRotation = Quaternion.identity;
-        PlayerControler.player.GetComponent<Rigidbody>().useGravity = false;
+    void RespawnPlayer(){
+        gameOverSign.SetActive(false);
+        player.GetComponent<HealthController>().IncreaseHeath(4);
+        playerUI.gameObject.SetActive(true);
+        player.transform.position = initalPos;
+        player.transform.rotation = Quaternion.identity;
+        player.crash = false;
+        player.GetComponent<Animator>().SetBool("crashing", false);
+        player.gameObject.SetActive(true);
+        player.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+        player.GetComponent<Rigidbody>().useGravity = false;
+        
+    }
+
+    IEnumerator TrackPlayerPos(){
+        while(enabled){
+            initalPos = player.transform.position;
+            yield return new WaitForSeconds(10);
+        }
     }
     void GameplayUpdate(){
+        if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         scoreText.text = string.Format("score: {0}", score);
         hitScoreText.text = string.Format("hit: {0}", hitScore);
         ringScoreText.text = string.Format("Rings : {0}", ringScore);
     }
 
     void GameOver(PlayerControler player){
-        gameState = GameState.GameOver;
+        this.player = player;
+        if(lives < 0){
+            gameState = GameState.GameOver;
+        }
+        else{
+            lives--;
+            onLifeChange(lives);
+            RespawnPlayer();
+        }
     }
 
     void GameOverUpdate(){
         gameOverSign.SetActive(true);
         SpawnManager.DisableAll();
-        score = 0;
-        ringScore = 0;
         playerUI.gameObject.SetActive(false);
         if(Input.GetButtonDown("Submit")){
             gameState = GameState.GameStart;
@@ -124,7 +139,6 @@ public class GameManager : MonoBehaviour
     public void IncrementRingScore(){
         ringScore++;
         score += ringScore * 5;
-        
     }
 
     void IncrementScore(int score){

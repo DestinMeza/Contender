@@ -17,7 +17,7 @@ public class PlayerControler : MonoBehaviour
         Waiting,
         Release
     }
-    public static FlyingModes flyingModes;
+    public static FlyingModes flyingModes = FlyingModes.TransitionLock;
     public LayerMask enemy;
     public ChargeFire chargeFire = ChargeFire.Release;
     public BlasterState blasterState = BlasterState.SingleFire;
@@ -108,10 +108,12 @@ public class PlayerControler : MonoBehaviour
         onCrash(this);
         onFireBomb(bombAmmo);
         health.onDeath += Crash;
+        health.onHealthDecrease += Hit;
         TransitionController.onTransition += TransitionLock;
     }
     void OnDisable(){
         health.onDeath -= Crash;
+        health.onHealthIncrease -= Hit;
         TransitionController.onTransition -= TransitionLock;
     }
     void Update(){
@@ -304,7 +306,7 @@ public class PlayerControler : MonoBehaviour
         
         if(charged && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
             Vector3 pos = crossHair.transform.position - cam.transform.position;
-            Ray lockOnRay = new Ray(cam.transform.position, pos * 10000);
+            Ray lockOnRay = new Ray(cam.transform.position, pos.normalized * 10000);
             RaycastHit hit;
             if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
                 if(hit.collider.GetComponentInParent<HealthController>()){
@@ -420,6 +422,11 @@ public class PlayerControler : MonoBehaviour
         looping = false;
         onLoop(looping);
     }
+    void Hit(){
+        if(looping || crash) return;
+        anim.Play("PlayerHit");
+        anim.Play("HitFlash");
+    }
     void OnTriggerExit(Collider col){
         if(col.name == "RingCollider"){
             AudioManager.Play("RingSound");
@@ -437,24 +444,22 @@ public class PlayerControler : MonoBehaviour
             onFireBomb(bombAmmo);
             col.gameObject.SetActive(false);
         }
-        if(col.tag == "BlasterPowerup"){
+        else if(col.tag == "BlasterPowerup"){
             if(blasterState < BlasterState.MegaFire) blasterState++;
             col.gameObject.SetActive(false);
         }
     }
     void OnCollisionEnter(Collision col){
-        rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
-
+        if(!looping || !crash){
+            rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
+        }
+        
         if(health.health <= 0){
             Crash();
         }
         else if(Time.time - lastCollisionTime > collisionShield){
             lastCollisionTime = Time.time;
             health.TakeDamage(1);
-            if(!crash || !looping){
-                anim.Play("Hit");
-                anim.Play("HitFlash");
-            }
         }
         if(crash) {
             onDeath(this);

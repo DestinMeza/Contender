@@ -14,12 +14,14 @@ public class HealthBarController : MonoBehaviour
     }
 
     void OnEnable(){
-        player.onHealthChange += ChangeHeath;
+        player.onHealthDecrease += ChangeHeath;
+        player.onHealthIncrease += ChangeHeath;
         ChangeHeath();
     }
 
     void OnDisable(){
-        player.onHealthChange -= ChangeHeath;
+        player.onHealthDecrease -= ChangeHeath;
+        player.onHealthIncrease -= ChangeHeath;
     }
 
     void ChangeHeath(){

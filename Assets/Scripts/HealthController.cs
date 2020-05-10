@@ -9,9 +9,10 @@ public class HealthController : MonoBehaviour
     public static event OnIncreaseScore onIncreaseScore = delegate{};
     public delegate void OnDeath(HealthController health);
     public OnDeath onDeath = delegate {};
-
-    public delegate void OnHealthChange();
-    public OnHealthChange onHealthChange = delegate {};
+    public delegate void OnHealthIncrease();
+    public OnHealthIncrease onHealthIncrease = delegate {};
+    public delegate void OnHealthDecrease();
+    public OnHealthDecrease onHealthDecrease = delegate {};
 
     public int maxHealth = 3;
     public int health;
@@ -20,7 +21,7 @@ public class HealthController : MonoBehaviour
 
     void OnEnable(){
         health = maxHealth;
-        onHealthChange();
+        onHealthDecrease();
     }
 
     public bool isAlive(){
@@ -31,7 +32,7 @@ public class HealthController : MonoBehaviour
     }
     public void TakeDamage(int damage){
         health -= damage;
-        onHealthChange();
+        onHealthDecrease();
         Debug.Log(gameObject.name + "Took Damage");
         if(health <= 0){
             health = 0;
@@ -42,6 +43,6 @@ public class HealthController : MonoBehaviour
 
     public void IncreaseHeath(int health){
         this.health += health;
-        onHealthChange();
+        onHealthIncrease();
     }
 }

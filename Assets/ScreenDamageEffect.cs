@@ -12,14 +12,10 @@ public class ScreenDamageEffect : MonoBehaviour
         flashEffectImage = GetComponent<Image>();
     }
     void Start(){
-        PlayerControler.player.GetComponent<HealthController>().onHealthChange += Effect;
-    }
-    void OnDisable(){
-        PlayerControler.player.GetComponent<HealthController>().onHealthChange -= Effect;
+        PlayerControler.player.GetComponent<HealthController>().onHealthDecrease += Effect;
     }
 
     void Effect(){
-        StopCoroutine(DamageFlash());
         StartCoroutine(DamageFlash());
     }
 

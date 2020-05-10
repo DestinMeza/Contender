@@ -36,7 +36,7 @@ public class CameraController : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
             if(looping){
-                transform.LookAt(PlayerControler.player.transform.position);
+                transform.LookAt(targetPos);
                 transform.position = heading.forward + allRangeOffset;
             } 
             else if(!playerCrashing){
