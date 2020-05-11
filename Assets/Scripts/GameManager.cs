@@ -60,6 +60,9 @@ public class GameManager : MonoBehaviour
                 enemyObjects.Add(g);
             }
         }
+        foreach(GameObject g in enemyObjects){
+            g.SetActive(false);
+        }
         gameState = GameState.GameStart;
         StartCoroutine(TrackPlayerPos());
     }
@@ -76,10 +79,10 @@ public class GameManager : MonoBehaviour
         if(gameState == GameState.GamePlaying)GameplayUpdate();
         if(gameState == GameState.GameOver)GameOverUpdate();
         if(flyingModes == FlyingModes.AllRange){
-            AllRangeModeSpawner.SetActive(true);
+            if(AllRangeModeSpawner.gameObject != null)AllRangeModeSpawner.SetActive(true);
         }
         else{
-            AllRangeModeSpawner.SetActive(false);
+            if(AllRangeModeSpawner.gameObject != null)AllRangeModeSpawner.SetActive(false);
         }
     }
     void Setup(){

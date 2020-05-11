@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1769669820745491170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1769669820745491171}
+  - component: {fileID: 1769669820745491172}
+  m_Layer: 0
+  m_Name: DialogManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1769669820745491171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769669820745491170}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1769669820745491172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1769669820745491170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526bf4c4b6e099f469ba010588316d96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogs:
+  - This is the Tutorial and today we will be freshing up on your ability to navigate
+    through our little training field.
+  - To BarrelRoll press RB on the controller or E on the keyboard it protects you
+    from oncoming blasters
+  - Watch those Lazers! They will fry your ship.
+  - Just up ahead are lazer turrets. Keep watch for those blasters.
+  - "To fire your blasters press or MouseLeftClick or  A on the controller. \nHold
+    down A to charge your fire for a lock on attack."
+  - Press the Spacebar on the keyboard to break or hold the LT button on a controller.
+  - To Bank while moving left or right hold LB on the Controller or hold Left Control
+    on the keyboard. It allows you to turn quicker.
+  - To do  A Loop hold both LB and RB or press Q on the Keyboard
+  - Congratulations rookie you completed the Rail Mode portion of this level. Up
+    ahead is All Range mode. Kill as many as ships as you want. Press the Menu Button
+    on the Controller to leave or the Escape Key to return to the main menu.
+  - Collect those B bomb power ups!
+  - Press B on the controller or with the Mouse Right click to fire your B Bombs.
+  - Silver and Gold Health Rings refill your HP.
+  - 'Dual Blaster Pickups double your firing output. You can collect an additional
+    one for a Mega Blaster!
+
+'
+  - Press the Menu Button on the Controller to leave or the Escape key to return
+    to the Main Menu.
+  textScrollInterval: 0.05
+  closeTextDelay: 5
+  dialogArea: {fileID: 0}
+  dialogBoxText: {fileID: 0}
+  characterNameText: {fileID: 0}
