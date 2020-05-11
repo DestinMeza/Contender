@@ -10,9 +10,15 @@ public class MenuManager : MonoBehaviour
         }
     }
     public void Tutorial(){
-        SceneManager.LoadScene("Tutorial");
+        StartCoroutine(SceneLoader("Tutorial"));
     }
     public void Quit(){
         Application.Quit();
+    }
+
+    IEnumerator SceneLoader(string sceneToLoad){
+        AudioManager.Play("ChargedBombSearchingBeep");
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

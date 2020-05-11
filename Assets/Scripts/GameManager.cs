@@ -127,11 +127,12 @@ public class GameManager : MonoBehaviour
     }
 
     void GameOverUpdate(){
+        StopCoroutine(TrackPlayerPos());
         gameOverSign.SetActive(true);
         SpawnManager.DisableAll();
         playerUI.gameObject.SetActive(false);
         if(Input.GetButtonDown("Submit")){
-            gameState = GameState.GameStart;
+            Start();
         }
         if(Input.GetButtonDown("Cancel")){
             SceneManager.LoadScene("MainMenu");
