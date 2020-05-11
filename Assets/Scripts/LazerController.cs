@@ -10,7 +10,7 @@ public class LazerController : MonoBehaviour
     HealthController health;
     Animator anim;
     bool exploding = false;
-
+    bool active = false;
     void Awake(){
         health = GetComponent<HealthController>();
         anim = GetComponent<Animator>();
@@ -29,6 +29,7 @@ public class LazerController : MonoBehaviour
         Vector3 dis = PlayerControler.player.transform.position - transform.position;
         if(dis.magnitude < visbilityDistance){
             anim.SetTrigger("Activate");
+            active = true;
         }
         else{
             anim.ResetTrigger("Activate");
@@ -41,11 +42,13 @@ public class LazerController : MonoBehaviour
 
     void FlashLazer(){
         if(exploding) return;
+        if(!active) return;
         AudioManager.Play("BlasterHit",1,1,false,transform.position,0.7f);
         anim.Play("LazerFlash");
     }
     void Explode(HealthController health){
         if(exploding) return;
+        active = false;
         exploding = true;
         AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.7f);
         foreach(Transform t in explosionPositions){

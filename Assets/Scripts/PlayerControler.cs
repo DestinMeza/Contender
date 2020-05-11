@@ -104,6 +104,8 @@ public class PlayerControler : MonoBehaviour
 
     void TransitionLock(FlyingModes transition){
         flyingModes = transition;
+        chargeFire = ChargeFire.Release;
+        anim.SetInteger("ChargeFireState", (int)chargeFire);
     }
     void OnEnable(){
         boostMeter = boostMeterMax;
@@ -154,6 +156,7 @@ public class PlayerControler : MonoBehaviour
 
         if(Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.E)){
             barrelRollParticle.Play();
+            AudioManager.Play("BarrelRoll");
             anim.Play("BarrelRoll");
             barrelRoll = true;
             onBarrelRoll(barrelRoll);
@@ -473,6 +476,7 @@ public class PlayerControler : MonoBehaviour
         }
         else if(col.tag == "BlasterPowerup"){
             if(blasterState < BlasterState.MegaFire) blasterState++;
+            AudioManager.Play("BlasterPowerUp");
             col.gameObject.SetActive(false);
         }
     }

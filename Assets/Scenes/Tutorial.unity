@@ -1463,7 +1463,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Structure3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8461585923777991838, guid: b5cceff1610e4d3418d433e8e4db3660, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b5cceff1610e4d3418d433e8e4db3660, type: 3}
 --- !u!1001 &85790967
 PrefabInstance:
@@ -14536,7 +14537,7 @@ PrefabInstance:
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
@@ -19821,7 +19822,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Structure3 (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8461585923777991838, guid: b5cceff1610e4d3418d433e8e4db3660, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b5cceff1610e4d3418d433e8e4db3660, type: 3}
 --- !u!1001 &1434540229
 PrefabInstance:
@@ -20067,6 +20069,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5011d07b78ce64f4b8e90ba35959a91d, type: 3}
   - {fileID: 8300000, guid: e5235a46b28e4ac498422190ea6b063e, type: 3}
   - {fileID: 8300000, guid: 66bf28d70b641fc4da5e9757b155414b, type: 3}
+  - {fileID: 8300000, guid: c31933d23742ff14f9733683b8b1fea5, type: 3}
   maxSources: 15
 --- !u!1001 &1446585064
 PrefabInstance:
@@ -21064,7 +21067,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -1846050845189420759, guid: f077abad2fdf14c4b8d6f6f53735c422, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f077abad2fdf14c4b8d6f6f53735c422, type: 3}
 --- !u!1 &1515065829 stripped
 GameObject:
@@ -29610,6 +29614,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7632536322175501970, guid: 84e3d95f5f8fae541abae5a7b8997e86,
+        type: 3}
+      propertyPath: m_Layer
+      value: 14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84e3d95f5f8fae541abae5a7b8997e86, type: 3}
