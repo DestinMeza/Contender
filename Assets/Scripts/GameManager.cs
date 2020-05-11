@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {   
+        Cursor.visible = false;
         PlayerControler.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
         TransitionController.onTransition += TransitionStateChange;

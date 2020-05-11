@@ -6112,6 +6112,15 @@ TrailRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1.1533182
+        outSlope: -1.1533182
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.23958331
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -6240,6 +6249,15 @@ TrailRenderer:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -1.1533182
+        outSlope: -1.1533182
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.23958331
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

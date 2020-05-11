@@ -14,7 +14,7 @@ public class MinimapIconController : MonoBehaviour
         objectBaseColors = mesh.materials;
     }
     void Start(){
-        minimapCam = PlayerControler.player.minimapCam;
+        if(PlayerControler.player != null) minimapCam = PlayerControler.player.minimapCam;
     }
     void Update()
     {   if(GetComponentsInParent<PlayerControler>() == null){
