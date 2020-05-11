@@ -74,20 +74,20 @@ public class ChargedBulletController : MonoBehaviour
     
     IEnumerator BeepTrack(){
             yield return new WaitForSeconds(lifeTime/4);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/8);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/16);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/24);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/32);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/64);
-            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
             yield return new WaitForSeconds(lifeTime/128);
             while(!exploding){
-                AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+                if(!exploding)AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
                 yield return new WaitForSeconds(0.1f);
             }
     }

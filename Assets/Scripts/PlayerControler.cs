@@ -162,7 +162,7 @@ public class PlayerControler : MonoBehaviour
             onBarrelRoll(barrelRoll);
         }
         
-        if(Input.GetButtonDown("Bank") && Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
+        if(Input.GetButton("Bank") && Input.GetButton("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
             looping = true;
             rb.velocity = Vector3.zero;
             rb.velocity = transform.forward * defaultSpeedRail.z/2;
