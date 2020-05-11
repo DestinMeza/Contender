@@ -107,6 +107,8 @@ public class PlayerControler : MonoBehaviour
         onBlasterChange(blasterState);
         onCrash(this);
         onFireBomb(bombAmmo);
+        chargeFire = ChargeFire.Release;
+        anim.SetInteger("ChargeFireState", (int)chargeFire);
         health.onDeath += Crash;
         health.onHealthDecrease += Hit;
         TransitionController.onTransition += TransitionLock;
@@ -285,14 +287,14 @@ public class PlayerControler : MonoBehaviour
                     bullet.GetComponentInParent<BulletController>().SetDir(firePosMain.forward);
                     break;
                 case BlasterState.DoubleFire:
-                    AudioManager.Play("BlasterSound");
+                    AudioManager.Play("BlasterSound2");
                     GameObject bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
                     bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
                     GameObject bullet2 = SpawnManager.Spawn(bulletPrefab, firePos2.position);
                     bullet2.GetComponentInParent<BulletController>().SetDir(firePos2.forward);
                 break;
                 case BlasterState.MegaFire:
-                    AudioManager.Play("BlasterSound");
+                    AudioManager.Play("BlasterSound2");
                     bullet1 = SpawnManager.Spawn(bulletPrefab, firePos1.position);
                     bullet1.GetComponentInParent<DamageController>().damage *= 2;
                     bullet1.GetComponentInParent<BulletController>().SetDir(firePos1.forward);
@@ -315,6 +317,7 @@ public class PlayerControler : MonoBehaviour
                     enemyTransform = hit.collider.GetComponentInParent<Transform>();
                     chargeShotPos = enemyTransform;
                     lockedOnEnemy = enemyTransform.GetComponentInParent<HealthController>().gameObject;
+                    AudioManager.Play("ChargedUpLockOnSound");
                     chargeFire = ChargeFire.Waiting;
                     anim.SetInteger("ChargeFireState", (int)chargeFire);
                 }
@@ -353,8 +356,12 @@ public class PlayerControler : MonoBehaviour
         if(lockOnCrossHairs!= null) lockOnCrossHairs.LockOnCrossHairs(lockedOnEnemy);
     }
 
-    
-
+    public void SearchingBeep(){
+        AudioManager.Play("ChargeBombSearchingBeep");
+    }
+    public void ChargingSound(){
+        AudioManager.Play("ChargeBombChargingBeep");
+    }
     // void OnDrawGizmos(){
     //     Vector3 pos = crossHair.transform.position - cam.transform.position;
     //     Ray lockOnRay = new Ray(cam.transform.position, pos);
@@ -426,6 +433,7 @@ public class PlayerControler : MonoBehaviour
     }
     void Hit(){
         if(looping || crash) return;
+        AudioManager.Play("BlasterHit");
         anim.Play("PlayerHit");
         anim.Play("HitFlash");
     }
@@ -443,6 +451,7 @@ public class PlayerControler : MonoBehaviour
     void OnTriggerEnter(Collider col){
         if(col.tag == "BombPowerup"){
             bombAmmo++;
+            AudioManager.Play("BombPickUp");
             onFireBomb(bombAmmo);
             col.gameObject.SetActive(false);
         }
@@ -462,6 +471,7 @@ public class PlayerControler : MonoBehaviour
         else if(Time.time - lastCollisionTime > collisionShield){
             lastCollisionTime = Time.time;
             health.TakeDamage(1);
+            AudioManager.Play("ObjectHit",1,1,false,transform.position,0.9f);
         }
         if(crash) {
             onDeath(this);

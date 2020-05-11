@@ -20,6 +20,7 @@ public class AsteroidController : MonoBehaviour
         if(col.gameObject.GetComponentInParent<AsteroidController>()){
             Rigidbody otherAsteroid = col.gameObject.GetComponentInParent<Rigidbody>();
             if(otherAsteroid.velocity.magnitude > rb.velocity.magnitude){
+                AudioManager.Play("ObjectHit",1,1,false,transform.position,0.9f);
                 rb.AddForce((otherAsteroid.velocity - rb.velocity).normalized, ForceMode.Force);
             }
         }
@@ -31,6 +32,7 @@ public class AsteroidController : MonoBehaviour
         }
     }
     void Explode(HealthController health){
+        AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.7f);
         GameObject smallAsteroid = SpawnManager.Spawn(asteroidPrefabName, transform.position + Random.insideUnitSphere);
         smallAsteroid.GetComponent<Rigidbody>().velocity = Random.insideUnitSphere;
         smallAsteroid = SpawnManager.Spawn(asteroidPrefabName, transform.position + Random.insideUnitSphere);

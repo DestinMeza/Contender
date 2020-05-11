@@ -41,11 +41,13 @@ public class LazerController : MonoBehaviour
 
     void FlashLazer(){
         if(exploding) return;
+        AudioManager.Play("BlasterHit",1,1,false,transform.position,0.7f);
         anim.Play("LazerFlash");
     }
     void Explode(HealthController health){
         if(exploding) return;
         exploding = true;
+        AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.7f);
         foreach(Transform t in explosionPositions){
             ParticleManager.particleMan.Play(particleName, t.position);
             anim.Play("LazerExplode");

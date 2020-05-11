@@ -48,6 +48,7 @@ public class BBombController : MonoBehaviour
         Explode();
     }
     IEnumerator ExplodeEffect(){
+        AudioManager.Play("ObjectHit");
         anim.Play("BombExplosion");
         for(float t = 0; t < duration; t += Time.deltaTime){
             explosionSphere.GetComponent<Renderer>().material.SetColor("_Color", Color.Lerp(color1, color2, t));

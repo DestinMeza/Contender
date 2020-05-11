@@ -47,6 +47,7 @@ public class DialogManager : MonoBehaviour
 
         foreach (char letter in dialogs[i])
         {
+            AudioManager.Play("TypingSound" + Random.Range(1,3));
             sentence += letter;
             characterNameText.text = characterName;
             dialogBoxText.text = string.Format("{0}", sentence);

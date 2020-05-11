@@ -33,12 +33,14 @@ public class BulletController : MonoBehaviour
     }
     void OnTriggerEnter(Collider col){
         if(col.gameObject.tag == "Solid"){
+            AudioManager.Play("BlasterHit",1,1,false,transform.position,0.9f);
             ParticleManager.particleMan.Play(nameOfParticle, transform.position);
             gameObject.SetActive(false);
         }
     }
     void OnCollisionEnter(Collision col){
         if(col.gameObject.tag == "Solid"){
+            AudioManager.Play("ObjectHit",1,1,false,transform.position,0.9f);
             ParticleManager.particleMan.Play(nameOfParticle, transform.position);
             gameObject.SetActive(false);
         }

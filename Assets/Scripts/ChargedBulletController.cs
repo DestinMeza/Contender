@@ -22,6 +22,7 @@ public class ChargedBulletController : MonoBehaviour
         exploding = false;
         anim.Play("ChargedBullet");
         StartCoroutine(LifeTime());
+        StartCoroutine(BeepTrack());
     }
     public void SetDir(Transform enemy, float lifeTime)
     {
@@ -52,6 +53,7 @@ public class ChargedBulletController : MonoBehaviour
             rb.AddForce(dir.normalized * speed, ForceMode.Impulse);
             if(dir.magnitude < minimalTrackDist){
                 StopCoroutine(LifeTime());
+                StopCoroutine(BeepTrack());
                 rb.velocity = Vector3.zero;
                 exploding = true;
                 anim.Play("ChargedExplosion");
@@ -70,9 +72,30 @@ public class ChargedBulletController : MonoBehaviour
         SetDir(enemy, lifeTime);
     }
     
+    IEnumerator BeepTrack(){
+            yield return new WaitForSeconds(lifeTime/4);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/8);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/16);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/24);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/32);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/64);
+            AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+            yield return new WaitForSeconds(lifeTime/128);
+            while(!exploding){
+                AudioManager.Play("ChargeBombTrackingBeep",1,1,false,transform.position,0.8f);
+                yield return new WaitForSeconds(0.1f);
+            }
+    }
     IEnumerator LifeTime(){
         yield return new WaitForSeconds(lifeTime);
+        StopCoroutine(BeepTrack());
         exploding = true;
+        AudioManager.Play("ObjectHit");
         anim.Play("ChargedExplosion");
         ParticleManager.particleMan.Play(nameOfParticle, transform.position);
     }
