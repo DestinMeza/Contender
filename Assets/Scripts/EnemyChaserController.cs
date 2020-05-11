@@ -6,6 +6,12 @@ public class EnemyChaserController : MonoBehaviour
 {
     public delegate void OnDeathCalculation();
     public static event OnDeathCalculation onDeathCalulation = delegate{};
+    public enum RailState {
+        FollowPlayer,
+        KitePlayer,
+        Leave
+    }
+    public RailState railState;
     public float rotationalDamp = 0.5f;
     public float speed = 30;
     public float firingDelay = 1;
@@ -16,6 +22,7 @@ public class EnemyChaserController : MonoBehaviour
     public Transform firingPos1;
     public Transform firingPos2;
     public Transform target;
+    public Vector3 railKiteOffset = new Vector3(0,0,20);
     public FlyingModes flyingModes;
     Rigidbody rb;
     float lastShotTime = 0;
@@ -25,7 +32,6 @@ public class EnemyChaserController : MonoBehaviour
 
     void OnEnable(){
         flyingModes = GameManager.flyingModes;
-        target = GameManager.game.player.transform;
         TransitionController.onTransition += ModeCheck;
     }
     void OnDisable(){
@@ -44,6 +50,7 @@ public class EnemyChaserController : MonoBehaviour
         }
         else if(flyingModes == FlyingModes.Rail){
             MoveRail();
+            CheckObsticles();
         }
     }
 
@@ -70,19 +77,38 @@ public class EnemyChaserController : MonoBehaviour
 
     void MoveRail(){
         Vector3 diff = target.position - transform.position;
-        transform.forward = diff.normalized;
-        Vector3 steeringDir = transform.forward;
-        if(diff.magnitude < maxFollowDistance){
-            rb.AddForce(steeringDir.normalized * speed/2 * -1, ForceMode.VelocityChange);
+
+        if(railState != RailState.Leave){
+            transform.forward = diff.normalized;
+            Vector3 steeringDir = transform.forward;
+            if(railState == RailState.KitePlayer){
+                steeringDir = transform.forward + railKiteOffset;
+            }
+            if(diff.magnitude < maxFollowDistance){
+                if(Input.GetButtonDown("Bank") && Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
+                    railState = RailState.Leave;
+                }
+                rb.AddForce(steeringDir.normalized * speed/2 * -1, ForceMode.VelocityChange);
+            }
+            else{
+                rb.AddForce(steeringDir.normalized * speed, ForceMode.VelocityChange);
+                rb.velocity = new Vector3(
+                    Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
+                    Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
+                    Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
+                );
+            }
         }
         else{
-            rb.AddForce(steeringDir.normalized * speed, ForceMode.VelocityChange);
-            rb.velocity = new Vector3(
-                Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
-                Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
-                Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
+            rb.AddForce(((transform.forward * speed) + transform.up/2).normalized, ForceMode.VelocityChange);
+                rb.velocity = new Vector3(
+                    Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
+                    Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
+                    Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
             );
         }
+        
+        
     }
 
     void CheckObsticles(){
