@@ -56,6 +56,7 @@ public class MechController : MonoBehaviour
             GameObject bullet2 = SpawnManager.Spawn(enemyBulletPrefab, firingPos2.position);
             bullet2.GetComponentInParent<BulletController>().SetDir(dir.normalized);
             fireIndex++;
+            AudioManager.Play("BlasterSound2",1,1,false,transform.position,0.9f);
         }
     }
     void Explode(HealthController health){

@@ -18,8 +18,10 @@ public class HealthController : MonoBehaviour
     public int health;
     public int scoreValue = 5;
     public bool projectScore = false;
+    bool invulnerble = false;
 
     void OnEnable(){
+        if(GetComponent<PlayerControler>()) PlayerControler.onBarrelRoll += Invulnerble;
         health = maxHealth;
         onHealthDecrease();
     }
@@ -31,6 +33,7 @@ public class HealthController : MonoBehaviour
         return health;
     }
     public void TakeDamage(int damage){
+        if(invulnerble) return;
         health -= damage;
         onHealthDecrease();
         Debug.Log(gameObject.name + "Took Damage");
@@ -44,5 +47,9 @@ public class HealthController : MonoBehaviour
     public void IncreaseHeath(int health){
         this.health += health;
         onHealthIncrease();
+    }
+
+    void Invulnerble(bool invulnerble){
+        this.invulnerble = invulnerble;
     }
 }

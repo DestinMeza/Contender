@@ -105,6 +105,7 @@ public class EnemyChaserController : MonoBehaviour
 
     void Fire(){
         if(Time.time - lastShotTime > firingDelay){
+            AudioManager.Play("BlasterSound2",1,1,false,transform.position,0.9f);
             BulletController bullet = SpawnManager.Spawn(enemyBulletPrefab, firingPos1.position).GetComponent<BulletController>();
             bullet.SetDir(firingPos1.forward);
             bullet = SpawnManager.Spawn(enemyBulletPrefab, firingPos2.position).GetComponent<BulletController>();

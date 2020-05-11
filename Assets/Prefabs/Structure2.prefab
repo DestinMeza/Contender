@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9040094113275066413}
   - component: {fileID: 8626748399745935603}
   - component: {fileID: 6252234013481443856}
-  - component: {fileID: 1715744252634759028}
   m_Layer: 0
   m_Name: Cylinder (2)
   m_TagString: Solid
@@ -80,20 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &1715744252634759028
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247049600523196365}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &4200766057673999742
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +262,6 @@ GameObject:
   - component: {fileID: 3060597370287372419}
   - component: {fileID: 5991867450458767833}
   - component: {fileID: 5522187891727815830}
-  - component: {fileID: 6716155065915510212}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Solid
@@ -346,20 +330,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &6716155065915510212
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4610429069854804973}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &5679627422932687018
 GameObject:
   m_ObjectHideFlags: 0
@@ -557,7 +527,6 @@ GameObject:
   - component: {fileID: 2777495092512156805}
   - component: {fileID: 2268989795788851623}
   - component: {fileID: 7143708050051408826}
-  - component: {fileID: 2986668064818615423}
   m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Solid
@@ -626,20 +595,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &2986668064818615423
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313283396773216611}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &9171589193613190279
 GameObject:
   m_ObjectHideFlags: 0

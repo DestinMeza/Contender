@@ -14,6 +14,7 @@ public class BombCountController : MonoBehaviour
     }
     void OnEnable(){
         PlayerControler.onFireBomb += SetBombCount;
+        SetBombCount(PlayerControler.player.bombAmmo);
     }
 
     void OnDisable(){

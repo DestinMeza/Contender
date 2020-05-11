@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {   
+        playerUI.SetActive(false);
         Cursor.visible = false;
         PlayerControler.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
@@ -53,7 +54,6 @@ public class GameManager : MonoBehaviour
         ringScore = 0;
         hitScore = 0;
         lives = 3;
-        onLifeChange(lives);
         for (int i = 0; i < triggerObjects.Length; i++){
             GameObject[] enemies = triggerObjects[i].GetComponent<TriggerAreaController>().enemys;
             foreach(GameObject g in enemies){
@@ -90,7 +90,6 @@ public class GameManager : MonoBehaviour
     void RespawnPlayer(){
         gameOverSign.SetActive(false);
         player.GetComponent<HealthController>().IncreaseHeath(4);
-        playerUI.gameObject.SetActive(true);
         player.transform.position = initalPos;
         player.transform.rotation = Quaternion.identity;
         player.crash = false;
@@ -109,6 +108,7 @@ public class GameManager : MonoBehaviour
     }
     void GameplayUpdate(){
         if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
+        if(flyingModes != FlyingModes.TransitionLock && !player.crash) playerUI.SetActive(true);
         scoreText.text = string.Format("score: {0}", score);
         hitScoreText.text = string.Format("hit: {0}", hitScore);
         ringScoreText.text = string.Format("Rings : {0}", ringScore);

@@ -21,6 +21,8 @@ public class PlayerControler : MonoBehaviour
     public LayerMask enemy;
     public ChargeFire chargeFire = ChargeFire.Release;
     public BlasterState blasterState = BlasterState.SingleFire;
+    public delegate void OnBarrelRoll(bool barrelRoll);
+    public static event OnBarrelRoll onBarrelRoll = delegate{};
     public delegate void OnLoop(bool looping);
     public static event OnLoop onLoop = delegate{};
     public delegate void OnBlasterChange(BlasterState blaster);
@@ -44,6 +46,7 @@ public class PlayerControler : MonoBehaviour
     public string bulletPrefab;
     public string bombPrefab;
     public string chargedBulletPrefab;
+    public ParticleSystem barrelRollParticle;
     public GameObject lockedOnEnemy;
     public GameObject crossHair;
     public LockOnCrossHairController lockOnCrossHairs;
@@ -64,6 +67,7 @@ public class PlayerControler : MonoBehaviour
     bool looping = false;
     bool breaking = false;
     bool charged = false;
+    bool barrelRoll = false;
     public Transform enemyTransform;
     HealthController health;
     BulletController[] bullets;
@@ -135,18 +139,27 @@ public class PlayerControler : MonoBehaviour
             StraightenPlayer();
             return;
         }
-        if(Input.GetButtonDown("Fire2")){
-            FireBomb();
-            onFireBomb(bombAmmo);
+        if(!barrelRoll){
+            if(Input.GetButtonDown("Fire2")){
+                FireBomb();
+                onFireBomb(bombAmmo);
+            }
+            Fire();
         }
-        Fire();
+        
         if(looping) return;
         ClampPosition();
         if(flyingModes == FlyingModes.Rail)RailMovement();
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
 
+        if(Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.E)){
+            barrelRollParticle.Play();
+            anim.Play("BarrelRoll");
+            barrelRoll = true;
+            onBarrelRoll(barrelRoll);
+        }
         
-        if(Input.GetAxis("Boost") > 0.5f && Input.GetAxis("Break") > 0.5f){
+        if(Input.GetButtonDown("Bank") && Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
             looping = true;
             rb.velocity = Vector3.zero;
             rb.velocity = transform.forward * defaultSpeedRail.z/2;
@@ -216,7 +229,7 @@ public class PlayerControler : MonoBehaviour
         }
         onBoost();
 
-        if(breakAxis > 0.3f || Input.GetKey(KeyCode.B)){
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
             speedRail.z = defaultSpeedRail.z * 0.5f;
             breaking = true;
         }
@@ -257,7 +270,7 @@ public class PlayerControler : MonoBehaviour
         }
         onBoost();
 
-        if(breakAxis > 0.3f || Input.GetKey(KeyCode.B)){
+        if(breakAxis > 0.3f || Input.GetKey(KeyCode.Space)){
             speedAllRange.z = defaultSpeedAllRange.z * 0.5f;
             breaking = true;
         }
@@ -355,7 +368,10 @@ public class PlayerControler : MonoBehaviour
         }
         if(lockOnCrossHairs!= null) lockOnCrossHairs.LockOnCrossHairs(lockedOnEnemy);
     }
-
+    void EndBarrelRoll(){
+        barrelRoll = false;
+        onBarrelRoll(barrelRoll);
+    }
     public void SearchingBeep(){
         AudioManager.Play("ChargeBombSearchingBeep");
     }

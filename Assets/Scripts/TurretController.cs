@@ -50,6 +50,7 @@ public class TurretController : MonoBehaviour
             lastShot = Time.time;
             GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, turretFirePos.position);
             bullet.GetComponentInParent<BulletController>().SetDir(dir);
+            AudioManager.Play("BlasterSound",1,1,false,transform.position,0.9f);
         }
     }
 }
