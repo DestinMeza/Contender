@@ -17,8 +17,8 @@ public class MenuManager : MonoBehaviour
     }
 
     IEnumerator SceneLoader(string sceneToLoad){
-        AudioManager.Play("ChargedBombSearchingBeep");
-        yield return new WaitForSeconds(1);
+        AudioManager.Play("LifeUp");
+        yield return new WaitForSeconds(0.5f);
         SceneManager.LoadScene(sceneToLoad);
     }
 }
