@@ -64,8 +64,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3efb4607d5d3b95489524bf228aad47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationState: 1
+  shipPos: {fileID: 4937989495943271845}
+  firingPos1: {fileID: 4301389704386308557}
+  animationState: 2
   anim: {fileID: 3701012571250976352}
+  enemyBulletPrefab: EnemyBullet
+  deathParticles: ExplosionSmallObject
 --- !u!1001 &3701012571462662494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -138,6 +142,12 @@ PrefabInstance:
 --- !u!4 &4937989495943271845 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8636743119616240891, guid: 3d64f2922bb251344ad46b5ae70827a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 3701012571462662494}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &4301389704386308557 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 643232402671308947, guid: 3d64f2922bb251344ad46b5ae70827a0,
     type: 3}
   m_PrefabInstance: {fileID: 3701012571462662494}
   m_PrefabAsset: {fileID: 0}

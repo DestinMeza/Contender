@@ -12,12 +12,14 @@ public class EnemyShipAnimatorController : MonoBehaviour
         MissionAnim1
     }
 
-    public string deathParticles = "ExplosionSmallObject";
+    public Transform shipPos;
+    public Transform firingPos1;
     public AnimationState animationState = AnimationState.Idel;
     public Animator anim;
-
+    public string enemyBulletPrefab = "EnemyBullet";
+    public string deathParticles = "ExplosionSmallObject";
     void OnEnable(){
-        GetComponent<HealthController>().onDeath += Explode;
+        GetComponentInChildren<HealthController>().onDeath += Explode;
         anim.SetInteger("AnimationState", (int)animationState);
     }
 
@@ -25,9 +27,14 @@ public class EnemyShipAnimatorController : MonoBehaviour
         animationState = AnimationState.Idel;
     }
 
+    void Fire(){
+        GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, firingPos1.position);
+        bullet.GetComponentInParent<BulletController>().SetDir(shipPos.forward.normalized);
+        AudioManager.Play("BlasterSound",1,1,false,shipPos.position,0.9f);
+    }
     void Explode(HealthController health){
-        ParticleManager.particleMan.Play(deathParticles, transform.position);
-        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        ParticleManager.particleMan.Play(deathParticles, shipPos.position);
+        AudioManager.Play("SmallObjectExplosion",1,1,false,shipPos.position,0.8f);
         onDeathCalculation();
         gameObject.SetActive(false);
     }
