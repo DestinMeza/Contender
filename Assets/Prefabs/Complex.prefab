@@ -257,6 +257,16 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Solid
       objectReference: {fileID: 0}
+    - target: {fileID: 2839293775830992058, guid: f077abad2fdf14c4b8d6f6f53735c422,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2839293775830992058, guid: f077abad2fdf14c4b8d6f6f53735c422,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.03
+      objectReference: {fileID: 0}
     - target: {fileID: 3417401494826096222, guid: f077abad2fdf14c4b8d6f6f53735c422,
         type: 3}
       propertyPath: m_TagString
@@ -352,6 +362,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5588029611395335608}
     m_Modifications:
+    - target: {fileID: 1119721502248860956, guid: f077abad2fdf14c4b8d6f6f53735c422,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119721502248860956, guid: f077abad2fdf14c4b8d6f6f53735c422,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 2342976901405243683, guid: f077abad2fdf14c4b8d6f6f53735c422,
         type: 3}
       propertyPath: m_TagString

@@ -4860,7 +4860,6 @@ GameObject:
   - component: {fileID: 8330319385359729688}
   - component: {fileID: 9215951692937696184}
   - component: {fileID: 2769026074185843802}
-  - component: {fileID: 8577949439776065819}
   - component: {fileID: 2614184933470234731}
   m_Layer: 14
   m_Name: MiniMapIcon
@@ -4932,19 +4931,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8577949439776065819
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3757058518752634727}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2614184933470234731
 MonoBehaviour:
   m_ObjectHideFlags: 0

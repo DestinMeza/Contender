@@ -69,7 +69,7 @@ MonoBehaviour:
   nameOfParticle: 
   speed: 100
   bulletLifetime: 5
-  lifeTime: 5
+  lifeTime: 2.5
   minimalTrackDist: 2
 --- !u!95 &806285352398832047
 Animator:

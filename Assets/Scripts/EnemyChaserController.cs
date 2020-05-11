@@ -100,7 +100,7 @@ public class EnemyChaserController : MonoBehaviour
             }
         }
         else{
-            rb.AddForce(((transform.forward * speed) + transform.up/2).normalized, ForceMode.VelocityChange);
+            rb.AddForce(((target.forward * speed) + transform.up/2).normalized, ForceMode.VelocityChange);
                 rb.velocity = new Vector3(
                     Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
                     Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
@@ -148,7 +148,7 @@ public class EnemyChaserController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col){
-        rb.AddForce(transform.forward.normalized + transform.up, ForceMode.Impulse);
+        GetComponent<HealthController>().TakeDamage(3);
     }
     void ModeCheck(FlyingModes currentState){
         flyingModes = currentState;
