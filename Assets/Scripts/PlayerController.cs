@@ -164,9 +164,13 @@ public class PlayerController : MonoBehaviour
         
         if(Input.GetButton("Bank") && Input.GetButton("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
             looping = true;
+            onLoop(looping);
             rb.velocity = Vector3.zero;
             rb.velocity = transform.forward * defaultSpeedRail.z/2;
-            anim.Play("PlayerLoop");
+            if(flyingModes == FlyingModes.Rail) anim.Play("PlayerLoop");
+            else if(flyingModes == FlyingModes.AllRange){ 
+                anim.Play("PlayerLoop2");
+            }
         }
     }
 

@@ -1890,6 +1890,12 @@ Transform:
   m_Father: {fileID: 169424541}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!4 &124125711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5805810418046892142, guid: e2d07458f924f0f40a76e308e6bee7ba,
+    type: 3}
+  m_PrefabInstance: {fileID: 2075342184}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &125989267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5716020992430707029, guid: e2d07458f924f0f40a76e308e6bee7ba,
@@ -24795,6 +24801,11 @@ PrefabInstance:
       propertyPath: heading
       value: 
       objectReference: {fileID: 125989267}
+    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: playerShip
+      value: 
+      objectReference: {fileID: 124125711}
     - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
       propertyPath: m_ShowCustomSorter

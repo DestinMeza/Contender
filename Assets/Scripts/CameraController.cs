@@ -36,10 +36,15 @@ public class CameraController : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
             if(looping){
-                transform.LookAt(targetPos);
-                transform.position = heading.forward + allRangeOffset;
+                transform.LookAt(heading.position);
+                transform.position = Vector3.SmoothDamp(
+                        transform.position,
+                        heading.position + railOffset,
+                        ref velocity,
+                        smoothTime + 0.2f
+                    );
             } 
-            else if(!playerCrashing){
+            else if(!playerCrashing || !looping){
                 if(PlayerController.flyingModes == FlyingModes.Rail){
                     pos.y = Mathf.Clamp(transform.position.y, 0, 58);
                     pos.x = Mathf.Clamp(transform.position.x, -30, 30);
@@ -81,7 +86,6 @@ public class CameraController : MonoBehaviour
                 transform.LookAt(PlayerController.player.transform.position);
             }
         }
-    
         else{
             transform.position = target.position + railOffset;
         }

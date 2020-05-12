@@ -16,7 +16,7 @@ public class SmallAsteroidController : MonoBehaviour
         health.onDeath += Explode;
     }
     void Explode(HealthController health){
-        AudioManager.Play("SmallObjectExplosion");
+        AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.7f);
         ParticleManager.particleMan.Play(deathParticles, transform.position);
         gameObject.SetActive(false);
     }
