@@ -37,9 +37,10 @@ public class CameraController : MonoBehaviour
             Vector3 pos = transform.position;
             if(looping){
                 transform.LookAt(heading.position);
+                Vector3 targetOrientation = heading.position + heading.right * railOffset.x + heading.up * railOffset.y + heading.forward * railOffset.z;
                 transform.position = Vector3.SmoothDamp(
                         transform.position,
-                        heading.position + railOffset,
+                        targetOrientation,
                         ref velocity,
                         smoothTime + 0.2f
                     );

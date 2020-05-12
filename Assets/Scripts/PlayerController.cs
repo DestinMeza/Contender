@@ -449,10 +449,12 @@ public class PlayerController : MonoBehaviour
         onCrash(this);
     }
     public void LoopAllRange(){
-        if(flyingModes == FlyingModes.AllRange)
-        transform.forward *= -1;
         looping = false;
         onLoop(looping);
+        if(flyingModes == FlyingModes.AllRange){
+            transform.forward *= -1;
+            rb.velocity *= -1;
+        }
     }
     void Hit(){
         if(looping || crash) return;
@@ -468,7 +470,7 @@ public class PlayerController : MonoBehaviour
         }
         if(col.name == "AllRangeModeBounds"){
             looping = true;
-            anim.Play("PlayerLoop");
+            anim.Play("PlayerLoop2");
         }
     }
     void OnTriggerEnter(Collider col){
@@ -485,7 +487,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        if(!looping || !crash){
+        if(!looping && !crash){
             rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
         }
         
