@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MechController : MonoBehaviour
 {
+    public delegate void OnDeathCalculation(Vector3 position);
+    public static event OnDeathCalculation onDeathCalculation = delegate {};
     public Transform headOfMech;
     public Transform firingPos1;
     public Transform firingPos2;
@@ -35,8 +37,8 @@ public class MechController : MonoBehaviour
     }
 
     void TrackPlayer(){
-        Vector3 diff = PlayerControler.player.transform.position - transform.position;
-        headOfMech.forward = Vector3.Dot(PlayerControler.player.transform.forward, transform.forward) < 0.3f ? diff.normalized : transform.forward;
+        Vector3 diff = PlayerController.player.transform.position - transform.position;
+        headOfMech.forward = Vector3.Dot(PlayerController.player.transform.forward, transform.forward) < 0.3f ? diff.normalized : transform.forward;
         headOfMech.eulerAngles += new Vector3(-90,0,0);
         if(diff.magnitude < firingDistance && Vector3.Dot(diff.normalized, transform.forward) > 0){
             Fire(diff + firingOffset);
@@ -62,6 +64,7 @@ public class MechController : MonoBehaviour
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
+        onDeathCalculation(transform.position);
         gameObject.SetActive(false);
     }
     public void MoveForward(){

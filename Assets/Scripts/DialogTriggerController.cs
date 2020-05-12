@@ -10,6 +10,6 @@ public class DialogTriggerController : MonoBehaviour
     public string characterName = "Jim Bob";
 
     void OnTriggerEnter(Collider col){
-        if(col.GetComponentInParent<PlayerControler>()) onTriggerSet(indexOfDialog, characterName);
+        if(col.GetComponentInParent<PlayerController>()) onTriggerSet(indexOfDialog, characterName);
     }
 }

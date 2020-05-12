@@ -12,11 +12,11 @@ public class BoostBarController : MonoBehaviour
     }
 
     void Start(){
-        PlayerControler.onBoost += BoostBarChange;
+        PlayerController.onBoost += BoostBarChange;
     }
     void BoostBarChange(){
         if(image != null){
-            image.fillAmount = (float)PlayerControler.player.boostMeter/(float)PlayerControler.player.boostMeterMax;
+            image.fillAmount = (float)PlayerController.player.boostMeter/(float)PlayerController.player.boostMeterMax;
             slider.value = image.fillAmount;
         }
     }

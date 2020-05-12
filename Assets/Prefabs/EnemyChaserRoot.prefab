@@ -148,6 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e010564729f71c4dab04435ef7ddb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  railState: 0
   rotationalDamp: 0.5
   speed: 30
   firingDelay: 1
@@ -160,6 +161,7 @@ MonoBehaviour:
   firingPos1: {fileID: 1034178675148245876}
   firingPos2: {fileID: 6403182348629350025}
   target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}
+  railKiteOffset: {x: 0, y: 0, z: 20}
   flyingModes: 0
 --- !u!114 &350149749670984657
 MonoBehaviour:

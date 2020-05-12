@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnLifeChange(int lives);
     public static OnLifeChange onLifeChange = delegate{};
     public static FlyingModes flyingModes = FlyingModes.TransitionLock;
+    public string[] pickupNames;
     public int score = 0;
     public int ringScore = 0;
     public int hitScore = 0;
@@ -29,7 +30,7 @@ public class GameManager : MonoBehaviour
     public GameObject AllRangeModeSpawner;
     public GameObject gameOverSign;
     public GameObject playerUI;
-    public PlayerControler player;
+    public PlayerController player;
     public Text ringScoreText;
     public Text scoreText;
     public Text hitScoreText;
@@ -47,9 +48,13 @@ public class GameManager : MonoBehaviour
     {   
         playerUI.SetActive(false);
         Cursor.visible = false;
-        PlayerControler.onDeath += GameOver;
+        PlayerController.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
         TransitionController.onTransition += TransitionStateChange;
+        EnemyShipController.onDeathCalculation += DeathReward;
+        EnemyChaserController.onDeathCalculation += DeathReward;
+        MechController.onDeathCalculation += DeathReward;
+        MechController.onDeathCalculation += DeathReward;
         score = 0;
         ringScore = 0;
         hitScore = 0;
@@ -79,10 +84,10 @@ public class GameManager : MonoBehaviour
         if(gameState == GameState.GamePlaying)GameplayUpdate();
         if(gameState == GameState.GameOver)GameOverUpdate();
         if(flyingModes == FlyingModes.AllRange){
-            if(AllRangeModeSpawner.gameObject != null)AllRangeModeSpawner.SetActive(true);
+            if(AllRangeModeSpawner.gameObject != null) AllRangeModeSpawner.SetActive(true);
         }
         else{
-            if(AllRangeModeSpawner.gameObject != null)AllRangeModeSpawner.SetActive(false);
+            if(AllRangeModeSpawner.gameObject != null) AllRangeModeSpawner.SetActive(false);
         }
     }
     void Setup(){
@@ -103,6 +108,11 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void DeathReward(Vector3 deathPos){
+        string spawnName = pickupNames[Random.Range(0, pickupNames.Length)];
+        SpawnManager.Spawn(spawnName, deathPos);
+    }
+
     IEnumerator TrackPlayerPos(){
         while(enabled){
             initalPos = player.transform.position;
@@ -117,7 +127,7 @@ public class GameManager : MonoBehaviour
         ringScoreText.text = string.Format("Rings : {0}", ringScore);
     }
 
-    void GameOver(PlayerControler player){
+    void GameOver(PlayerController player){
         this.player = player;
         if(lives < 0){
             gameState = GameState.GameOver;

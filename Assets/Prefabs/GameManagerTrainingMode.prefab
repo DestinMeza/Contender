@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8633039159812698704}
   - component: {fileID: 8633039159812698705}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: GameManagerTrainingMode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 269a07cfce8dcb24d9289d186de1f3a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupNames:
+  - BombPickup
+  - GoldHealthRingRoot
+  - SilverHealthRingRoot
+  - SilverHealthRingRoot
+  - SilverHealthRingRoot
+  - 
+  - 
+  - 
+  - 
+  - 
   score: 0
   ringScore: 0
   hitScore: 0

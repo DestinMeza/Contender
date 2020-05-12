@@ -26,8 +26,8 @@ public class CameraController : MonoBehaviour
     }
 
     void Start(){
-        PlayerControler.onCrash += Crash;
-        PlayerControler.onLoop += DoingALoop;
+        PlayerController.onCrash += Crash;
+        PlayerController.onLoop += DoingALoop;
     }
     void FixedUpdate(){
         if(target == null) return;
@@ -40,7 +40,7 @@ public class CameraController : MonoBehaviour
                 transform.position = heading.forward + allRangeOffset;
             } 
             else if(!playerCrashing){
-                if(PlayerControler.flyingModes == FlyingModes.Rail){
+                if(PlayerController.flyingModes == FlyingModes.Rail){
                     pos.y = Mathf.Clamp(transform.position.y, 0, 58);
                     pos.x = Mathf.Clamp(transform.position.x, -30, 30);
                     transform.position = Vector3.SmoothDamp(
@@ -51,7 +51,7 @@ public class CameraController : MonoBehaviour
                     );
                     transform.eulerAngles = transform.forward;
                 }
-                if(PlayerControler.flyingModes == FlyingModes.AllRange){
+                if(PlayerController.flyingModes == FlyingModes.AllRange){
                     Vector3 targetOrientation = target.position + target.right * allRangeOffset.x + target.up * allRangeOffset.y + target.forward * allRangeOffset.z;
                     transform.position = Vector3.SmoothDamp(
                         pos,
@@ -62,14 +62,14 @@ public class CameraController : MonoBehaviour
                     Quaternion look = Quaternion.LookRotation(target.position-transform.position, Vector3.up);
                     transform.rotation = Quaternion.Slerp(transform.rotation, look, 0.5f);
                 }
-                if(PlayerControler.flyingModes == FlyingModes.TransitionLock){
+                if(PlayerController.flyingModes == FlyingModes.TransitionLock){
                     Vector3 camLocTran = targetPos;
                     camLocTran.z += -8;
                     camLocTran.x += 7;
                     camLocTran.y += 2;
 
                     transform.position = camLocTran;
-                    transform.LookAt(PlayerControler.player.transform.position);
+                    transform.LookAt(PlayerController.player.transform.position);
                 }
             }
             else{
@@ -78,7 +78,7 @@ public class CameraController : MonoBehaviour
                 camLocCrash.z += 40;
                 camLocCrash.y += 6;
                 transform.position = camLocCrash;
-                transform.LookAt(PlayerControler.player.transform.position);
+                transform.LookAt(PlayerController.player.transform.position);
             }
         }
     
@@ -87,7 +87,7 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    void Crash(PlayerControler player){
+    void Crash(PlayerController player){
         playerCrashing = player.crash;
     }
 

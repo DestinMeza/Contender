@@ -7,14 +7,14 @@ public class TriggerAreaController : MonoBehaviour
     public GameObject[] enemys;
     
     void OnTriggerEnter(Collider col){
-        if(col.GetComponentInParent<PlayerControler>()){
+        if(col.GetComponentInParent<PlayerController>()){
             foreach (GameObject obj in enemys){
                 obj.SetActive(true);
             }
         }
     }
     void OnTriggerExit(Collider col){
-        if(col.GetComponentInParent<PlayerControler>()){
+        if(col.GetComponentInParent<PlayerController>()){
             foreach (GameObject obj in enemys){
                 obj.SetActive(false);
             }

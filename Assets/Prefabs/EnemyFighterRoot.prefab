@@ -9907,6 +9907,7 @@ GameObject:
   - component: {fileID: 133787661694906114}
   - component: {fileID: 4000032841627315705}
   - component: {fileID: 6919467873336613128}
+  - component: {fileID: 3516667483889742165}
   m_Layer: 10
   m_Name: EnemyFighterRoot
   m_TagString: Solid
@@ -9966,7 +9967,7 @@ MonoBehaviour:
   maxHealth: 1
   health: 1
   scoreValue: 50
-  projectScore: 0
+  projectScore: 1
 --- !u!114 &6919467873336613128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9982,3 +9983,26 @@ MonoBehaviour:
   hitSound: 
   hitParticles: 
   damage: 1
+--- !u!114 &3516667483889742165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8636743119616240890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26645cdae7913c0449cccea6454f11d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pickupNames:
+  - GoldHealthRingRoot
+  - SilverHealthRingRoot
+  - SilverHealthRingRoot
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - BombPickup

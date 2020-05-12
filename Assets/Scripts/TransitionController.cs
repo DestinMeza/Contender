@@ -13,7 +13,7 @@ public class TransitionController : MonoBehaviour
         flyingModes = FlyingModes.Rail;
     }
     void OnTriggerEnter(Collider col){
-        PlayerControler player = col.GetComponentInParent<PlayerControler>();
+        PlayerController player = col.GetComponentInParent<PlayerController>();
         if(player != null){
             if(flyingModes < FlyingModes.TransitionLock){
                 flyingModes = FlyingModes.TransitionLock;
@@ -22,6 +22,7 @@ public class TransitionController : MonoBehaviour
                 flyingModes = transitionState;
             }
             onTransition(flyingModes);
+            gameObject.SetActive(false);
         }
     }
 }

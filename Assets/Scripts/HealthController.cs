@@ -21,7 +21,7 @@ public class HealthController : MonoBehaviour
     bool invulnerble = false;
 
     void OnEnable(){
-        if(GetComponent<PlayerControler>()) PlayerControler.onBarrelRoll += Invulnerble;
+        if(GetComponent<PlayerController>()) PlayerController.onBarrelRoll += Invulnerble;
         health = maxHealth;
         onHealthDecrease();
     }
@@ -45,7 +45,13 @@ public class HealthController : MonoBehaviour
     }
 
     public void IncreaseHeath(int health){
-        this.health += health;
+        if(this.health + health > maxHealth){
+            health = maxHealth;
+            return;
+        }
+        else{
+            this.health += health;
+        }
         onHealthIncrease();
     }
 

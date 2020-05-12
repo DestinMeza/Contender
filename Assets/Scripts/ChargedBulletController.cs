@@ -28,13 +28,13 @@ public class ChargedBulletController : MonoBehaviour
     {
         if(enemy == null){
             enemyPos = null;
-            transform.forward = PlayerControler.player.firePosMain.forward;
+            transform.forward = PlayerController.player.firePosMain.forward;
             rb.velocity = transform.forward * speed/2;
         }
         else{
             this.lifeTime = lifeTime;
             enemyPos = enemy;
-            transform.forward = PlayerControler.player.firePosMain.forward;
+            transform.forward = PlayerController.player.firePosMain.forward;
             rb.velocity = transform.forward * speed/2;
         }
         

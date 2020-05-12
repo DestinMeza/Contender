@@ -14,21 +14,21 @@ public class AllRangeModeSpawner : MonoBehaviour
     public int currentNumberChasing = 0;
     public int numShips = 0;
     
-    void Start(){
+    void OnEnable(){
         StartCoroutine(SpawnShips());
-        EnemyShipControler.onDeathCalculation += ShipDied;
-        EnemyChaserController.onDeathCalulation += ChasingShipDied;
+        EnemyShipController.onDeathCalculation += ShipDied;
+        EnemyChaserController.onDeathCalculation += ChasingShipDied;
     }
     void OnDisable(){
         StopCoroutine(SpawnShips());
-        EnemyShipControler.onDeathCalculation -= ShipDied;
-        EnemyChaserController.onDeathCalulation -= ChasingShipDied;
+        EnemyShipController.onDeathCalculation -= ShipDied;
+        EnemyChaserController.onDeathCalculation -= ChasingShipDied;
     }
-    void ShipDied(){
+    void ShipDied(Vector3 deathPos){
         totalDeadShips++;
         numShips--;
     }
-    void ChasingShipDied(){
+    void ChasingShipDied(Vector3 deathPos){
         totalDeadShips++;
         currentNumberChasing--;
     }
@@ -51,7 +51,7 @@ public class AllRangeModeSpawner : MonoBehaviour
                 else{
                     
                     GameObject enemyShip = SpawnManager.Spawn(shipTrainingName, spawnPos);
-                    enemyShip.GetComponentInParent<EnemyShipControler>().SetDir(gameObject);
+                    enemyShip.GetComponentInParent<EnemyShipController>().SetDir(gameObject);
                     numShips++;
                 }
                 yield return new WaitForSeconds(2);

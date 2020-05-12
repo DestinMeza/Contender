@@ -8,21 +8,21 @@ public class RingController : MonoBehaviour
     public MeshRenderer ring;
     bool triggered = false;
     void Update(){
-        Vector3 dis = PlayerControler.player.transform.position - transform.position;
+        Vector3 dis = PlayerController.player.transform.position - transform.position;
         if(dis.magnitude > visbilityDistance){
             ring.enabled = false;
         }
         else{
             ring.enabled = true;
         }
-        if(PlayerControler.player.transform.position.z > transform.position.z + 10 && !triggered){
+        if(PlayerController.player.transform.position.z > transform.position.z + 10 && !triggered){
             GameManager.game.ResetRingScore();
             gameObject.SetActive(false);
         }
     }
 
     void OnTriggerExit(Collider col){
-        if(col.gameObject.GetComponentInParent<PlayerControler>()){
+        if(col.gameObject.GetComponentInParent<PlayerController>()){
             ring.enabled = false;
             triggered = true;
         }

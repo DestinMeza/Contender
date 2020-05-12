@@ -18,7 +18,7 @@ public class RingSpawner : MonoBehaviour
     }
 
     public void SpawnRing(){
-        Vector3 spawnLoc = new Vector3(Random.Range(-25,25),Random.Range(11,20), PlayerControler.player.transform.position.z + spawnOffset);
+        Vector3 spawnLoc = new Vector3(Random.Range(-25,25),Random.Range(11,20), PlayerController.player.transform.position.z + spawnOffset);
         SpawnManager.Spawn(prefabName, spawnLoc);
     }
 }

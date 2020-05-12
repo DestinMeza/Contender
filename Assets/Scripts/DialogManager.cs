@@ -13,6 +13,7 @@ public class DialogManager : MonoBehaviour
     Queue<IEnumerator> dialogQueue = new Queue<IEnumerator>();
     public Text dialogBoxText;
     public Text characterNameText;
+    
         void Awake(){
         DialogTriggerController.onTriggerSet += GetTrigger;
         StopAllCoroutines();

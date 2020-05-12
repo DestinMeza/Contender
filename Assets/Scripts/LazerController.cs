@@ -26,7 +26,7 @@ public class LazerController : MonoBehaviour
     }
 
     void Update(){
-        Vector3 dis = PlayerControler.player.transform.position - transform.position;
+        Vector3 dis = PlayerController.player.transform.position - transform.position;
         if(dis.magnitude < visbilityDistance){
             anim.SetTrigger("Activate");
             active = true;
@@ -58,6 +58,6 @@ public class LazerController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col){
-        if(col.gameObject.GetComponentInParent<PlayerControler>()) Explode(health);
+        if(col.gameObject.GetComponentInParent<PlayerController>()) Explode(health);
     }
 }

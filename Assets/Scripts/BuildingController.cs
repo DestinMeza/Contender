@@ -6,7 +6,7 @@ public class BuildingController : MonoBehaviour
 {
     Rigidbody body;
     void OnCollisionEnter(Collision col){
-        if(col.gameObject.GetComponentInParent<PlayerControler>()){ 
+        if(col.gameObject.GetComponentInParent<PlayerController>()){ 
             body = col.gameObject.GetComponentInParent<Rigidbody>();
             Debug.Log("Hit");
             Vector3 diff = body.velocity - transform.position;

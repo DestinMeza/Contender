@@ -13,12 +13,12 @@ public class BombCountController : MonoBehaviour
         bombIcons = iconParent.GetComponentsInChildren<Image>();
     }
     void OnEnable(){
-        PlayerControler.onFireBomb += SetBombCount;
-        SetBombCount(PlayerControler.player.bombAmmo);
+        PlayerController.onFireBomb += SetBombCount;
+        SetBombCount(PlayerController.player.bombAmmo);
     }
 
     void OnDisable(){
-        PlayerControler.onFireBomb -= SetBombCount;
+        PlayerController.onFireBomb -= SetBombCount;
     }
     public void SetBombCount (int count){
         if(count > bombIcons.Length){

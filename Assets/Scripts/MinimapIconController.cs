@@ -14,10 +14,10 @@ public class MinimapIconController : MonoBehaviour
         objectBaseColors = mesh.materials;
     }
     void Start(){
-        if(PlayerControler.player != null) minimapCam = PlayerControler.player.minimapCam;
+        if(PlayerController.player != null) minimapCam = PlayerController.player.minimapCam;
     }
     void Update()
-    {   if(GetComponentsInParent<PlayerControler>() == null){
+    {   if(GetComponentsInParent<PlayerController>() == null){
             float frac = (transform.position.magnitude - minimapCam.farClipPlane) / (minimapCam.transform.position.magnitude - minimapCam.farClipPlane);
             for(int i = 0; i < objectBaseColors.Length; i++){
                 mesh.materials[i].color = 

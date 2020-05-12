@@ -9,7 +9,7 @@ public enum BlasterState{
 
 }
 
-public class PlayerControler : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public enum ChargeFire {
         Charging,
@@ -27,15 +27,15 @@ public class PlayerControler : MonoBehaviour
     public static event OnLoop onLoop = delegate{};
     public delegate void OnBlasterChange(BlasterState blaster);
     public static event OnBlasterChange onBlasterChange = delegate {};
-    public delegate void OnCrash(PlayerControler player);
+    public delegate void OnCrash(PlayerController player);
     public static event OnCrash onCrash = delegate {};
-    public delegate void OnDeath(PlayerControler player);
+    public delegate void OnDeath(PlayerController player);
     public static event OnDeath onDeath = delegate {};
     public delegate void OnBoost();
     public static event OnBoost onBoost = delegate {};
     public delegate void OnFireBomb(int count);
     public static event OnFireBomb onFireBomb = delegate {};
-    public static PlayerControler player;
+    public static PlayerController player;
     public Vector3 speedRail = new Vector3(30,-20, 50);
     public Vector3 speedAllRange = new Vector3(50,-40, 50);
     public Vector3 lockOnOffset = new Vector3(0,0,60);

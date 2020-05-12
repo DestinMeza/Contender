@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShipControler : MonoBehaviour
+public class EnemyShipController : MonoBehaviour
 {
-    public delegate void OnDeathCalculation();
+    public delegate void OnDeathCalculation(Vector3 position);
     public static event OnDeathCalculation onDeathCalculation = delegate {};
     float speed = 20;
     public LayerMask obsticles;
@@ -27,7 +27,7 @@ public class EnemyShipControler : MonoBehaviour
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
-        onDeathCalculation();
+        onDeathCalculation(transform.position);
         gameObject.SetActive(false);
     }
     void Update(){

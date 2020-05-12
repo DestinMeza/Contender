@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyChaserController : MonoBehaviour
 {
-    public delegate void OnDeathCalculation();
-    public static event OnDeathCalculation onDeathCalulation = delegate{};
+    public delegate void OnDeathCalculation(Vector3 position);
+    public static event OnDeathCalculation onDeathCalculation = delegate{};
     public enum RailState {
         FollowPlayer,
         KitePlayer,
@@ -115,7 +115,7 @@ public class EnemyChaserController : MonoBehaviour
         Ray ray = new Ray(transform.position, rb.velocity.normalized);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 1000, obsticles, QueryTriggerInteraction.Collide)){
-            PlayerControler player = hit.collider.GetComponentInParent<PlayerControler>();
+            PlayerController player = hit.collider.GetComponentInParent<PlayerController>();
             if(hit.collider.gameObject.tag == "Solid" && player == null){
                 Fire();
                 Transform obsticle = hit.collider.GetComponentInParent<Transform>();
@@ -143,7 +143,7 @@ public class EnemyChaserController : MonoBehaviour
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, transform.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,transform.position,0.8f);
-        onDeathCalulation();
+        onDeathCalculation(transform.position);
         gameObject.SetActive(false);
     }
 

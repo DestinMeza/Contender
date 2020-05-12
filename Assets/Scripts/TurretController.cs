@@ -31,10 +31,10 @@ public class TurretController : MonoBehaviour
     }
 
     void TrackPlayer(){
-        Vector3 playerPos = PlayerControler.player.transform.position;
+        Vector3 playerPos = PlayerController.player.transform.position;
         Vector3 diff = playerPos - turret.transform.position;
         turret.forward = diff.normalized;
-        if(diff.magnitude < firingDis && Vector3.Dot(PlayerControler.player.transform.forward, turret.transform.forward) < 0.3f){
+        if(diff.magnitude < firingDis && Vector3.Dot(PlayerController.player.transform.forward, turret.transform.forward) < 0.3f){
             Fire(diff + firingOffset);
         }
     }

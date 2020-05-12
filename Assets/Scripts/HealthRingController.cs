@@ -7,7 +7,7 @@ public class HealthRingController : MonoBehaviour
     public int health = 5;
     public string SFX = "HealthGoldPickup";
     void OnTriggerEnter(Collider col){
-        PlayerControler player = col.GetComponentInParent<PlayerControler>();
+        PlayerController player = col.GetComponentInParent<PlayerController>();
         if(player != null){
             col.GetComponentInParent<HealthController>().IncreaseHeath(health);
             AudioManager.Play(SFX);

@@ -12,7 +12,7 @@ public class WallTurretController : MonoBehaviour
 
     void Update()
     {
-        Vector3 diff = PlayerControler.player.transform.position - transform.position;
+        Vector3 diff = PlayerController.player.transform.position - transform.position;
         if(diff.magnitude > triggerDis){
             anim.SetTrigger("playerIsFar");
             anim.ResetTrigger("playerIsNear");
