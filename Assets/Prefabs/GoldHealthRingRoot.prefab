@@ -66,7 +66,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f83d85b208de8d4e93d6e6368614f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 5
+  health: 3
+  SFX: HealthGoldPickup
 --- !u!54 &3205256526913449527
 Rigidbody:
   m_ObjectHideFlags: 0

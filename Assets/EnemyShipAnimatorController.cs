@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyShipAnimatorController : MonoBehaviour
 {
-    public delegate void OnDeathCalculation();
+    public delegate void OnDeathCalculation(Vector3 position);
     public static event OnDeathCalculation onDeathCalculation = delegate {};
     public enum AnimationState{
         Idel,
@@ -35,7 +35,7 @@ public class EnemyShipAnimatorController : MonoBehaviour
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, shipPos.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,shipPos.position,0.8f);
-        onDeathCalculation();
+        onDeathCalculation(transform.position);
         gameObject.SetActive(false);
     }
 }

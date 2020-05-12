@@ -9992,17 +9992,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8636743119616240890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26645cdae7913c0449cccea6454f11d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 149d9918b2c0a4b438636266408b0024, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickupNames:
-  - GoldHealthRingRoot
-  - SilverHealthRingRoot
-  - SilverHealthRingRoot
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - BombPickup
+  obsticles:
+    serializedVersion: 2
+    m_Bits: 34615
+  deathParticles: ExplosionSmallObject

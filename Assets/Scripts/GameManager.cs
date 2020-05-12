@@ -48,13 +48,16 @@ public class GameManager : MonoBehaviour
     {   
         playerUI.SetActive(false);
         Cursor.visible = false;
+
         PlayerController.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
         TransitionController.onTransition += TransitionStateChange;
+        EnemyShipAnimatorController.onDeathCalculation += DeathReward;
         EnemyShipController.onDeathCalculation += DeathReward;
         EnemyChaserController.onDeathCalculation += DeathReward;
         MechController.onDeathCalculation += DeathReward;
-        MechController.onDeathCalculation += DeathReward;
+        TargetDroidController.onDeathCalculation += DeathReward;
+
         score = 0;
         ringScore = 0;
         hitScore = 0;
@@ -109,8 +112,10 @@ public class GameManager : MonoBehaviour
     }
 
     void DeathReward(Vector3 deathPos){
-        string spawnName = pickupNames[Random.Range(0, pickupNames.Length)];
+        int randomValue = Random.Range(0, pickupNames.Length);
+        string spawnName = pickupNames[randomValue];
         SpawnManager.Spawn(spawnName, deathPos);
+        Debug.Log("Spawned : " + spawnName);
     }
 
     IEnumerator TrackPlayerPos(){
