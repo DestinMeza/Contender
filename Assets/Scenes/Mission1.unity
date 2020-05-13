@@ -422,6 +422,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2306316269560879740, guid: a3a2bd7113d682b44b6871facc3000b7,
+        type: 3}
+      propertyPath: prefabs.Array.size
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2306316269560879740, guid: a3a2bd7113d682b44b6871facc3000b7,
+        type: 3}
+      propertyPath: prefabs.Array.data[11]
+      value: 
+      objectReference: {fileID: 8792751230755592774, guid: e58a511a0abb1f147b262e9172c01b68,
+        type: 3}
     - target: {fileID: 2306316269560879741, guid: a3a2bd7113d682b44b6871facc3000b7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2994,6 +3005,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bombAmmo
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7978924845083450919, guid: e2d07458f924f0f40a76e308e6bee7ba,
+        type: 3}
+      propertyPath: orthographic size
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}

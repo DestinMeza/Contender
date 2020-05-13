@@ -11,7 +11,8 @@ public class MinimapIconController : MonoBehaviour
     void Awake(){
         parentPos = GetComponentInParent<Transform>();
         mesh = GetComponent<MeshRenderer>();
-        objectBaseColors = mesh.materials;
+        if(mesh == null) mesh = GetComponentInChildren<MeshRenderer>();
+        if(mesh != null) objectBaseColors = mesh.materials;
     }
     void Start(){
         if(PlayerController.player != null) minimapCam = PlayerController.player.minimapCam;

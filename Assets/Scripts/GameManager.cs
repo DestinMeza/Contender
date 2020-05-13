@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
 
     void GameOver(PlayerController player){
         this.player = player;
-        if(lives < 0){
+        if(lives <= 0){
             gameState = GameState.GameOver;
         }
         else{
@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
         SpawnManager.DisableAll();
         playerUI.gameObject.SetActive(false);
         if(Input.GetButtonDown("Submit")){
-            Start();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if(Input.GetButtonDown("Cancel")){
             SceneManager.LoadScene("MainMenu");
