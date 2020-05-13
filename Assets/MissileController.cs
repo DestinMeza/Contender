@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MissileController : MonoBehaviour
 {
+    public LayerMask ground;
     Animator anim;
     Transform target;
     float acceleration = 7;
@@ -28,13 +29,19 @@ public class MissileController : MonoBehaviour
     }
     void Update()
     {
+
+        Ray ray = new Ray(transform.position, -transform.up);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 10, ground)){
+            rb.AddForce(transform.up * acceleration, ForceMode.VelocityChange);
+        }
         Vector3 diff = target.position - transform.position;
         transform.forward = rb.velocity;
         rb.AddForce(diff * acceleration, ForceMode.Acceleration);
         rb.velocity = new Vector3(
-            Mathf.Clamp(rb.velocity.x, maxSpeed *-1, maxSpeed),
-            Mathf.Clamp(rb.velocity.y, maxSpeed *-1, maxSpeed),
-            Mathf.Clamp(rb.velocity.z, maxSpeed *-1, maxSpeed)
+            Mathf.Clamp(rb.velocity.x, maxSpeed *-1.5f, maxSpeed*1.5f),
+            Mathf.Clamp(rb.velocity.y, maxSpeed *-1.5f, maxSpeed*1.5f),
+            Mathf.Clamp(rb.velocity.z, maxSpeed *-1.5f, maxSpeed*1.5f)
         );
     }
     IEnumerator Lifetime(){

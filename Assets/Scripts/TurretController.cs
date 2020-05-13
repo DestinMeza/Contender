@@ -11,7 +11,7 @@ public class TurretController : MonoBehaviour
     public float fireInterval = 1;
     public float rotationalDamp = 2;
     public string deathParticles = "ExplosionSmallObject";
-
+    public float bulletSpeed = 200;
     float lastShot;
     HealthController health;
     
@@ -31,16 +31,26 @@ public class TurretController : MonoBehaviour
     }
 
     void TrackPlayer(){
+
+        Vector3 playerVel = PlayerController.player.body.velocity;
         Vector3 playerPos = PlayerController.player.transform.position;
         Vector3 diff = playerPos - turret.transform.position;
+        
+        float dist = diff.magnitude;
+        float t = dist / (bulletSpeed - playerVel.magnitude);
+        playerPos = playerPos + playerVel * t;
+        diff = playerPos - turret.transform.position;
+
         Quaternion rotation = Quaternion.LookRotation(diff);
         rotation.z = 0;
         rotation.x = 0;
         turret.rotation = Quaternion.Slerp(turret.rotation, rotation, rotationalDamp * Time.deltaTime);
+
         if(diff.magnitude < firingDis && Vector3.Dot(PlayerController.player.transform.forward, turret.transform.forward) < 0.3f){
             Fire(diff);
         }
     }
+
 
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, transform.position);
@@ -52,6 +62,7 @@ public class TurretController : MonoBehaviour
         if(Time.time - lastShot > fireInterval){
             lastShot = Time.time;
             GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, turretFirePos.position);
+            bulletSpeed = bullet.GetComponentInParent<Rigidbody>().velocity.magnitude;
             bullet.GetComponentInParent<BulletController>().SetDir(dir);
             AudioManager.Play("BlasterSound",1,1,false,transform.position,0.9f);
         }

@@ -73,6 +73,11 @@ public class PlayerController : MonoBehaviour
     BulletController[] bullets;
     Vector3 targetVelocity;
     Rigidbody rb;
+    public Rigidbody body{
+        get{
+            return rb;
+        }
+    }
     Animator anim;
     public Camera minimapCam;
     Camera cam;
