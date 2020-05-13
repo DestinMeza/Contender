@@ -8,8 +8,8 @@ public class TurretController : MonoBehaviour
     public Transform turret;
     public string enemyBulletPrefab;
     public float firingDis = 140;
-    public Vector3 firingOffset = new Vector3(0,2,11);
     public float fireInterval = 1;
+    public float rotationalDamp = 2;
     public string deathParticles = "ExplosionSmallObject";
 
     float lastShot;
@@ -33,9 +33,12 @@ public class TurretController : MonoBehaviour
     void TrackPlayer(){
         Vector3 playerPos = PlayerController.player.transform.position;
         Vector3 diff = playerPos - turret.transform.position;
-        turret.forward = diff.normalized;
+        Quaternion rotation = Quaternion.LookRotation(diff);
+        rotation.z = 0;
+        rotation.x = 0;
+        turret.rotation = Quaternion.Slerp(turret.rotation, rotation, rotationalDamp * Time.deltaTime);
         if(diff.magnitude < firingDis && Vector3.Dot(PlayerController.player.transform.forward, turret.transform.forward) < 0.3f){
-            Fire(diff + firingOffset);
+            Fire(diff);
         }
     }
 

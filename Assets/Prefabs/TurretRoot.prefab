@@ -53,6 +53,7 @@ MonoBehaviour:
   firingDis: 140
   firingOffset: {x: 0, y: 2, z: 11}
   fireInterval: 3
+  rotationalDamp: 2
   deathParticles: ExplosionSmallObject
 --- !u!114 &8301342578943470015
 MonoBehaviour:
@@ -109,13 +110,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5066527149041767184}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.15990153, y: -0, z: -0, w: 0.987133}
   m_LocalPosition: {x: 0, y: 0.516, z: 1.184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2477318194756083367}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -18.402, y: 0, z: 0}
 --- !u!1 &5198601306882448506
 GameObject:
   m_ObjectHideFlags: 0
