@@ -157,7 +157,7 @@ MonoBehaviour:
   enemyBulletPrefab: EnemyBullet
   obsticles:
     serializedVersion: 2
-    m_Bits: 1537
+    m_Bits: 34305
   firingPos1: {fileID: 1034178675148245876}
   firingPos2: {fileID: 6403182348629350025}
   target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba, type: 3}

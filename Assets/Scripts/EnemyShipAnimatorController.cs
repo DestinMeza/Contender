@@ -27,6 +27,16 @@ public class EnemyShipAnimatorController : MonoBehaviour
         animationState = AnimationState.Idel;
     }
 
+    void FireTrackPlayer(){
+        Vector3 diff = PlayerController.player.transform.position - shipPos.position;
+        GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, firingPos1.position);
+        if(Vector3.Dot(diff, shipPos.forward) > 0) bullet.GetComponentInParent<BulletController>().SetDir(diff.normalized);
+        else{
+            bullet.GetComponentInParent<BulletController>().SetDir(shipPos.forward.normalized);
+        }
+        AudioManager.Play("BlasterSound",1,1,false,shipPos.position,0.9f);
+    }
+
     void Fire(){
         GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, firingPos1.position);
         bullet.GetComponentInParent<BulletController>().SetDir(shipPos.forward.normalized);

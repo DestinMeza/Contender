@@ -5738,7 +5738,7 @@ MonoBehaviour:
   crash: 0
   boostMeterMax: 1
   boostMeter: 1
-  lockHoldDuration: 0.5
+  lockHoldDuration: 1
   lockOnDistance: 200
   crashDuration: 3
   crashTime: 0

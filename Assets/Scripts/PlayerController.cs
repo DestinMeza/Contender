@@ -337,9 +337,9 @@ public class PlayerController : MonoBehaviour
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos);
             RaycastHit hit;
-            if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
+            if(Physics.SphereCast(lockOnRay, 10, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
                 if(hit.collider.GetComponentInParent<HealthController>()){
-                    enemyTransform = hit.collider.GetComponentInParent<Transform>();
+                    enemyTransform = hit.collider.GetComponent<Transform>();
                     chargeShotPos = enemyTransform;
                     lockedOnEnemy = enemyTransform.GetComponentInParent<HealthController>().gameObject;
                     AudioManager.Play("ChargedUpLockOnSound");

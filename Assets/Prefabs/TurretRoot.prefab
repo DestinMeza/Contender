@@ -51,10 +51,10 @@ MonoBehaviour:
   turret: {fileID: 2477318194756083367}
   enemyBulletPrefab: EnemyBullet
   firingDis: 140
-  firingOffset: {x: 0, y: 2, z: 11}
   fireInterval: 3
   rotationalDamp: 2
   deathParticles: ExplosionSmallObject
+  bulletSpeed: 200
 --- !u!114 &8301342578943470015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,7 +302,6 @@ GameObject:
   - component: {fileID: 7343154527546269360}
   - component: {fileID: 7942194596193808905}
   - component: {fileID: 2900136678438885915}
-  - component: {fileID: 2777560337611565617}
   m_Layer: 10
   m_Name: TurretCollider
   m_TagString: Solid
@@ -392,22 +391,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.0000005, y: 2.1925752, z: 2.1047719}
   m_Center: {x: -0.00000016095531, y: 1.0962873, z: 0.05238552}
---- !u!208 &2777560337611565617
-NavMeshObstacle:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7951039753421787866}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 1, y: 1.0960001, z: 1.052}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 1.1270001, z: -0.052}
-  m_TimeToStationary: 0.5
 --- !u!1 &8881487220773764436
 GameObject:
   m_ObjectHideFlags: 0

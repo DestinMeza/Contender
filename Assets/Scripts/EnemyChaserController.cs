@@ -50,7 +50,11 @@ public class EnemyChaserController : MonoBehaviour
         }
         else if(flyingModes == FlyingModes.Rail){
             MoveRail();
+            CheckGround();
             CheckObsticles();
+        }
+        else if(railState == RailState.Leave){
+            
         }
     }
 
@@ -59,14 +63,31 @@ public class EnemyChaserController : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(diff);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
     }
-    void MoveAllRange(){
-        Vector3 diff = target.position - transform.position;
-        Vector3 steeringDir = transform.forward;
+
+    void Leave(){
+        Vector3 diff = (Vector3.forward * Mathf.Infinity) - transform.position;
+        Quaternion rotation = Quaternion.LookRotation(diff);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
+
         if(diff.magnitude < maxFollowDistance){
-            rb.AddForce(steeringDir.normalized * speed/2 * -1, ForceMode.Acceleration);
+            rb.AddForce(transform.forward * speed/2 * -1, ForceMode.Acceleration);
         }
         else{
-            rb.AddForce(steeringDir.normalized * speed, ForceMode.Acceleration);
+            rb.AddForce(transform.forward * speed, ForceMode.Acceleration);
+            rb.velocity = new Vector3(
+                Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
+                Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
+                Mathf.Clamp(rb.velocity.z, speed*-1.0f, speed*1.0f)
+            );
+        }
+    }
+    void MoveAllRange(){
+        Vector3 diff = target.position - transform.position;
+        if(diff.magnitude < maxFollowDistance){
+            rb.AddForce(transform.forward * speed/2 * -1, ForceMode.Acceleration);
+        }
+        else{
+            rb.AddForce(transform.forward * speed, ForceMode.Acceleration);
             rb.velocity = new Vector3(
                 Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
                 Mathf.Clamp(rb.velocity.y, speed*-1.0f, speed*1.0f),
@@ -84,10 +105,12 @@ public class EnemyChaserController : MonoBehaviour
             if(railState == RailState.KitePlayer){
                 steeringDir = transform.forward + railKiteOffset;
             }
-            if(diff.magnitude < maxFollowDistance){
+            if(diff.magnitude < maxFollowDistance*2){
                 if(Input.GetButtonDown("Bank") && Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
                     railState = RailState.Leave;
                 }
+            }
+            if(diff.magnitude < maxFollowDistance){
                 rb.AddForce(steeringDir.normalized * speed/2 * -1, ForceMode.VelocityChange);
             }
             else{
@@ -126,6 +149,14 @@ public class EnemyChaserController : MonoBehaviour
             else if(player != null){
                 Fire();
             }
+        }
+    }
+
+    void CheckGround(){
+        Ray ray = new Ray(transform.position, -transform.up);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit, 10, obsticles, QueryTriggerInteraction.Collide)){
+            rb.AddForce(transform.up * speed, ForceMode.VelocityChange);
         }
     }
 

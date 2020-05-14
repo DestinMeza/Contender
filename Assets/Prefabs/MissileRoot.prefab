@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995537362}
   - component: {fileID: 1995537363}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4766940191773769975}
   - component: {fileID: 1232609375692962830}
   - component: {fileID: 2668021111378306887}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Missle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 4812110424935100153}
   - component: {fileID: 2505151044945047181}
   - component: {fileID: 4361792050093834636}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MissleSmoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 4262255193864686881}
   - component: {fileID: 7865865921390380598}
   - component: {fileID: 5795585069525460355}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9759,7 +9759,7 @@ GameObject:
   - component: {fileID: 2529149699875117954}
   - component: {fileID: 287146239480733404}
   - component: {fileID: 3162659014816792811}
-  - component: {fileID: 8207437137745865737}
+  - component: {fileID: 1967608021671157288}
   m_Layer: 14
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -9776,7 +9776,7 @@ Transform:
   m_GameObject: {fileID: 6916133616815378440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 8792751230755592777}
   m_RootOrder: 2
@@ -9828,19 +9828,18 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &8207437137745865737
-SphereCollider:
+--- !u!114 &1967608021671157288
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6916133616815378440}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.57187176
-  m_Center: {x: 0, y: 0, z: 0.22034246}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0110719e20db29646908420802203b9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8792751230755592774
 GameObject:
   m_ObjectHideFlags: 0
@@ -9854,7 +9853,7 @@ GameObject:
   - component: {fileID: 7687035895633700056}
   - component: {fileID: 9001167884652739635}
   - component: {fileID: 3678824063522174333}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MissileRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
