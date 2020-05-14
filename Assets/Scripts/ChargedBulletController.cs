@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChargedBulletController : MonoBehaviour
 {
+    public LayerMask ground;
     public string nameOfParticle;
     public float speed = 100;
     public float bulletLifetime = 5;
@@ -49,6 +50,11 @@ public class ChargedBulletController : MonoBehaviour
             rb.AddForce(transform.forward * speed, ForceMode.Impulse);
         }
         else{
+            Ray ray = new Ray(transform.position, -transform.up);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 10, ground)){
+                rb.AddForce(transform.up * rb.velocity.magnitude/8, ForceMode.Impulse);
+            }
             Vector3 dir = enemyPos.position - transform.position;
             rb.AddForce(dir.normalized * speed, ForceMode.Impulse);
             if(dir.magnitude < minimalTrackDist){

@@ -7,9 +7,10 @@ public class MissileController : MonoBehaviour
     public LayerMask ground;
     Animator anim;
     Transform target;
-    float acceleration = 7;
-    float maxSpeed = 50;
-    float lifetime = 2;
+    float rotationalDamp = 1000;
+    float acceleration = 60;
+    float maxSpeed = 200;
+    float lifetime = 10;
     Rigidbody rb;
     HealthController health;
 
@@ -33,15 +34,17 @@ public class MissileController : MonoBehaviour
         Ray ray = new Ray(transform.position, -transform.up);
         RaycastHit hit;
         if(Physics.Raycast(ray, out hit, 10, ground)){
-            rb.AddForce(transform.up * acceleration, ForceMode.VelocityChange);
+            rb.AddForce(transform.up, ForceMode.Impulse);
         }
+
         Vector3 diff = target.position - transform.position;
-        transform.forward = rb.velocity;
-        rb.AddForce(diff * acceleration, ForceMode.Acceleration);
+        Quaternion rotation = Quaternion.LookRotation(diff);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
+        rb.AddForce(transform.forward * acceleration, ForceMode.Force);
         rb.velocity = new Vector3(
-            Mathf.Clamp(rb.velocity.x, maxSpeed *-1.5f, maxSpeed*1.5f),
-            Mathf.Clamp(rb.velocity.y, maxSpeed *-1.5f, maxSpeed*1.5f),
-            Mathf.Clamp(rb.velocity.z, maxSpeed *-1.5f, maxSpeed*1.5f)
+            Mathf.Clamp(rb.velocity.x, maxSpeed *-1, maxSpeed*1),
+            Mathf.Clamp(rb.velocity.y, maxSpeed *-1, maxSpeed*1),
+            Mathf.Clamp(rb.velocity.z, maxSpeed *-1, maxSpeed*1)
         );
     }
     IEnumerator Lifetime(){
@@ -50,6 +53,7 @@ public class MissileController : MonoBehaviour
     }
 
     void Explode(HealthController health){
+        ParticleManager.particleMan.Play("ExplosionSmallObject", transform.position);
         gameObject.SetActive(false);
     }
 }

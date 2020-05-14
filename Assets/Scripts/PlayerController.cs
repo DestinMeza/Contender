@@ -335,7 +335,7 @@ public class PlayerController : MonoBehaviour
         
         if(charged && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
             Vector3 pos = crossHair.transform.position - cam.transform.position;
-            Ray lockOnRay = new Ray(cam.transform.position, pos.normalized * 10000);
+            Ray lockOnRay = new Ray(cam.transform.position, pos);
             RaycastHit hit;
             if(Physics.Raycast(lockOnRay, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
                 if(hit.collider.GetComponentInParent<HealthController>()){
