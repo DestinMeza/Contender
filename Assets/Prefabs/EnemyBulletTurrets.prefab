@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 6808142492438843425}
   - component: {fileID: 591881047867264667}
   m_Layer: 12
-  m_Name: EnemyBullet
+  m_Name: EnemyBulletTurrets
   m_TagString: EBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameOfParticle: EnemyBlasterSparks
-  speed: 100
+  speed: 150
   bulletLifetime: 5
   lifeTime: 5
 --- !u!114 &591881047867264667
