@@ -10,6 +10,8 @@ public class CameraController : MonoBehaviour
     public bool looping;
     public Transform target;
     public Transform heading;
+    public Vector2 maxY = new Vector2(0, 58);
+    public Vector2 maxX = new Vector2(-40, 40);
     public Vector3 railOffset = new Vector3(0, 1, -15);
     public Vector3 allRangeOffset = new Vector3(0, 1, -20);
     Vector3 velocity = Vector3.zero;
@@ -47,8 +49,8 @@ public class CameraController : MonoBehaviour
             } 
             else if(!playerCrashing || !looping){
                 if(PlayerController.flyingModes == FlyingModes.Rail){
-                    pos.y = Mathf.Clamp(transform.position.y, 0, 58);
-                    pos.x = Mathf.Clamp(transform.position.x, -30, 30);
+                    pos.y = Mathf.Clamp(transform.position.y, maxY.x, maxY.y);
+                    pos.x = Mathf.Clamp(transform.position.x, maxX.x, maxX.y);
                     transform.position = Vector3.SmoothDamp(
                         pos,
                         targetPos + railOffset,

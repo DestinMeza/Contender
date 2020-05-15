@@ -65,7 +65,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 48951
+    m_Bits: 245559
   m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -102,6 +102,8 @@ MonoBehaviour:
   looping: 0
   target: {fileID: 0}
   heading: {fileID: 0}
+  maxY: {x: 0, y: 58}
+  maxX: {x: -80, y: 80}
   railOffset: {x: 0, y: 1, z: -20}
   allRangeOffset: {x: 0, y: 1, z: -30}
 --- !u!114 &3787502501601079654

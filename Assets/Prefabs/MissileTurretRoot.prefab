@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6169503999655755958}
   - component: {fileID: 3453910256083208049}
   - component: {fileID: 8724783568464009139}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissleTurretBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,10 +107,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7300940211111279587}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: FirePos1
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -137,10 +137,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2962421569594191990}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: FirePos2
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -167,7 +167,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5589193346498391597}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissleBase
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +241,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8811881968324140995}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissleTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8424353712523436011}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissleTurret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - component: {fileID: 5151539601702445502}
   - component: {fileID: 8564777574594989635}
   - component: {fileID: 3394799917739849376}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissleTurretTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 7465909574953703362}
   - component: {fileID: 8403286171878112647}
   - component: {fileID: 6489495011921078093}
-  m_Layer: 10
+  m_Layer: 17
   m_Name: MissileTurretRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1995537362}
   - component: {fileID: 1995537363}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 4766940191773769975}
   - component: {fileID: 1232609375692962830}
   - component: {fileID: 2668021111378306887}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: Missle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5005,7 +5005,7 @@ GameObject:
   - component: {fileID: 4262255193864686881}
   - component: {fileID: 7865865921390380598}
   - component: {fileID: 5795585069525460355}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9853,7 +9853,7 @@ GameObject:
   - component: {fileID: 7687035895633700056}
   - component: {fileID: 9001167884652739635}
   - component: {fileID: 3678824063522174333}
-  m_Layer: 10
+  m_Layer: 16
   m_Name: MissileRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
