@@ -297,6 +297,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45a2279128b5a4142a479d97e3d3e1d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obsticles:
+    serializedVersion: 2
+    m_Bits: 32768
   rotationalDamp: 0.1
   speed: 40
   head: {fileID: 1855556843353678265}

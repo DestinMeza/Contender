@@ -68,14 +68,20 @@ public class PlayerController : MonoBehaviour
     bool breaking = false;
     bool charged = false;
     bool barrelRoll = false;
+    Collider _hitBox;
+    public Transform hitbox{
+        get{
+            return _hitBox.GetComponent<Transform>();
+        }
+    }
     public Transform enemyTransform;
     HealthController health;
     BulletController[] bullets;
     Vector3 targetVelocity;
-    Rigidbody rb;
-    public Rigidbody body{
+    Rigidbody _rb;
+    public Rigidbody rb{
         get{
-            return rb;
+            return _rb;
         }
     }
     Animator anim;
@@ -92,8 +98,9 @@ public class PlayerController : MonoBehaviour
         }
         
         cam = Camera.main;
+        _hitBox = GetComponentInChildren<Collider>();
         minimapCam = GetComponentInChildren<Camera>();
-        rb = GetComponent<Rigidbody>();
+        _rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
         health = GetComponentInParent<HealthController>();
     }
@@ -170,8 +177,8 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButton("Bank") && Input.GetButton("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
             looping = true;
             onLoop(looping);
-            rb.velocity = Vector3.zero;
-            rb.velocity = transform.forward * defaultSpeedRail.z/2;
+            _rb.velocity = Vector3.zero;
+            _rb.velocity = transform.forward * defaultSpeedRail.z/2;
             if(flyingModes == FlyingModes.Rail) anim.Play("PlayerLoop");
             else if(flyingModes == FlyingModes.AllRange){ 
                 anim.Play("PlayerLoop2");
@@ -188,29 +195,15 @@ public class PlayerController : MonoBehaviour
     }
     void FixedUpdate(){
         if(crash || looping) return;
-        if(flyingModes == FlyingModes.Rail){
-            Vector3 velocityChange = targetVelocity - rb.velocity;
-            Vector3 xyChange = velocityChange;
-            xyChange.z = 0;
-            if(xyChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
-                xyChange = xyChange.normalized * maxSpeedChange;
-                velocityChange.x = xyChange.x;
-                velocityChange.y = xyChange.y;
-            }
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
+        Vector3 velocityChange = targetVelocity - _rb.velocity;
+        Vector3 dirChange = velocityChange;
+        if(dirChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
+            dirChange = dirChange.normalized * maxSpeedChange;
+            velocityChange.x = dirChange.x;
+            velocityChange.y = dirChange.y;
+            velocityChange.z = dirChange.z;
         }
-
-        else{
-            Vector3 velocityChange = targetVelocity - rb.velocity;
-            Vector3 dirChange = velocityChange;
-            if(dirChange.sqrMagnitude > maxSpeedChange * maxSpeedChange){
-                dirChange = dirChange.normalized * maxSpeedChange;
-                velocityChange.x = dirChange.x;
-                velocityChange.y = dirChange.y;
-                velocityChange.z = dirChange.z;
-            }
-            rb.AddForce(velocityChange, ForceMode.VelocityChange);
-        }
+        _rb.AddForce(velocityChange, ForceMode.VelocityChange);
     }
 
     void ClampPosition(){
@@ -253,7 +246,7 @@ public class PlayerController : MonoBehaviour
             x *= 2;
         }
         
-        targetVelocity = new Vector3(x, y, 0).normalized + Vector3.forward;
+        targetVelocity = new Vector3(x, y, 0).normalized + transform.forward;
         targetVelocity = Vector3.Scale(targetVelocity, speedRail);
 
         anim.SetFloat("xVel", x);
@@ -333,7 +326,7 @@ public class PlayerController : MonoBehaviour
             anim.SetInteger("ChargeFireState", (int)chargeFire);
         }
         
-        if(charged && Input.GetButton("Fire1") && chargeFire < ChargeFire.Waiting){
+        if(charged && Input.GetButton("Fire1") && chargeFire == ChargeFire.Searching && charged){
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos);
             RaycastHit hit;
@@ -347,17 +340,13 @@ public class PlayerController : MonoBehaviour
                     anim.SetInteger("ChargeFireState", (int)chargeFire);
                 }
                 else{
-                    chargeFire = ChargeFire.Searching;
                     anim.SetInteger("ChargeFireState", (int)chargeFire);
                 }
-            }
-            else{
-                chargeFire = ChargeFire.Searching;
-                anim.SetInteger("ChargeFireState", (int)chargeFire);
             }
             
         }
         if(chargeFire == ChargeFire.Charging && Time.time - lockHoldStart > lockHoldDuration){
+            chargeFire = ChargeFire.Searching;
             charged = true;
         }
         if(chargeFire == ChargeFire.Searching && Input.GetButtonUp("Fire1")){
@@ -415,6 +404,7 @@ public class PlayerController : MonoBehaviour
         chargeShotPos = null;
         enemyTransform = null;
         lockedOnEnemy = null;
+        lockOnCrossHairs.LockOnCrossHairs(lockedOnEnemy);
     }
     void FireBomb(){
         BBombController lastBomb = FindObjectOfType<BBombController>();
@@ -434,9 +424,9 @@ public class PlayerController : MonoBehaviour
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
-        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
-        rb.velocity = Vector3.forward * speedRail.z;
-        rb.useGravity = true;
+        _rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
+        _rb.velocity = Vector3.forward * speedRail.z;
+        _rb.useGravity = true;
         crashTime = Time.time;
         onCrash(this);
     }
@@ -447,9 +437,9 @@ public class PlayerController : MonoBehaviour
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
-        rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
-        rb.velocity = Vector3.forward * speedRail.z;
-        rb.useGravity = true;
+        _rb.AddForce(transform.forward.normalized, ForceMode.Impulse);
+        _rb.velocity = Vector3.forward * speedRail.z;
+        _rb.useGravity = true;
         crashTime = Time.time;
         onCrash(this);
     }
@@ -458,7 +448,7 @@ public class PlayerController : MonoBehaviour
         onLoop(looping);
         if(flyingModes == FlyingModes.AllRange){
             transform.forward *= -1;
-            rb.velocity *= -1;
+            _rb.velocity *= -1;
         }
     }
     void Hit(){
@@ -493,7 +483,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionEnter(Collision col){
         if(!looping && !crash){
-            rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
+            _rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
         }
         
         if(health.health <= 0){

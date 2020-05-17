@@ -57,7 +57,7 @@ public class CameraController : MonoBehaviour
                         ref velocity,
                         smoothTime
                     );
-                    transform.eulerAngles = transform.forward;
+                    transform.forward = PlayerController.player.transform.forward;
                 }
                 if(PlayerController.flyingModes == FlyingModes.AllRange){
                     Vector3 targetOrientation = target.position + target.right * allRangeOffset.x + target.up * allRangeOffset.y + target.forward * allRangeOffset.z;

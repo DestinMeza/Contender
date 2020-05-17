@@ -135,9 +135,9 @@ public class EnemyChaserController : MonoBehaviour
     }
 
     void CheckObsticles(){
-        Ray ray = new Ray(transform.position, rb.velocity.normalized);
+        Ray pos = new Ray(transform.position, Vector3.zero);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit, 1000, obsticles, QueryTriggerInteraction.Collide)){
+        if(Physics.SphereCast(pos, 50, out hit, 50, obsticles, QueryTriggerInteraction.Collide)){
             PlayerController player = hit.collider.GetComponentInParent<PlayerController>();
             if(hit.collider.gameObject.tag == "Solid" && player == null){
                 Fire();

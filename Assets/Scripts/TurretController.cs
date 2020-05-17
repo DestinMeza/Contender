@@ -11,7 +11,7 @@ public class TurretController : MonoBehaviour
     public float fireInterval = 1;
     public float rotationalDamp = 2;
     public string deathParticles = "ExplosionSmallObject";
-    public float bulletSpeed = 200;
+    public float bulletSpeed = 150;
     float lastShot;
     HealthController health;
     
@@ -32,8 +32,8 @@ public class TurretController : MonoBehaviour
 
     void TrackPlayer(){
 
-        Vector3 playerVel = PlayerController.player.body.velocity;
-        Vector3 playerPos = PlayerController.player.transform.position;
+        Vector3 playerVel = PlayerController.player.rb.velocity;
+        Vector3 playerPos = PlayerController.player.hitbox.position;
         Vector3 diff = playerPos - turret.transform.position;
         
         float dist = diff.magnitude;
