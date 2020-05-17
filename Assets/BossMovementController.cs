@@ -30,28 +30,26 @@ public class BossMovementController : MonoBehaviour
 
         Vector3 headDiff = PlayerController.player.transform.position - transform.position;
 
-        if(Vector3.Dot(transform.forward, PlayerController.player.transform.forward) < 0){
+        if(Vector3.Dot(transform.forward, PlayerController.player.transform.forward) < 0.3){
             head.up = headDiff.normalized;
         }
         else{
-            head.up = transform.forward;
+            head.up = -1 * transform.forward;
         }
 
         CheckObsticles();
+        ClampPos();
     }
 
     void CheckObsticles(){
-        Ray pos = new Ray(transform.position, Vector3.zero);
+        Ray ray = new Ray(transform.position, transform.up);
         RaycastHit hit;
-        if(Physics.SphereCast(pos, 50, out hit, 50, obsticles, QueryTriggerInteraction.Collide)){
-            if(hit.collider.gameObject.tag == "Solid"){
-                Transform obsticle = hit.collider.GetComponentInParent<Transform>();
-                Vector3 diff = obsticle.transform.position - transform.position;
-                Quaternion rotation = Quaternion.LookRotation(Vector3.Cross(diff.normalized, transform.right.normalized));
-                rotation.z = 0;
-                rotation.x = Mathf.Clamp(rotation.x, -5, 5);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime);
-            }
+        if(Physics.Raycast(ray, out hit , 1000, obsticles, QueryTriggerInteraction.Collide)){
+            rb.AddForce(transform.up, ForceMode.VelocityChange);
         }
+    }
+
+    void ClampPos(){
+        transform.position = new Vector3 (transform.position.x, Mathf.Clamp(transform.position.y, 0, 300), transform.position.z) ;
     }
 }
