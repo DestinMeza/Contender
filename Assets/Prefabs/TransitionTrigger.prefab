@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6956ab50160d04aa8b977ab7e52d8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionState: 2
+  transitionState: 1
 --- !u!54 &6314881743470241955
 Rigidbody:
   m_ObjectHideFlags: 0

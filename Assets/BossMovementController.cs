@@ -5,7 +5,7 @@ using UnityEngine;
 public class BossMovementController : MonoBehaviour
 {
     public float rotationalDamp = 1;
-    public float speed = 80;
+    public float speed = 60;
     public Transform head;
     Rigidbody rb;
 
@@ -17,7 +17,7 @@ public class BossMovementController : MonoBehaviour
         Vector3 diff = PlayerController.player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(diff);
         rotation.z = 0;
-        rotation.x = Mathf.Clamp(rotation.x, -20, 20);
+        rotation.x = Mathf.Clamp(rotation.x, -5, 5);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
 
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);

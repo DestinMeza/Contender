@@ -47,7 +47,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: Heading
+    path: JediETA
   m_PositionCurves: []
   m_ScaleCurves: []
   m_FloatCurves: []
@@ -60,7 +60,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 3439920733
+      path: 2800723161
       attribute: 4
       script: {fileID: 0}
       typeID: 4
@@ -100,11 +100,20 @@ AnimationClip:
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 3
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 136
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.x
-    path: Heading
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -132,7 +141,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.y
-    path: Heading
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -169,7 +178,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAnglesRaw.z
-    path: Heading
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -179,8 +188,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.x
-    path: Heading
+    attribute: m_LocalEulerAngles.z
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -190,7 +199,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalEulerAngles.y
-    path: Heading
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -199,8 +208,8 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    attribute: m_LocalEulerAngles.z
-    path: Heading
+    attribute: m_LocalEulerAngles.x
+    path: JediETA
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

@@ -385,10 +385,10 @@ public class PlayerController : MonoBehaviour
         onBarrelRoll(barrelRoll);
     }
     public void SearchingBeep(){
-        AudioManager.Play("ChargeBombSearchingBeep");
+        if(chargeFire == ChargeFire.Searching)AudioManager.Play("ChargeBombSearchingBeep");
     }
     public void ChargingSound(){
-        AudioManager.Play("ChargeBombChargingBeep");
+        if(chargeFire == ChargeFire.Charging)AudioManager.Play("ChargeBombChargingBeep");
     }
     // void OnDrawGizmos(){
     //     Vector3 pos = crossHair.transform.position - cam.transform.position;
