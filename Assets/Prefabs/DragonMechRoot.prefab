@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2243371151326221843}
   - component: {fileID: 828426219476754583}
   - component: {fileID: 7674253270369058283}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitSpotTail
   m_TagString: Solid
   m_Icon: {fileID: 0}
@@ -716,7 +716,7 @@ GameObject:
   - component: {fileID: 5633474833107550799}
   - component: {fileID: 7649758485834449076}
   - component: {fileID: 696613825901458690}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HitSpotMouth
   m_TagString: Solid
   m_Icon: {fileID: 0}
