@@ -15,6 +15,19 @@ public class MissileTurretController : MonoBehaviour
     bool firedFirst;
     float lastShot;
     float secondLaunchDelay;
+    HealthController health;
+
+    void Awake(){
+        health = GetComponent<HealthController>();
+    }
+
+    void OnEnable(){
+        health.onDeath += Explode;
+    }
+
+    void OnDisable(){
+        health.onDeath -= Explode;
+    }
 
     void Update()
     {
@@ -41,5 +54,11 @@ public class MissileTurretController : MonoBehaviour
             lastShot = Time.time;
             firedFirst = false;
         }
+    }
+
+    void Explode(HealthController health){
+        ParticleManager.particleMan.Play("ExplosionSmallObject", transform.position);
+        AudioManager.Play("SmallObjectExplosion", 1, 1, false, transform.position, 0.8f);
+        gameObject.SetActive(false);
     }
 }

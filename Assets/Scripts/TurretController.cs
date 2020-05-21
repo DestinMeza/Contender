@@ -34,12 +34,12 @@ public class TurretController : MonoBehaviour
 
         Vector3 playerVel = PlayerController.player.rb.velocity;
         Vector3 playerPos = PlayerController.player.hitbox.position;
-        Vector3 diff = playerPos - turret.transform.position;
+        Vector3 diff = playerPos - turretFirePos.position;
         
         float dist = diff.magnitude;
         float t = dist / (bulletSpeed - playerVel.magnitude);
         playerPos = playerPos + playerVel * t;
-        diff = playerPos - turret.transform.position;
+        diff = playerPos - turretFirePos.position;
 
         Quaternion rotation = Quaternion.LookRotation(diff);
         rotation.z = 0;
@@ -62,7 +62,6 @@ public class TurretController : MonoBehaviour
         if(Time.time - lastShot > fireInterval){
             lastShot = Time.time;
             GameObject bullet = SpawnManager.Spawn(enemyBulletPrefab, turretFirePos.position);
-            bulletSpeed = bullet.GetComponentInParent<Rigidbody>().velocity.magnitude;
             bullet.GetComponentInParent<BulletController>().SetDir(dir);
             AudioManager.Play("BlasterSound",1,1,false,transform.position,0.9f);
         }

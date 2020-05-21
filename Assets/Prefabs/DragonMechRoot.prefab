@@ -300,8 +300,10 @@ MonoBehaviour:
   obsticles:
     serializedVersion: 2
     m_Bits: 32768
+  glidingDuration: 5
   rotationalDamp: 0.1
   speed: 40
+  strafingDist: 200
   head: {fileID: 1855556843353678265}
 --- !u!54 &8466141894920599012
 Rigidbody:

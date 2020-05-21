@@ -409,6 +409,7 @@ GameObject:
   - component: {fileID: 7465909574953703362}
   - component: {fileID: 8403286171878112647}
   - component: {fileID: 6489495011921078093}
+  - component: {fileID: 2396469685134842777}
   m_Layer: 17
   m_Name: MissileTurretRoot
   m_TagString: Untagged
@@ -467,6 +468,22 @@ MonoBehaviour:
   maxFiringDis: 200
   fireInterval: 2
   launchDelay: 1
+--- !u!114 &2396469685134842777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7465909574953703365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f1650cf159fc04eae175dcea7e4cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 2
+  health: 2
+  scoreValue: 20
+  projectScore: 1
 --- !u!1 &7972891350096178076
 GameObject:
   m_ObjectHideFlags: 0

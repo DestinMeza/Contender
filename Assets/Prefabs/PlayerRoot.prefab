@@ -5719,11 +5719,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 132096
   chargeFire: 3
   blasterState: 0
   speedRail: {x: 30, y: -20, z: 30}
-  speedAllRange: {x: 20, y: -20, z: 20}
+  speedAllRange: {x: 30, y: -30, z: 30}
   lockOnOffset: {x: 0, y: 0, z: 60}
   maxSpeedChange: 2
   bulletPrefab: Bullet
@@ -5744,7 +5744,7 @@ MonoBehaviour:
   crashDuration: 3
   crashTime: 0
   collisionShield: 0.5
-  bombAmmo: 3
+  bombAmmo: 0
   enemyTransform: {fileID: 0}
   minimapCam: {fileID: 7978924845083450919}
 --- !u!114 &2826073995892855356
@@ -6343,8 +6343,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.7608736, z: 0.8979221}
-  m_Center: {x: 0, y: -0.38043672, z: -0.051039185}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &4703358788407657388
 PrefabInstance:
   m_ObjectHideFlags: 0
