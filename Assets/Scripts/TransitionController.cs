@@ -9,6 +9,7 @@ public class TransitionController : MonoBehaviour
 
     public FlyingModes transitionState = FlyingModes.Rail;
     FlyingModes flyingModes = FlyingModes.Rail;
+
     void Start(){
         flyingModes = FlyingModes.Rail;
     }
@@ -24,5 +25,6 @@ public class TransitionController : MonoBehaviour
             onTransition(flyingModes);
             gameObject.SetActive(false);
         }
+
     }
 }
