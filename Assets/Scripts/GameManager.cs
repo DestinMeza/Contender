@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     public GameObject[] triggerObjects;
     public GameObject AllRangeModeSpawner;
     public GameObject gameOverSign;
+    public GameObject bossUI;
     public GameObject playerUI;
     public PlayerController player;
     public Text ringScoreText;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     public Text hitScoreText;
     public GameState gameState = GameState.GameStart; 
     public Vector3 initalPos = new Vector3(0, 5, 0);
+    bool bossFight;
     void Awake(){
         if(game == null){
             game = this;
@@ -57,7 +59,7 @@ public class GameManager : MonoBehaviour
         EnemyChaserController.onDeathCalculation += DeathReward;
         MechController.onDeathCalculation += DeathReward;
         TargetDroidController.onDeathCalculation += DeathReward;
-
+        BossHealthController.onSpawned += BossSpawned;
         score = 0;
         ringScore = 0;
         hitScore = 0;
@@ -124,9 +126,15 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(10);
         }
     }
+
+    void BossSpawned(bool isAlive){
+        bossFight = isAlive;
+    }
+
     void GameplayUpdate(){
         if(!player.gameObject.activeSelf) player.gameObject.SetActive(true);
         if(flyingModes != FlyingModes.TransitionLock && !player.crash) playerUI.SetActive(true);
+        if(bossFight) bossUI.SetActive(bossFight);
         scoreText.text = string.Format("score: {0}", score);
         hitScoreText.text = string.Format("hit: {0}", hitScore);
         ringScoreText.text = string.Format("Rings : {0}", ringScore);

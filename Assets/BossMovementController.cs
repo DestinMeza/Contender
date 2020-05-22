@@ -15,7 +15,7 @@ public class BossMovementController : MonoBehaviour
     public float glidingDuration;
     public float rotationalDamp = 1;
     public float speed = 60;
-    public float strafingDist = 200;
+    float strafingDist = 600;
     public Transform head;
     float lastGlideTime = 3;
     Rigidbody rb;
@@ -47,9 +47,9 @@ public class BossMovementController : MonoBehaviour
         Vector3 diff = PlayerController.player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(diff);
         rotation.z = 0;
-        anim.SetFloat("horizontalTurn", rotation.y);
+        rotation.x = 0;
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-        
+        anim.SetFloat("horizontalTurn",transform.localRotation.y / rotation.y);
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
         rb.velocity = rb.velocity = new Vector3(
             Mathf.Clamp(rb.velocity.x, speed*-0.5f, speed*0.5f),
@@ -67,9 +67,10 @@ public class BossMovementController : MonoBehaviour
         Vector3 diff = PlayerController.player.transform.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(diff);
         rotation.z = 0;
-        anim.SetFloat("horizontalTurn", rotation.x);
+        rotation.x = 0;
+        anim.SetFloat("horizontalTurn", rotation.y);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-        
+        anim.SetFloat("horizontalTurn",transform.localRotation.y / rotation.y);
         rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
         rb.velocity = rb.velocity = new Vector3(
             Mathf.Clamp(rb.velocity.x, speed*-1.0f, speed*1.0f),
@@ -93,6 +94,6 @@ public class BossMovementController : MonoBehaviour
     }
 
     void ClampPos(){
-        transform.position = new Vector3 (transform.position.x, Mathf.Clamp(transform.position.y, 100, 300), transform.position.z) ;
+        transform.position = new Vector3 (transform.position.x, Mathf.Clamp(transform.position.y, 200, 300), transform.position.z) ;
     }
 }
