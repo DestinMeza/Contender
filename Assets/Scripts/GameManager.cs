@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
     public Text hitScoreText;
     public GameState gameState = GameState.GameStart; 
     public Vector3 initalPos = new Vector3(0, 5, 0);
-    bool bossFight;
+    bool bossFight = false;
     void Awake(){
         if(game == null){
             game = this;
@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
         MechController.onDeathCalculation += DeathReward;
         TargetDroidController.onDeathCalculation += DeathReward;
         BossHealthController.onSpawned += BossSpawned;
+        bossUI.SetActive(bossFight);
         score = 0;
         ringScore = 0;
         hitScore = 0;

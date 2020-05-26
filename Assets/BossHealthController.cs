@@ -6,7 +6,7 @@ public class BossHealthController : MonoBehaviour
 {
     public delegate void OnSpawned(bool spawned);
     public static event OnSpawned onSpawned = delegate{};
-    public delegate void OnTakingDamage(int bossHp);
+    public delegate void OnTakingDamage(int bossHp, int bossMaxHP);
     public static event OnTakingDamage onTakingDamage = delegate{};
     HealthController[] healthControllers;
     int _bossMaxHP;
@@ -33,7 +33,7 @@ public class BossHealthController : MonoBehaviour
     }
     void VitalHit(){
         bossHP--;
-        onTakingDamage(bossHP);
+        onTakingDamage(bossHP, bossMaxHp);
     }
 
     void Death(HealthController health){
