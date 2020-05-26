@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class BossAttackController : MonoBehaviour
 {
-    public LayerMask solidObjects;
     public Transform firePos;
-    public LineRenderer lazer;
+    public Transform lazerParent;
+    public Transform lazerOrientation;
     public ParticleSystem lazerCharge;
     public int numberPerVolley = 8;
     public float firingPause = 8;
@@ -35,10 +35,8 @@ public class BossAttackController : MonoBehaviour
         if((target.position - transform.position).magnitude < lazerFiringDistance){
             LazerCharge();
         }
-        else{
-            lazerCharge.Stop();
-        }
     }
+
     void Fire(Transform target){
         if(Time.time - lastShot > fireInterval){
             MissileController missle = SpawnManager.Spawn("MissileRoot", firePos.position).GetComponent<MissileController>();
@@ -63,25 +61,23 @@ public class BossAttackController : MonoBehaviour
     }
     IEnumerator LazerFire(){
         for(float t = 0; t <= stretchToPointTime; t += Time.deltaTime){
-            lazer.gameObject.SetActive(true);
-            Transform playerTarget = PlayerController.player.hitbox;
-            int previousSegment = lazer.positionCount -2;
-            Vector3 previousPos = lazer.GetPosition(previousSegment);
-            Vector3 lazerFinalPos = Vector3.Lerp(previousPos, playerTarget.position, t/stretchToPointTime);
-            lazer.SetPosition(lazer.positionCount-1, lazerFinalPos);
-            Ray ray = new Ray(lazer.GetPosition(0), lazer.GetPosition(lazer.positionCount-1));
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit, lazer.GetPosition(lazer.positionCount-1).magnitude, solidObjects, QueryTriggerInteraction.Collide)){
-                if(hit.collider.GetComponentInParent<HealthController>()){
-                    hit.collider.GetComponentInParent<HealthController>().health -= 1;
-                }
-            }
+            lazerParent.gameObject.SetActive(true);
+            CapsuleCollider col = lazerOrientation.GetComponent<CapsuleCollider>();
+            lazerOrientation.forward = PlayerController.player.transform.position - lazerParent.transform.position;
+            Vector3 diff = PlayerController.player.transform.position - lazerParent.transform.position;
+            float dis = diff.magnitude;
+            lazerParent.localScale = new Vector3(1, 1, Mathf.Lerp(0, dis, t/stretchToPointTime));
+            col.center = diff / 2;
+            col.height = lazerParent.localScale.z;
             lazerFiringTime = Time.time;
             yield return new WaitForEndOfFrame();
         }
-        if(Time.time - lazerFiringTime > lazerFireDuration){
-            lazer.gameObject.SetActive(false);
-            lazerPlaying = false;
+        while(lazerPlaying){
+            if(Time.time - lazerFiringTime > lazerFireDuration){
+                lazerParent.gameObject.SetActive(false);
+                lazerPlaying = false;
+            }
+            yield return new WaitForEndOfFrame();
         }
     }
 }

@@ -20,6 +20,7 @@ public class DamageController : MonoBehaviour
     }
     void OnTriggerEnter(Collider col){
         Hit(col.gameObject);
+        if(gameObject.name == "LazerOrientation") Debug.Log(col.name);
     }
     void Hit(GameObject g){
         HealthController h = g.GetComponentInParent<HealthController>();

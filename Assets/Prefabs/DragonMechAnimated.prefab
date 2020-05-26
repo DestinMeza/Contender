@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4212937050890327782, guid: f1e29e949f37cf44ea7b4391d65a605a,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4364736821159908859, guid: f1e29e949f37cf44ea7b4391d65a605a,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -232,6 +237,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8345825805609930464, guid: f1e29e949f37cf44ea7b4391d65a605a,
+        type: 3}
+      propertyPath: m_Parameters.alignment
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8345825805609930464, guid: f1e29e949f37cf44ea7b4391d65a605a,
+        type: 3}
+      propertyPath: m_Parameters.widthMultiplier
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8566240397307957527, guid: f1e29e949f37cf44ea7b4391d65a605a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6700410894058291618, guid: f1e29e949f37cf44ea7b4391d65a605a, type: 3}
