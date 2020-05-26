@@ -26,7 +26,6 @@ public class BossMovementController : MonoBehaviour
     }
 
     void Update(){
-        
         if(bossState == BossState.Flying)Flying();
         if(bossState == BossState.Turning)Turning();
         if(bossState == BossState.Gliding)Gliding();
@@ -34,13 +33,17 @@ public class BossMovementController : MonoBehaviour
     }
 
     void Gliding(){
-        if(Time.time - lastGlideTime > glidingDuration){ bossState = BossState.Flying; return; }
-        rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
-        rb.velocity = rb.velocity = new Vector3(
-            Mathf.Clamp(rb.velocity.x, speed*-2, speed*2),
-            Mathf.Clamp(rb.velocity.y, speed*-2, speed*2),
-            Mathf.Clamp(rb.velocity.z, speed*-2, speed*2)
-        );
+        if(Time.time - lastGlideTime > glidingDuration){
+            rb.AddForce(transform.forward * speed, ForceMode.VelocityChange);
+            rb.velocity = rb.velocity = new Vector3(
+                Mathf.Clamp(rb.velocity.x, speed*-2, speed*2),
+                Mathf.Clamp(rb.velocity.y, speed*-2, speed*2),
+                Mathf.Clamp(rb.velocity.z, speed*-2, speed*2)
+            );
+        }
+        else{
+            bossState = BossState.Flying;
+        }
     }
 
     void Turning(){
@@ -94,6 +97,6 @@ public class BossMovementController : MonoBehaviour
     }
 
     void ClampPos(){
-        transform.position = new Vector3 (transform.position.x, Mathf.Clamp(transform.position.y, 200, 300), transform.position.z) ;
+        transform.position = new Vector3 (transform.position.x, Mathf.Clamp(transform.position.y, 200, 300), transform.position.z);
     }
 }

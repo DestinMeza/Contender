@@ -15,12 +15,23 @@ public class BossHealthController : MonoBehaviour
     void Awake(){
         healthControllers = GetComponentsInChildren<HealthController>();
     }
+
+    void Update(){
+        for(int i = 0; i < healthControllers.Length; i++){
+            if(healthControllers[i].health <= 0){
+                healthControllers[i].gameObject.SetActive(false);
+            }
+        }
+        
+        if(bossHP <= 0){
+            Death();
+        }
+    }
     void OnEnable(){
         onSpawned(true);
         for(int i = 0; i < healthControllers.Length; i++){
             bossHP += healthControllers[i].health;
             healthControllers[i].onHealthDecrease += VitalHit;
-            healthControllers[i].onDeath += Death;
         }
         _bossMaxHP = bossHP;
     }
@@ -28,7 +39,6 @@ public class BossHealthController : MonoBehaviour
         onSpawned(false);
         for(int i = 0; i < healthControllers.Length; i++){
             healthControllers[i].onHealthDecrease -= VitalHit;
-            healthControllers[i].onDeath -= Death;
         }
     }
     void VitalHit(){
@@ -36,7 +46,7 @@ public class BossHealthController : MonoBehaviour
         onTakingDamage(bossHP, bossMaxHp);
     }
 
-    void Death(HealthController health){
+    void Death(){
         AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.9f);
         ParticleManager.particleMan.Play("ExplosionLargeObject", transform.position);
         gameObject.SetActive(false);

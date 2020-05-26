@@ -463,7 +463,7 @@ public class PlayerController : MonoBehaviour
             GameManager.game.IncrementRingScore();
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
-        if(col.name == "AllRangeModeBounds"){
+        if(col.name == "AllRangeModeBounds" || col.name == "BossFight"){
             looping = true;
             anim.Play("PlayerLoop2");
         }

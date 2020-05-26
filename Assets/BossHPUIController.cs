@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class BossHPUIController : MonoBehaviour
 {
     Image healthBarUI;
-    public int currentHP;
-    
     void Awake(){
         healthBarUI = GetComponent<Image>();
     }
@@ -19,7 +17,6 @@ public class BossHPUIController : MonoBehaviour
     }
 
     void HealthChange(int hp, int maxHp){
-        currentHP = hp;
-        healthBarUI.fillAmount = currentHP/maxHp;
+        healthBarUI.fillAmount = (float)hp/(float)maxHp;
     }
 }
