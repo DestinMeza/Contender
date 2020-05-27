@@ -466,8 +466,8 @@ MonoBehaviour:
   target: {fileID: 0}
   rotationalDamp: 1
   maxFiringDis: 200
-  fireInterval: 2
-  launchDelay: 1
+  fireInterval: 4
+  launchDelay: 3
 --- !u!114 &2396469685134842777
 MonoBehaviour:
   m_ObjectHideFlags: 0

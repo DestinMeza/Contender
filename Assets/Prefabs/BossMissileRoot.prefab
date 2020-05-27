@@ -9893,7 +9893,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 32768
-  rotationalDamp: 0.8
+  rotationalDamp: 0.9
   acceleration: 60
   maxSpeed: 30
   lifetime: 10

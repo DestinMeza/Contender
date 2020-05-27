@@ -53,7 +53,9 @@ public class PlayerController : MonoBehaviour
     public Transform firePosMain;
     public Transform firePos1;
     public Transform firePos2;
+    public Transform heading;
     public bool crash;
+    public float barrelRollCooldown = 1;
     public float boostMeterMax = 1;
     public float boostMeter = 1;
     public float lockHoldDuration = 1;
@@ -64,6 +66,7 @@ public class PlayerController : MonoBehaviour
     public float collisionShield = 0.5f;
     public int bombAmmo;
     float lastCollisionTime;
+    float lastBarrelRollTime;
     bool looping = false;
     bool breaking = false;
     bool charged = false;
@@ -167,11 +170,15 @@ public class PlayerController : MonoBehaviour
         if(flyingModes == FlyingModes.AllRange)AllRangeMovement();
 
         if(Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.E)){
-            barrelRollParticle.Play();
-            AudioManager.Play("BarrelRoll");
-            anim.Play("BarrelRoll");
-            barrelRoll = true;
-            onBarrelRoll(barrelRoll);
+            if(Time.time - lastBarrelRollTime > barrelRollCooldown){
+                _hitBox.tag = "Player";
+                lastBarrelRollTime = Time.time;
+                barrelRollParticle.Play();
+                AudioManager.Play("BarrelRoll");
+                anim.Play("BarrelRoll");
+                barrelRoll = true;
+                onBarrelRoll(barrelRoll);
+            }
         }
         
         if(Input.GetButton("Bank") && Input.GetButton("BarrelRoll") || Input.GetKeyDown(KeyCode.Q)){
@@ -330,7 +337,7 @@ public class PlayerController : MonoBehaviour
             Vector3 pos = crossHair.transform.position - cam.transform.position;
             Ray lockOnRay = new Ray(cam.transform.position, pos);
             RaycastHit hit;
-            if(Physics.SphereCast(lockOnRay, 10, out hit, Mathf.Infinity, enemy, QueryTriggerInteraction.Collide)){
+            if(Physics.SphereCast(lockOnRay, 10, out hit, lockOnDistance, enemy, QueryTriggerInteraction.Collide)){
                 if(hit.collider.GetComponentInParent<HealthController>()){
                     enemyTransform = hit.collider.GetComponent<Transform>();
                     chargeShotPos = enemyTransform;
@@ -371,6 +378,7 @@ public class PlayerController : MonoBehaviour
     }
     void EndBarrelRoll(){
         barrelRoll = false;
+        _hitBox.tag = "Solid";
         onBarrelRoll(barrelRoll);
     }
     public void SearchingBeep(){
@@ -479,6 +487,12 @@ public class PlayerController : MonoBehaviour
             if(blasterState < BlasterState.MegaFire) blasterState++;
             AudioManager.Play("BlasterPowerUp");
             col.gameObject.SetActive(false);
+        }
+        else if(col.tag == "EnemyBlaster" && barrelRoll){
+            BulletController bullet = col.GetComponentInParent<BulletController>();
+            AudioManager.Play("ObjectHit",1,1,false,transform.position,0.7f);
+            bullet.SetDir(col.transform.forward * -1, 10);
+            bullet.GetComponentInChildren<Collider>().gameObject.layer = LayerMask.NameToLayer("PlayerBlaster");
         }
     }
     void OnCollisionEnter(Collision col){

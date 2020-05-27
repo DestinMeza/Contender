@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BossAttackController : MonoBehaviour
 {
+    enum BossAttackState{
+        Stage1,
+        Stage2,
+    }
+    BossAttackState bossAttackState = BossAttackState.Stage1;
     public Transform firePos;
     public Transform lazerParent;
     public Transform lazerOrientation;
@@ -14,6 +19,7 @@ public class BossAttackController : MonoBehaviour
     public float lazerFiringDistance = 500;
     public float stretchToPointTime = 4;
     public float lazerFireDuration = 3;
+    public float lazerFiringDamping2 = 0.7f;
     Animator anim;
     int volleyIndex;
     float lastShot;
@@ -21,19 +27,39 @@ public class BossAttackController : MonoBehaviour
     float reloadingLazerTime;
     float lazerFiringTime;
     bool lazerPlaying;
+    Transform target;
     void Awake(){
         anim = GetComponent<Animator>();
+        target = PlayerController.player.hitbox;
+        BossHealthController.onTriggerStageTwo += Stage2;
     }
     void Update()
     {
-        Transform target = PlayerController.player.hitbox;
+        target = PlayerController.player.hitbox;
+        if(bossAttackState == BossAttackState.Stage1){
+            MissleAttack();
+        }
+
+        if(bossAttackState == BossAttackState.Stage2){
+            LazerAttack(lazerFiringDamping2);
+        }    
+    }
+
+    void Stage2(){
+        bossAttackState = BossAttackState.Stage2;
+    }
+
+    void MissleAttack(){
         if(Time.time - reloadingTime > firingPause && volleyIndex < numberPerVolley){
             Fire(target);
         }
         else{
             volleyIndex = 0;
         }
-        if((target.position - transform.position).magnitude < lazerFiringDistance && Time.time - reloadingLazerTime > firingPause){
+    }
+
+    void LazerAttack(float firingDamping){
+        if((target.position - transform.position).magnitude < lazerFiringDistance && Time.time - reloadingLazerTime > firingPause * firingDamping){
             LazerCharge();
         }
     }

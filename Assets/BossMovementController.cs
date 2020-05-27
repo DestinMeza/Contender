@@ -83,7 +83,7 @@ public class BossMovementController : MonoBehaviour
 
         Vector3 headDiff = PlayerController.player.transform.position - transform.position;
         anim.SetInteger("AnimState", (int)bossState);
-        if(Vector3.Dot(transform.forward, PlayerController.player.transform.forward) < 0.3){
+        if(Vector3.Dot(transform.forward, PlayerController.player.transform.forward) < 0.1f){
             head.up = headDiff.normalized;
         }
         else if(diff.magnitude < strafingDist){

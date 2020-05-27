@@ -90,6 +90,10 @@ public class GameManager : MonoBehaviour
         if(Input.GetButtonDown("Cancel")){
             SceneManager.LoadScene("MainMenu");
         }
+        if(gameState == GameState.Victory){
+            VictoryUpdate();
+            return;
+        }
         if(gameState == GameState.GameStart) Setup();
         if(gameState == GameState.GamePlaying)GameplayUpdate();
         if(gameState == GameState.GameOver)GameOverUpdate();

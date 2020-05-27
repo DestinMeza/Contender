@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour
     public Vector2 maxX = new Vector2(-40, 40);
     public Vector3 railOffset = new Vector3(0, 1, -15);
     public Vector3 allRangeOffset = new Vector3(0, 1, -20);
+    public Vector3 bossDeathOffset = new Vector3(-100, 0, 100);
     Vector3 velocity = Vector3.zero;
     public static CameraController cameraMain;
     Camera cam;
@@ -37,6 +38,10 @@ public class CameraController : MonoBehaviour
         if(Application.isPlaying){
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
+            if(!target.GetComponentInParent<PlayerController>()){
+                Vector3 targetOrientation = heading.position + heading.right * bossDeathOffset.x + heading.up * bossDeathOffset.y + heading.forward * bossDeathOffset.z;
+                transform.position = targetOrientation;
+            }
             if(looping){
                 transform.LookAt(heading.position);
                 Vector3 targetOrientation = heading.position + heading.right * railOffset.x + heading.up * railOffset.y + heading.forward * railOffset.z;
@@ -45,7 +50,7 @@ public class CameraController : MonoBehaviour
                         targetOrientation,
                         ref velocity,
                         smoothTime + 0.2f
-                    );
+                );
             } 
             else if(!playerCrashing || !looping){
                 if(PlayerController.flyingModes == FlyingModes.Rail){

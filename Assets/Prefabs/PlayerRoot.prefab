@@ -5736,6 +5736,7 @@ MonoBehaviour:
   firePosMain: {fileID: 3518203700240104145}
   firePos1: {fileID: 5716020992011513453}
   firePos2: {fileID: 5716020992366437460}
+  heading: {fileID: 5716020992430707029}
   crash: 0
   boostMeterMax: 1
   boostMeter: 1

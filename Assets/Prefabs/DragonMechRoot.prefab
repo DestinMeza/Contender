@@ -266,7 +266,6 @@ Transform:
   - {fileID: 5407608180357642500}
   - {fileID: 3815524372463347105}
   - {fileID: 2326669647173524576}
-  - {fileID: 5012613551471864074}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -305,7 +304,7 @@ MonoBehaviour:
   lazerParent: {fileID: 5423816832643831881}
   lazerOrientation: {fileID: 8768585494055019793}
   lazerCharge: {fileID: 8566240397307957527}
-  numberPerVolley: 8
+  numberPerVolley: 3
   firingPause: 4
   fireInterval: 0.2
   lazerFiringDistance: 500
@@ -5536,6 +5535,7 @@ Transform:
   m_Children:
   - {fileID: 5684714617713187018}
   - {fileID: 5831045923454520228}
+  - {fileID: 5012613551471864074}
   m_Father: {fileID: 4245328842483401013}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6027,12 +6027,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8584134817145131840}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 1.004, z: 0}
+  m_LocalRotation: {x: -7.299447e-24, y: -1, z: -6.123234e-17, w: -0.000000119209005}
+  m_LocalPosition: {x: 0, y: 12.29, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1040641799519360977}
-  m_RootOrder: 3
+  m_Father: {fileID: 1902365187534352503}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1 &8952235859858005676
 GameObject:

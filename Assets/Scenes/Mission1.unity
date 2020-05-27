@@ -7976,17 +7976,17 @@ PrefabInstance:
     - target: {fileID: 7172002570448615680, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_Size.z
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615680, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_Size.y
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615680, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_Size.x
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615682, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
@@ -7996,7 +7996,7 @@ PrefabInstance:
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.07
+      value: 2.86
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
@@ -8006,7 +8006,7 @@ PrefabInstance:
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 583.46
+      value: 582.8
       objectReference: {fileID: 0}
     - target: {fileID: 7172002570448615683, guid: 0ba966c2b4851ac43806cbeb9ffce26f,
         type: 3}
@@ -10637,6 +10637,21 @@ PrefabInstance:
       propertyPath: antialiasingMode
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: fog.excludeSkybox
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: fog.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: finalBlitToCameraTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33, type: 3}
 --- !u!1001 &1390891707
@@ -11174,7 +11189,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -540.2
+      value: -575.7
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
