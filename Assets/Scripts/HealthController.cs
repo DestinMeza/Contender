@@ -45,8 +45,8 @@ public class HealthController : MonoBehaviour
     }
 
     public void IncreaseHeath(int health){
-        if(this.health + health > maxHealth){
-            health = maxHealth;
+        if(this.health + health >= maxHealth){
+            this.health = maxHealth;
             return;
         }
         else{

@@ -88,12 +88,13 @@ public class BossAttackController : MonoBehaviour
     }
     IEnumerator LazerFire(){
         for(float t = 0; t <= stretchToPointTime; t += Time.deltaTime){
-            lazerParent.gameObject.SetActive(true);
+            lazerOrientation.gameObject.SetActive(true);
             CapsuleCollider col = lazerOrientation.GetComponent<CapsuleCollider>();
             lazerOrientation.forward = PlayerController.player.transform.position - lazerParent.transform.position;
-            Vector3 diff = PlayerController.player.transform.position - lazerParent.transform.position;
+            Vector3 rand = Random.insideUnitSphere;
+            Vector3 diff = rand + PlayerController.player.transform.position - lazerParent.transform.position;
             float dis = diff.magnitude;
-            lazerParent.localScale = new Vector3(1, 1, Mathf.Lerp(0, dis, t/stretchToPointTime));
+            lazerParent.localScale = new Vector3(0.5f, 0.5f, Mathf.Lerp(0, dis, t/stretchToPointTime));
             col.center = new Vector3(0, 0, lazerParent.localScale.z / 2);
             col.height = lazerParent.localScale.z;
             lazerFiringTime = Time.time;
@@ -101,7 +102,7 @@ public class BossAttackController : MonoBehaviour
         }
         while(lazerPlaying){
             if(Time.time - lazerFiringTime > lazerFireDuration){
-                lazerParent.gameObject.SetActive(false);
+                lazerOrientation.gameObject.SetActive(true);
                 lazerPlaying = false;
                 reloadingLazerTime = Time.time;
             }

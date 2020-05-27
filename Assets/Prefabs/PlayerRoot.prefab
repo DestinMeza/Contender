@@ -5738,10 +5738,11 @@ MonoBehaviour:
   firePos2: {fileID: 5716020992366437460}
   heading: {fileID: 5716020992430707029}
   crash: 0
+  barrelRollCooldown: 1
   boostMeterMax: 1
   boostMeter: 1
   lockHoldDuration: 1
-  lockOnDistance: 200
+  lockOnDistance: 500
   crashDuration: 3
   crashTime: 0
   collisionShield: 0.5

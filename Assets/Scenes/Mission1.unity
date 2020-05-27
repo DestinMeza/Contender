@@ -10534,8 +10534,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3787502501601079651, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
-      propertyPath: far clip plane
-      value: 4000
+      propertyPath: m_FocalLength
+      value: 32.96973
       objectReference: {fileID: 0}
     - target: {fileID: 3787502501601079652, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
@@ -11179,7 +11179,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -21.9
+      value: 11.6
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
@@ -11189,7 +11189,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -575.7
+      value: -579
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}

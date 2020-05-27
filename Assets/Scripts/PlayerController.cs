@@ -428,7 +428,6 @@ public class PlayerController : MonoBehaviour
     }
     void Crash(HealthController health){
         if(crash) return;
-        crossHair.SetActive(false);
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);
@@ -441,7 +440,6 @@ public class PlayerController : MonoBehaviour
 
     void Crash(){
         if(crash) return;
-        crossHair.SetActive(false);
         anim.Play("PlayerCrash");
         crash = true;
         anim.SetBool("crashing", crash);

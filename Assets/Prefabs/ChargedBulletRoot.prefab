@@ -66,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d03a8b2008f621e40a0a34eacd3e7b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ground:
+  solidObjects:
     serializedVersion: 2
     m_Bits: 32769
   nameOfParticle: 

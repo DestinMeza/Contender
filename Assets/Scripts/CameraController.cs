@@ -41,6 +41,7 @@ public class CameraController : MonoBehaviour
             if(!target.GetComponentInParent<PlayerController>()){
                 Vector3 targetOrientation = heading.position + heading.right * bossDeathOffset.x + heading.up * bossDeathOffset.y + heading.forward * bossDeathOffset.z;
                 transform.position = targetOrientation;
+                transform.LookAt(targetOrientation);
             }
             if(looping){
                 transform.LookAt(heading.position);
