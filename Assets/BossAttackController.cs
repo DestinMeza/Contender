@@ -8,16 +8,17 @@ public class BossAttackController : MonoBehaviour
     public Transform lazerParent;
     public Transform lazerOrientation;
     public ParticleSystem lazerCharge;
-    public int numberPerVolley = 8;
+    public int numberPerVolley = 3;
     public float firingPause = 8;
     public float fireInterval = 0.2f;
     public float lazerFiringDistance = 500;
-    public float stretchToPointTime = 2;
+    public float stretchToPointTime = 4;
     public float lazerFireDuration = 3;
     Animator anim;
     int volleyIndex;
     float lastShot;
     float reloadingTime;
+    float reloadingLazerTime;
     float lazerFiringTime;
     bool lazerPlaying;
     void Awake(){
@@ -32,14 +33,14 @@ public class BossAttackController : MonoBehaviour
         else{
             volleyIndex = 0;
         }
-        if((target.position - transform.position).magnitude < lazerFiringDistance){
+        if((target.position - transform.position).magnitude < lazerFiringDistance && Time.time - reloadingLazerTime > firingPause){
             LazerCharge();
         }
     }
 
     void Fire(Transform target){
         if(Time.time - lastShot > fireInterval){
-            MissileController missle = SpawnManager.Spawn("MissileRoot", firePos.position).GetComponent<MissileController>();
+            MissileController missle = SpawnManager.Spawn("BossMissileRoot", firePos.position).GetComponent<MissileController>();
             missle.SetTarget(target);
             lastShot = Time.time;
             volleyIndex++;
@@ -67,7 +68,7 @@ public class BossAttackController : MonoBehaviour
             Vector3 diff = PlayerController.player.transform.position - lazerParent.transform.position;
             float dis = diff.magnitude;
             lazerParent.localScale = new Vector3(1, 1, Mathf.Lerp(0, dis, t/stretchToPointTime));
-            col.center = diff / 2;
+            col.center = new Vector3(0, 0, lazerParent.localScale.z / 2);
             col.height = lazerParent.localScale.z;
             lazerFiringTime = Time.time;
             yield return new WaitForEndOfFrame();

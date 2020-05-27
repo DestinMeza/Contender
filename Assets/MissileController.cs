@@ -7,10 +7,10 @@ public class MissileController : MonoBehaviour
     public LayerMask ground;
     Animator anim;
     Transform target;
-    float rotationalDamp = 1000;
-    float acceleration = 60;
-    float maxSpeed = 200;
-    float lifetime = 10;
+    public float rotationalDamp = 1000;
+    public float acceleration = 60;
+    public float maxSpeed = 200;
+    public float lifetime = 10;
     Rigidbody rb;
     HealthController health;
 
@@ -40,7 +40,7 @@ public class MissileController : MonoBehaviour
         Vector3 diff = target.position - transform.position;
         Quaternion rotation = Quaternion.LookRotation(diff);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationalDamp * Time.deltaTime);
-        rb.AddForce(transform.forward * acceleration, ForceMode.Force);
+        rb.AddForce(transform.forward * acceleration, ForceMode.VelocityChange);
         rb.velocity = new Vector3(
             Mathf.Clamp(rb.velocity.x, maxSpeed *-1, maxSpeed*1),
             Mathf.Clamp(rb.velocity.y, maxSpeed *-1, maxSpeed*1),

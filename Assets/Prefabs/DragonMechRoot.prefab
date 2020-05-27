@@ -309,8 +309,8 @@ MonoBehaviour:
   firingPause: 4
   fireInterval: 0.2
   lazerFiringDistance: 500
-  stretchToPointTime: 2
-  lazerFireDuration: 0
+  stretchToPointTime: 4
+  lazerFireDuration: 3
 --- !u!114 &6700410894058291618
 MonoBehaviour:
   m_ObjectHideFlags: 0
