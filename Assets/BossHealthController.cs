@@ -6,6 +6,8 @@ public class BossHealthController : MonoBehaviour
 {
     public delegate void OnSpawned(bool spawned);
     public static event OnSpawned onSpawned = delegate{};
+    public delegate void OnBossDeath();
+    public static event OnBossDeath onBossDeath = delegate{};
     public delegate void OnTakingDamage(int bossHp, int bossMaxHP);
     public static event OnTakingDamage onTakingDamage = delegate{};
     HealthController[] healthControllers;
@@ -49,6 +51,7 @@ public class BossHealthController : MonoBehaviour
     void Death(){
         AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.9f);
         ParticleManager.particleMan.Play("ExplosionLargeObject", transform.position);
+        onBossDeath();
         gameObject.SetActive(false);
     }
 

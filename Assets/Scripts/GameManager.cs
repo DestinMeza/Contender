@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public enum GameState{
     GameStart,
     GamePlaying,
-    GameOver
+    GameOver,
+    Victory,
 }
 
 public enum FlyingModes{
@@ -38,6 +39,8 @@ public class GameManager : MonoBehaviour
     public GameState gameState = GameState.GameStart; 
     public Vector3 initalPos = new Vector3(0, 5, 0);
     bool bossFight = false;
+    public float timerDuration = 5;
+    float sceneExitTimer;
     void Awake(){
         if(game == null){
             game = this;
@@ -60,6 +63,7 @@ public class GameManager : MonoBehaviour
         MechController.onDeathCalculation += DeathReward;
         TargetDroidController.onDeathCalculation += DeathReward;
         BossHealthController.onSpawned += BossSpawned;
+        BossHealthController.onBossDeath += Victory;
         bossUI.SetActive(bossFight);
         score = 0;
         ringScore = 0;
@@ -141,6 +145,12 @@ public class GameManager : MonoBehaviour
         ringScoreText.text = string.Format("Rings : {0}", ringScore);
     }
 
+    void VictoryUpdate(){
+        if(Time.time - sceneExitTimer > timerDuration){
+            SceneManager.LoadScene(SceneManager.GetSceneAt(0).ToString());
+        }
+    }
+
     void GameOver(PlayerController player){
         this.player = player;
         if(lives <= 0){
@@ -168,6 +178,13 @@ public class GameManager : MonoBehaviour
     public void IncrementRingScore(){
         ringScore++;
         score += ringScore * 5;
+    }
+
+    void Victory(){
+        gameOverSign.GetComponent<Text>().text = "Victory!";
+        gameOverSign.SetActive(true);
+        gameState = GameState.Victory;
+        sceneExitTimer = Time.time;
     }
 
     void IncrementScore(int score){

@@ -77,6 +77,7 @@ public class BossAttackController : MonoBehaviour
             if(Time.time - lazerFiringTime > lazerFireDuration){
                 lazerParent.gameObject.SetActive(false);
                 lazerPlaying = false;
+                reloadingLazerTime = Time.time;
             }
             yield return new WaitForEndOfFrame();
         }

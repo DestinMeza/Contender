@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
         onCrash(this);
-        if(flyingModes == FlyingModes.TransitionLock){
+        if(flyingModes == FlyingModes.TransitionLock || GameManager.game.gameState == GameState.Victory){
             StraightenPlayer();
             return;
         }

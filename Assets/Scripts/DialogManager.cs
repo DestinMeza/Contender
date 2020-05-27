@@ -7,6 +7,8 @@ public class DialogManager : MonoBehaviour
 {
     [TextArea]
     public string[] dialogs;
+    [TextArea]
+    public string victoryMessage;
     public float textScrollInterval = 0.1f;
     public float closeTextDelay = 5;
     public GameObject dialogArea;
@@ -14,9 +16,10 @@ public class DialogManager : MonoBehaviour
     public Text dialogBoxText;
     public Text characterNameText;
     
-        void Awake(){
+    void Awake(){
         DialogTriggerController.onTriggerSet += GetTrigger;
         StopAllCoroutines();
+        BossHealthController.onBossDeath += VictoryMessage;
     }
 
 
@@ -26,6 +29,10 @@ public class DialogManager : MonoBehaviour
 
     void GetTrigger(int i, string characterName){
         dialogQueue.Enqueue(ReadDialog(i, characterName));
+    }
+
+    void VictoryMessage(){
+        dialogQueue.Enqueue(ReadDialog(victoryMessage, "Captain Saunder"));
     }
 
     IEnumerator DialogQueue(){
@@ -47,6 +54,21 @@ public class DialogManager : MonoBehaviour
     string sentence = "";
 
         foreach (char letter in dialogs[i])
+        {
+            AudioManager.Play("TypingSound" + Random.Range(1,3));
+            sentence += letter;
+            characterNameText.text = characterName;
+            dialogBoxText.text = string.Format("{0}", sentence);
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(textScrollInterval);
+        }
+        yield return new WaitForSeconds(closeTextDelay);
+    }
+
+    IEnumerator ReadDialog(string dialog, string characterName){
+    string sentence = "";
+
+        foreach(char letter in dialog)
         {
             AudioManager.Play("TypingSound" + Random.Range(1,3));
             sentence += letter;
