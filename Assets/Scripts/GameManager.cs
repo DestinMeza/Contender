@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 public enum GameState{
     GameStart,
     GamePlaying,
     GameOver,
     Victory,
+    Pause,
 }
 
 public enum FlyingModes{
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int ringScore = 0;
     public int hitScore = 0;
-    public int lives = 3;
+    public static int lives = 3;
     public static GameManager game;
     public List <GameObject> enemyObjects;
     public GameObject[] triggerObjects;
@@ -32,11 +34,15 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverSign;
     public GameObject bossUI;
     public GameObject playerUI;
+    public GameObject menuUI;
+    public GameObject continueButton;
+    public EventSystem eventSystem;
     public PlayerController player;
     public Text ringScoreText;
     public Text scoreText;
     public Text hitScoreText;
-    public GameState gameState = GameState.GameStart; 
+    public GameState gameState = GameState.GameStart;
+    public GameState previousState;
     public Vector3 initalPos = new Vector3(0, 5, 0);
     bool bossFight = false;
     public float timerDuration = 5;
@@ -54,6 +60,7 @@ public class GameManager : MonoBehaviour
     {   
         playerUI.SetActive(false);
         Cursor.visible = false;
+        gameState = GameState.GameStart;
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)scenesByBuild));
         PlayerController.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
@@ -66,6 +73,7 @@ public class GameManager : MonoBehaviour
         BossHealthController.onSpawned += BossSpawned;
         BossHealthController.onBossDeath += Victory;
         bossUI.SetActive(bossFight);
+        menuUI.SetActive(false);
         score = 0;
         ringScore = 0;
         hitScore = 0;
@@ -88,12 +96,14 @@ public class GameManager : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetButtonDown("Cancel")){
-            LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, SceneManager.GetActiveScene().buildIndex);
-        }
+        
         if(gameState == GameState.Victory){
             VictoryUpdate();
             return;
+        }
+        if(gameState != GameState.Pause) previousState = gameState;
+        if(Input.GetButtonDown("Cancel")){
+            MenuToggle();
         }
         if(gameState == GameState.GameStart) Setup();
         if(gameState == GameState.GamePlaying)GameplayUpdate();
@@ -130,6 +140,25 @@ public class GameManager : MonoBehaviour
         Debug.Log("Spawned : " + spawnName);
     }
 
+    public void MenuToggle(){
+        if(gameState != GameState.Pause){
+            menuUI.SetActive(true);
+            Cursor.visible = true;
+            eventSystem.SetSelectedGameObject(continueButton);
+            gameState = GameState.Pause;
+            Time.timeScale = 0;
+        }
+        else{
+            gameState = previousState;
+            menuUI.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+
+    public void LoadMainMenu(){
+        LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
+    }
+
     IEnumerator TrackPlayerPos(){
         while(enabled){
             initalPos = player.transform.position;
@@ -152,7 +181,7 @@ public class GameManager : MonoBehaviour
 
     void VictoryUpdate(){
         if(Time.time - sceneExitTimer > timerDuration){
-            SceneManager.LoadScene(SceneManager.GetSceneAt(0).ToString());
+            LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
         }
     }
 
@@ -174,10 +203,10 @@ public class GameManager : MonoBehaviour
         SpawnManager.DisableAll();
         playerUI.gameObject.SetActive(false);
         if(Input.GetButtonDown("Submit")){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.Mission1, (int)scenesByBuild);
         }
         if(Input.GetButtonDown("Cancel")){
-            SceneManager.LoadScene("MainMenu");
+            LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
         }
     }
     public void IncrementRingScore(){

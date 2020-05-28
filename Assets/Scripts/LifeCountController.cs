@@ -14,7 +14,7 @@ public class LifeCountController : MonoBehaviour
     }
     void OnEnable(){
         GameManager.onLifeChange += SetlifeCount;
-        SetlifeCount(GameManager.game.lives);
+        SetlifeCount(GameManager.lives);
     }
 
     void OnDisable(){

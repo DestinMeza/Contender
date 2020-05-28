@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
             }
             return;
         }
-        if(GameManager.game.gameState == GameState.GameStart){
+        if(GameManager.game.gameState != GameState.GamePlaying){
             return;
         }
         onCrash(this);

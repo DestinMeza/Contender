@@ -739,6 +739,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817ad245e1b431846b7be345abd956ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventSystem: {fileID: 1585722452}
+  playGame: {fileID: 1816595682}
+  mission1: {fileID: 1805674129}
 --- !u!95 &344330518
 Animator:
   serializedVersion: 3

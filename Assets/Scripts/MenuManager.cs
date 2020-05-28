@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
 {
     enum MenuScreens{
@@ -18,6 +19,9 @@ public class MenuManager : MonoBehaviour
     }
     MenuScreens menuScreens = MenuScreens.MainMenu;
     Animator anim;
+    public EventSystem eventSystem;
+    public GameObject playGame;
+    public GameObject mission1;
 
     void Awake(){
         Cursor.visible = true;
@@ -40,22 +44,28 @@ public class MenuManager : MonoBehaviour
         menuScreens = MenuScreens.PlayMenu;
     }
     public void Tutorial(){
-        StartCoroutine(SceneLoader((int)ScenesByBuild.Tutorial, (int)ScenesByBuild.MainMenu));
+        SceneLoader((int)ScenesByBuild.Tutorial, (int)ScenesByBuild.MainMenu);
     }
     public void Quit(){
         Application.Quit();
     }
 
     public void Mission1(){
-        StartCoroutine(SceneLoader((int)ScenesByBuild.Mission1, (int)ScenesByBuild.MainMenu));
+        SceneLoader((int)ScenesByBuild.Mission1, (int)ScenesByBuild.MainMenu);
     }
     public void Mission2(){
-        StartCoroutine(SceneLoader((int)ScenesByBuild.Mission2, (int)ScenesByBuild.MainMenu));
+        SceneLoader((int)ScenesByBuild.Mission2, (int)ScenesByBuild.MainMenu);
     }
 
-    IEnumerator SceneLoader(int sceneToLoad, int sceneOrigin){
-        AudioManager.Play("LifeUp");
-        yield return new WaitForSeconds(0.2f);
+    void PlayGameScreen(){
+        eventSystem.SetSelectedGameObject(mission1);
+    }
+
+    void MainMenuScreen(){
+        eventSystem.SetSelectedGameObject(playGame);
+    }
+
+    void SceneLoader(int sceneToLoad, int sceneOrigin){
         LoadingScreenController.instance.LoadLevel(sceneToLoad, sceneOrigin);
     }
 }
