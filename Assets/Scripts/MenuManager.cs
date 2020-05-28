@@ -8,18 +8,30 @@ public class MenuManager : MonoBehaviour
         MainMenu,
         PlayMenu
     }
+    public enum ScenesByBuild{
+        LoadingScreen,
+        MainMenu,
+        Tutorial,
+        Mission1,
+        Mission2,
+        Stats,
+    }
     MenuScreens menuScreens = MenuScreens.MainMenu;
     Animator anim;
 
     void Awake(){
+        Cursor.visible = true;
         anim = GetComponent<Animator>();
+    }
+    void Start(){
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)MenuManager.ScenesByBuild.MainMenu));
     }
     void Update(){
         if(Input.GetButtonDown("Cancel") && menuScreens == MenuScreens.MainMenu){
             Application.Quit();
         }
         if(Input.GetButtonDown("Cancel") && menuScreens == MenuScreens.PlayMenu){
-            anim.Play("MainState"); // Scrollanimation
+            anim.Play("MainState");
             menuScreens = MenuScreens.MainMenu;
         }
     }
@@ -28,22 +40,22 @@ public class MenuManager : MonoBehaviour
         menuScreens = MenuScreens.PlayMenu;
     }
     public void Tutorial(){
-        StartCoroutine(SceneLoader("Tutorial"));
+        StartCoroutine(SceneLoader((int)ScenesByBuild.Tutorial, (int)ScenesByBuild.MainMenu));
     }
     public void Quit(){
         Application.Quit();
     }
 
     public void Mission1(){
-        SceneManager.LoadScene("Mission1");
+        StartCoroutine(SceneLoader((int)ScenesByBuild.Mission1, (int)ScenesByBuild.MainMenu));
     }
     public void Mission2(){
-        SceneManager.LoadScene("Mission2");
+        StartCoroutine(SceneLoader((int)ScenesByBuild.Mission2, (int)ScenesByBuild.MainMenu));
     }
 
-    IEnumerator SceneLoader(string sceneToLoad){
+    IEnumerator SceneLoader(int sceneToLoad, int sceneOrigin){
         AudioManager.Play("LifeUp");
-        yield return new WaitForSeconds(0.5f);
-        SceneManager.LoadScene(sceneToLoad);
+        yield return new WaitForSeconds(0.2f);
+        LoadingScreenController.instance.LoadLevel(sceneToLoad, sceneOrigin);
     }
 }

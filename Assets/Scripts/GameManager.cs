@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
     public Vector3 initalPos = new Vector3(0, 5, 0);
     bool bossFight = false;
     public float timerDuration = 5;
+    public MenuManager.ScenesByBuild scenesByBuild;
     float sceneExitTimer;
     void Awake(){
         if(game == null){
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
     {   
         playerUI.SetActive(false);
         Cursor.visible = false;
-
+        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)scenesByBuild));
         PlayerController.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
         TransitionController.onTransition += TransitionStateChange;
@@ -88,7 +89,7 @@ public class GameManager : MonoBehaviour
 
     void Update(){
         if(Input.GetButtonDown("Cancel")){
-            SceneManager.LoadScene("MainMenu");
+            LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, SceneManager.GetActiveScene().buildIndex);
         }
         if(gameState == GameState.Victory){
             VictoryUpdate();
