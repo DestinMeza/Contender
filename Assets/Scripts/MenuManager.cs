@@ -32,9 +32,21 @@ public class MenuManager : MonoBehaviour
     }
     void Start(){
         SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)MenuManager.ScenesByBuild.MainMenu));
+        placeHolderText.GetComponent<Text>().text = PlayerPrefs.GetString("CurrentPlayer", "");
+        if(PlayerPrefs.GetString("CurrentPlayer", "") == "") placeHolderText.GetComponent<Text>().text = "Player";
+        for(int i = 0; i < players.Length; i++){
+            string playerIndex = string.Format("Player{0}", i);
+            if(PlayerPrefs.GetString(playerIndex) != ""){
+                players[i] = PlayerPrefs.GetString(playerIndex);
+            }
+            else{
+                break;
+            }
+        }
     }
     void Update(){
         if(Input.GetButtonDown("Cancel") && menuScreens == MenuScreens.MainMenu){
+            PlayerPrefs.DeleteKey("CurrentPlayer");
             Application.Quit();
         }
         if(Input.GetButtonDown("Cancel") && menuScreens == MenuScreens.PlayMenu){

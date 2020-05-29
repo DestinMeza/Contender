@@ -16,6 +16,7 @@ public class LoadingScreenController : MonoBehaviour
     }
     public void LoadLevel (int sceneIndex, int sceneOrigin){
         loadingScreen.SetActive(true);
+        SceneManager.SetActiveScene(SceneManager.GetSceneAt((int)MenuManager.ScenesByBuild.LoadingScreen));
         AudioManager.Play("LifeUp");
         StartCoroutine(LoadLoadingScreen(sceneIndex, sceneOrigin));
     }
@@ -24,8 +25,6 @@ public class LoadingScreenController : MonoBehaviour
 
     IEnumerator LoadLoadingScreen(int sceneIndex, int sceneOrigin){
         
-        SceneManager.SetActiveScene(SceneManager.GetSceneAt((int)MenuManager.ScenesByBuild.LoadingScreen));
-
         scenesLoading.Add(SceneManager.UnloadSceneAsync(sceneOrigin));
         scenesLoading.Add(SceneManager.LoadSceneAsync(sceneIndex, LoadSceneMode.Additive));
         for(int i = 0; i < scenesLoading.Count; i++){

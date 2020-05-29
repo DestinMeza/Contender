@@ -156,6 +156,7 @@ public class GameManager : MonoBehaviour
     }
 
     public void LoadMainMenu(){
+        Time.timeScale = 1;
         LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
     }
 

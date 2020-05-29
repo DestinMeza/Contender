@@ -45,7 +45,6 @@ public class EnemyShipAnimatorController : MonoBehaviour
     void Explode(HealthController health){
         ParticleManager.particleMan.Play(deathParticles, shipPos.position);
         AudioManager.Play("SmallObjectExplosion",1,1,false,shipPos.position,0.8f);
-        onDeathCalculation(shipPos.position);
         gameObject.SetActive(false);
     }
 }
