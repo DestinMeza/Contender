@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
@@ -22,7 +23,9 @@ public class MenuManager : MonoBehaviour
     public EventSystem eventSystem;
     public GameObject playGame;
     public GameObject mission1;
-
+    public GameObject placeHolderText;
+    public Text inputField;
+    string[] players = new string[10];
     void Awake(){
         Cursor.visible = true;
         anim = GetComponent<Animator>();
@@ -46,15 +49,62 @@ public class MenuManager : MonoBehaviour
     public void Tutorial(){
         SceneLoader((int)ScenesByBuild.Tutorial, (int)ScenesByBuild.MainMenu);
     }
+    public void Stats(){
+        SceneLoader((int)ScenesByBuild.Stats, (int)ScenesByBuild.MainMenu);
+    }
     public void Quit(){
         Application.Quit();
     }
-
+    
     public void Mission1(){
         SceneLoader((int)ScenesByBuild.Mission1, (int)ScenesByBuild.MainMenu);
     }
     public void Mission2(){
         SceneLoader((int)ScenesByBuild.Mission2, (int)ScenesByBuild.MainMenu);
+    }
+
+    public void StartFieldInput(){
+        placeHolderText.gameObject.SetActive(false);
+    }
+    public void EndFieldInput(){
+        if(inputField.text == "") placeHolderText.gameObject.SetActive(true);
+        else{
+            placeHolderText.gameObject.SetActive(false);
+            for(int i = 0; i < players.Length; i++){
+                string savedPlayer = players[i];
+                if(inputField.text == savedPlayer){
+                    SetCurrentPlayer(players[i]);
+                    break;
+                }
+                if(players[i] == null){
+                    string playerIndex = string.Format("Player{0}", i);
+                    PlayerPrefs.SetString(playerIndex, inputField.text);
+                    SetCurrentPlayer(inputField.text);
+                    AddPlayerToList(inputField.text, i);
+                    break;
+                }
+                if(i == players.Length-1){
+                    string bottomIndex = string.Format("Player{0}", players.Length-1);
+                    PlayerPrefs.SetString(bottomIndex, inputField.text);
+                    SetCurrentPlayer(inputField.text);
+                    AddPlayerToList(inputField.text, i);
+                }
+                
+            }
+            
+        }
+        foreach(string s in players){
+            Debug.Log(s);
+        }
+    }
+
+    void SetCurrentPlayer(string currentPlayer){
+        PlayerPrefs.SetString("CurrentPlayer", currentPlayer);
+        Debug.Log("CurrentPlayer: " + PlayerPrefs.GetString("CurrentPlayer", "No Player"));
+    }
+
+    void AddPlayerToList(string currentPlayer, int index){
+        players[index] = currentPlayer;
     }
 
     void PlayGameScreen(){
