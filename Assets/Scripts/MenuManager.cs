@@ -53,6 +53,10 @@ public class MenuManager : MonoBehaviour
             anim.Play("MainState");
             menuScreens = MenuScreens.MainMenu;
         }
+        if(eventSystem.currentSelectedGameObject == null){
+            GameObject fixSelection = menuScreens!= MenuScreens.MainMenu ? mission1 : playGame;
+            eventSystem.SetSelectedGameObject(fixSelection);
+        }
     }
     public void PlayGame(){
         anim.Play("PlayState");

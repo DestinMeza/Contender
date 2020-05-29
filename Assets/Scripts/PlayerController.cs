@@ -475,13 +475,13 @@ public class PlayerController : MonoBehaviour
         }
     }
     void OnTriggerEnter(Collider col){
-        if(col.tag == "BombPowerup"){
+        if(col.CompareTag("BombPowerup")){
             bombAmmo++;
             AudioManager.Play("BombPickUp");
             onFireBomb(bombAmmo);
             col.gameObject.SetActive(false);
         }
-        else if(col.tag == "BlasterPowerup"){
+        else if(col.CompareTag("BlasterPowerup")){
             if(blasterState < BlasterState.MegaFire) blasterState++;
             AudioManager.Play("BlasterPowerUp");
             col.gameObject.SetActive(false);

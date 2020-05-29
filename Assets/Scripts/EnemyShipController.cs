@@ -51,7 +51,7 @@ public class EnemyShipController : MonoBehaviour
         Ray pos = new Ray(transform.position, Vector3.zero);
         RaycastHit hit;
         if(Physics.SphereCast(pos, 50, out hit, 50, obsticles, QueryTriggerInteraction.Collide)){
-            if(hit.collider.gameObject.tag == "Solid"){
+            if(hit.collider.gameObject.CompareTag("Solid")){
                 Transform obsticle = hit.collider.GetComponentInParent<Transform>();
                 Vector3 diff = obsticle.transform.position - transform.position;
                 Quaternion rotation = Quaternion.LookRotation(Vector3.Cross(diff.normalized, transform.right.normalized));

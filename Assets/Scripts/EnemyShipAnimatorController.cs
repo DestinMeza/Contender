@@ -9,7 +9,8 @@ public class EnemyShipAnimatorController : MonoBehaviour
     public enum AnimationState{
         Idel,
         StraightAhead,
-        MissionAnim1
+        MissionAnim1,
+        MissionAnim2
     }
 
     public Transform shipPos;

@@ -52,6 +52,12 @@ public class MissileController : MonoBehaviour
         Explode(health);
     }
 
+    void OnCollisionEnter(Collision col){
+        if(col.gameObject.CompareTag("Solid")){
+            Explode(health);
+        }
+    }
+
     void Explode(HealthController health){
         ParticleManager.particleMan.Play("ExplosionSmallObject", transform.position);
         gameObject.SetActive(false);

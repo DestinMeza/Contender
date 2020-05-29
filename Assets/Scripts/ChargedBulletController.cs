@@ -105,7 +105,7 @@ public class ChargedBulletController : MonoBehaviour
         ParticleManager.particleMan.Play(nameOfParticle, transform.position);
     }
     void OnTriggerEnter(Collider col){
-        if(col.gameObject.tag == "Solid"){
+        if(col.gameObject.CompareTag("Solid")){
             StopCoroutine(LifeTime());
             rb.velocity = Vector3.zero;
             exploding = true;
@@ -114,7 +114,7 @@ public class ChargedBulletController : MonoBehaviour
         }
     }
     void OnCollisionEnter(Collision col){
-        if(col.gameObject.tag == "Solid"){
+        if(col.gameObject.CompareTag("Solid")){
             StopCoroutine(LifeTime());
             rb.velocity = Vector3.zero;
             exploding = true;

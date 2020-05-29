@@ -105,6 +105,9 @@ public class GameManager : MonoBehaviour
         if(Input.GetButtonDown("Cancel")){
             MenuToggle();
         }
+        if(gameState == GameState.Pause && eventSystem.currentSelectedGameObject == null){
+            MenuToggle();
+        }
         if(gameState == GameState.GameStart) Setup();
         if(gameState == GameState.GamePlaying)GameplayUpdate();
         if(gameState == GameState.GameOver)GameOverUpdate();

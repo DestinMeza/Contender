@@ -38,11 +38,18 @@ public class BBombController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col){
-        if(col.gameObject.tag == "Solid"){
+        if(col.gameObject.CompareTag("Solid")){
             Explode();
             StopCoroutine(LifeTime());
         }
     }
+    void OnTriggerEnter(Collider col){
+        if(col.gameObject.CompareTag("Solid")){
+            Explode();
+            StopCoroutine(LifeTime());
+        }
+    }
+
     IEnumerator LifeTime(){
         yield return new WaitForSeconds(lifeTime);
         Explode();
