@@ -83,4 +83,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d624048a870f6640a38091ea5bfefde, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemys: []
+  enemys:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  boundsX: {x: 0, y: 0}
+  boundsY: {x: 0, y: 0}
+  useDefaultX: 1
+  useDefaultY: 1
