@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 public class MenuManager : MonoBehaviour
 {
@@ -31,7 +30,6 @@ public class MenuManager : MonoBehaviour
         anim = GetComponent<Animator>();
     }
     void Start(){
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)MenuManager.ScenesByBuild.MainMenu));
         placeHolderText.GetComponent<Text>().text = PlayerPrefs.GetString("CurrentPlayer", "");
         if(PlayerPrefs.GetString("CurrentPlayer", "") == "") placeHolderText.GetComponent<Text>().text = "Player";
         for(int i = 0; i < players.Length; i++){

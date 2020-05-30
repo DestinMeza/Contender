@@ -464,7 +464,7 @@ MonoBehaviour:
   firePos2: {fileID: 2962421569594191990}
   turretHead: {fileID: 8424353712523436011}
   target: {fileID: 0}
-  rotationalDamp: 1
+  rotationalDamp: 2
   maxFiringDis: 200
   fireInterval: 4
   launchDelay: 3

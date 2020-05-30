@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 public enum GameState{
     GameStart,
@@ -44,6 +43,8 @@ public class GameManager : MonoBehaviour
     public GameState gameState = GameState.GameStart;
     public GameState previousState;
     public Vector3 initalPos = new Vector3(0, 5, 0);
+    public AudioClip[] soundTracks;
+    AudioSource songPlayer;
     bool bossFight = false;
     public float timerDuration = 5;
     public MenuManager.ScenesByBuild scenesByBuild;
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
     void Awake(){
         if(game == null){
             game = this;
+            songPlayer = GetComponent<AudioSource>();
         }
         else{
             Destroy(gameObject);
@@ -61,7 +63,6 @@ public class GameManager : MonoBehaviour
         playerUI.SetActive(false);
         Cursor.visible = false;
         gameState = GameState.GameStart;
-        SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)scenesByBuild));
         PlayerController.onDeath += GameOver;
         HealthController.onIncreaseScore += IncrementScore;
         TransitionController.onTransition += TransitionStateChange;
@@ -170,8 +171,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator SwitchSong(){
+        for(float t = 0; t < 1; t += Time.deltaTime){
+            songPlayer.volume = Mathf.Clamp(1, 0, t);
+            songPlayer.clip = songPlayer.clip == soundTracks[0] ? soundTracks[1] : soundTracks[0];
+            yield return new WaitForEndOfFrame();
+        }
+        for(float t = 0; t < 1; t += Time.deltaTime){
+            songPlayer.volume = Mathf.Clamp(0, 1, t);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     void BossSpawned(bool isAlive){
         bossFight = isAlive;
+        StartCoroutine(SwitchSong());
     }
 
     void GameplayUpdate(){
@@ -219,6 +233,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Victory(){
+        StartCoroutine(SwitchSong());
         gameOverSign.GetComponent<Text>().text = "Victory!";
         gameOverSign.SetActive(true);
         gameState = GameState.Victory;

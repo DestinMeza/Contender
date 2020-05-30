@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnDisable(){
         health.onDeath -= Crash;
-        health.onHealthIncrease -= Hit;
+        health.onHealthDecrease -= Hit;
         TransitionController.onTransition -= TransitionLock;
     }
     void Update(){
@@ -486,11 +486,14 @@ public class PlayerController : MonoBehaviour
             AudioManager.Play("BlasterPowerUp");
             col.gameObject.SetActive(false);
         }
-        else if(col.tag == "EnemyBlaster" && barrelRoll){
+        else if(col.CompareTag("EBullet") && barrelRoll){
             BulletController bullet = col.GetComponentInParent<BulletController>();
             AudioManager.Play("ObjectHit",1,1,false,transform.position,0.7f);
             bullet.SetDir(col.transform.forward * -1, 10);
             bullet.GetComponentInChildren<Collider>().gameObject.layer = LayerMask.NameToLayer("PlayerBlaster");
+        }
+        else if(col.CompareTag("Victory")){
+            GameManager.game.gameState = GameState.Victory;
         }
     }
     void OnCollisionEnter(Collision col){

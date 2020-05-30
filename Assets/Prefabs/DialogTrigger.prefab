@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5253949237971699295}
   m_Layer: 0
   m_Name: DialogTrigger
-  m_TagString: Untagged
+  m_TagString: DialogTrigger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,3 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d33bc0fecc82e32438792ed851ad85a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  indexOfDialog: 0
+  characterName: Jim Bob

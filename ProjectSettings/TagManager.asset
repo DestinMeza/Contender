@@ -9,6 +9,7 @@ TagManager:
   - BombPowerup
   - DialogTrigger
   - BlasterPowerup
+  - Victory
   layers:
   - Default
   - TransparentFX

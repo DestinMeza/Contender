@@ -6,8 +6,10 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     public float smoothTime = 0.5f;
+    public float panDuration = 2;
     public bool playerCrashing;
     public bool looping;
+    public bool alreadyPanning;
     public Transform target;
     public Transform heading;
     public Vector2 maxY = new Vector2(0, 58);
@@ -15,6 +17,7 @@ public class CameraController : MonoBehaviour
     public Vector3 railOffset = new Vector3(0, 1, -15);
     public Vector3 allRangeOffset = new Vector3(0, 1, -20);
     public Vector3 bossDeathOffset = new Vector3(-100, 0, 100);
+    public Vector3[] panArray;
     Vector3 velocity = Vector3.zero;
     public float fogDensity;
     public Color fogColor;
@@ -82,13 +85,7 @@ public class CameraController : MonoBehaviour
                     transform.rotation = Quaternion.Slerp(transform.rotation, look, 0.5f);
                 }
                 if(PlayerController.flyingModes == FlyingModes.TransitionLock){
-                    Vector3 camLocTran = targetPos;
-                    camLocTran.z += -8;
-                    camLocTran.x += 7;
-                    camLocTran.y += 2;
-
-                    transform.position = camLocTran;
-                    transform.LookAt(PlayerController.player.transform.position);
+                    if(!alreadyPanning) StartCoroutine(CameraPan());   
                 }
             }
             else{
@@ -103,6 +100,24 @@ public class CameraController : MonoBehaviour
         else{
             transform.position = target.position + railOffset;
         }
+    }
+
+    IEnumerator CameraPan(){
+        alreadyPanning = true;
+        for(int i = 0; i < panArray.Length; i++){
+            for(float t = 0; t < panDuration; t += Time.maximumParticleDeltaTime){
+                if(i == panArray.Length - 1 || PlayerController.flyingModes != FlyingModes.TransitionLock) goto End;
+                if(Time.timeScale == 0){
+                    while(Time.timeScale == 0) yield return null;
+                }
+                Vector3 offset = Vector3.Slerp(panArray[i], panArray[i+1], t/panDuration);
+                transform.position = target.transform.position + offset;
+                transform.LookAt(heading);
+                yield return null;
+            }
+        }
+        End:
+        alreadyPanning = false;
     }
 
     void Crash(PlayerController player){

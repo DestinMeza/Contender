@@ -99,8 +99,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
+  panDuration: 2
   playerCrashing: 0
   looping: 0
+  alreadyPanning: 0
   target: {fileID: 0}
   heading: {fileID: 0}
   maxY: {x: 0, y: 58}
@@ -108,6 +110,14 @@ MonoBehaviour:
   railOffset: {x: 0, y: 1, z: -20}
   allRangeOffset: {x: 0, y: 1, z: -30}
   bossDeathOffset: {x: -100, y: 0, z: 100}
+  panArray:
+  - {x: 7, y: 5, z: 2}
+  - {x: 15, y: 7, z: -8}
+  - {x: 5, y: 5, z: -20}
+  - {x: -15, y: 7, z: -8}
+  - {x: 7, y: 5, z: 2}
+  fogDensity: 0
+  fogColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &3787502501601079654
 MonoBehaviour:
   m_ObjectHideFlags: 0

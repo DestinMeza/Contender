@@ -58,7 +58,6 @@ MonoBehaviour:
   score: 0
   ringScore: 0
   hitScore: 0
-  lives: 3
   enemyObjects: []
   triggerObjects:
   - {fileID: 0}
@@ -67,13 +66,23 @@ MonoBehaviour:
   - {fileID: 0}
   AllRangeModeSpawner: {fileID: 0}
   gameOverSign: {fileID: 0}
+  bossUI: {fileID: 0}
   playerUI: {fileID: 0}
+  menuUI: {fileID: 0}
+  continueButton: {fileID: 0}
+  eventSystem: {fileID: 0}
   player: {fileID: 0}
   ringScoreText: {fileID: 0}
   scoreText: {fileID: 0}
   hitScoreText: {fileID: 0}
   gameState: 0
+  previousState: 0
   initalPos: {x: 0, y: 55, z: -472.4}
+  soundTracks:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: e39c998f8a28f714580349f94273f8c9, type: 3}
+  timerDuration: 5
+  scenesByBuild: 0
 --- !u!82 &8633039159812698705
 AudioSource:
   m_ObjectHideFlags: 0

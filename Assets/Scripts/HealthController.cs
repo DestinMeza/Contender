@@ -23,7 +23,7 @@ public class HealthController : MonoBehaviour
     void OnEnable(){
         if(GetComponent<PlayerController>()) PlayerController.onBarrelRoll += Invulnerble;
         health = maxHealth;
-        onHealthDecrease();
+        onHealthIncrease();
     }
 
     public bool isAlive(){

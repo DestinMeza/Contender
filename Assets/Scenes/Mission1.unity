@@ -13291,6 +13291,11 @@ PrefabInstance:
       propertyPath: continueButton
       value: 
       objectReference: {fileID: 258754803}
+    - target: {fileID: 8633039159812698704, guid: 21205e78ba7b30044beaad461d8214a9,
+        type: 3}
+      propertyPath: soundTracks.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: ff9a0cdd753d4e64ca140e48822dbdfa, type: 3}
     - target: {fileID: 8633039159812698705, guid: 21205e78ba7b30044beaad461d8214a9,
         type: 3}
       propertyPath: m_audioClip
