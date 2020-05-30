@@ -172,13 +172,14 @@ public class GameManager : MonoBehaviour
     }
 
     IEnumerator SwitchSong(){
-        for(float t = 0; t < 1; t += Time.deltaTime){
-            songPlayer.volume = Mathf.Clamp(1, 0, t);
-            songPlayer.clip = songPlayer.clip == soundTracks[0] ? soundTracks[1] : soundTracks[0];
+        for(float t = 0; t <= 1; t += Time.maximumParticleDeltaTime){
+            songPlayer.volume = Mathf.Lerp(0.05f, 0, t);
             yield return new WaitForEndOfFrame();
         }
-        for(float t = 0; t < 1; t += Time.deltaTime){
-            songPlayer.volume = Mathf.Clamp(0, 1, t);
+        songPlayer.clip = songPlayer.clip == soundTracks[0] ? soundTracks[1] : soundTracks[0];
+        songPlayer.Play();
+        for(float t = 0; t <= 1; t += Time.maximumParticleDeltaTime){
+            songPlayer.volume = Mathf.Lerp(0, 0.05f, t);
             yield return new WaitForEndOfFrame();
         }
     }

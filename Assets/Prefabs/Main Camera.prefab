@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smoothTime: 0.3
-  panDuration: 2
+  panDuration: 4
   playerCrashing: 0
   looping: 0
   alreadyPanning: 0

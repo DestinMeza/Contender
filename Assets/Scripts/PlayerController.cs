@@ -172,6 +172,7 @@ public class PlayerController : MonoBehaviour
         if(Input.GetButtonDown("BarrelRoll") || Input.GetKeyDown(KeyCode.E)){
             if(Time.time - lastBarrelRollTime > barrelRollCooldown){
                 _hitBox.tag = "Player";
+                rb.AddForce(Vector3.right + speedAllRange * Input.GetAxis("Horizontal"), ForceMode.Impulse);
                 lastBarrelRollTime = Time.time;
                 barrelRollParticle.Play();
                 AudioManager.Play("BarrelRoll");
@@ -472,6 +473,15 @@ public class PlayerController : MonoBehaviour
         if(col.name == "AllRangeModeBounds" || col.name == "BossFight"){
             looping = true;
             anim.Play("PlayerLoop2");
+        }
+    }
+    void OnTriggerStay(Collider col){
+        if(col.CompareTag("Lazer")){
+            if(Time.time - lastCollisionTime > collisionShield){
+                lastCollisionTime = Time.time;
+                health.TakeDamage(1);
+                AudioManager.Play("ObjectHit",1,1,false,transform.position,0.9f);
+            }
         }
     }
     void OnTriggerEnter(Collider col){

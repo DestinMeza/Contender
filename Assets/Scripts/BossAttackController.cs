@@ -13,13 +13,15 @@ public class BossAttackController : MonoBehaviour
     public Transform lazerParent;
     public Transform lazerOrientation;
     public ParticleSystem lazerCharge;
-    public int numberPerVolley = 3;
+    public int numberPerVolley = 8;
     public float firingPause = 8;
     public float fireInterval = 0.2f;
     public float lazerFiringDistance = 500;
     public float stretchToPointTime = 4;
     public float lazerFireDuration = 3;
+    public float lazerFiringDamping1 = 10;
     public float lazerFiringDamping2 = 0.7f;
+    public float lazerRotationalDamp = 0.8f;
     Animator anim;
     int volleyIndex;
     float lastShot;
@@ -38,6 +40,7 @@ public class BossAttackController : MonoBehaviour
         target = PlayerController.player.hitbox;
         if(bossAttackState == BossAttackState.Stage1){
             MissleAttack();
+            LazerAttack(lazerFiringDamping2);
         }
 
         if(bossAttackState == BossAttackState.Stage2){
@@ -90,23 +93,33 @@ public class BossAttackController : MonoBehaviour
         for(float t = 0; t <= stretchToPointTime; t += Time.deltaTime){
             lazerOrientation.gameObject.SetActive(true);
             CapsuleCollider col = lazerOrientation.GetComponent<CapsuleCollider>();
-            lazerOrientation.forward = PlayerController.player.transform.position - lazerParent.transform.position;
-            Vector3 rand = Random.insideUnitSphere;
-            Vector3 diff = rand + PlayerController.player.transform.position - lazerParent.transform.position;
+            Vector3 diff = PlayerController.player.transform.position - lazerParent.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(diff);
+            lazerOrientation.rotation = Quaternion.Slerp(lazerOrientation.rotation, rotation, lazerRotationalDamp);
             float dis = diff.magnitude;
-            lazerParent.localScale = new Vector3(0.5f, 0.5f, Mathf.Lerp(0, dis, t/stretchToPointTime));
+            lazerParent.localScale = new Vector3(0.5f, 0.5f, Mathf.Lerp(0, dis * 0.75f, t/stretchToPointTime));
             col.center = new Vector3(0, 0, lazerParent.localScale.z / 2);
             col.height = lazerParent.localScale.z;
             lazerFiringTime = Time.time;
             yield return new WaitForEndOfFrame();
         }
-        while(lazerPlaying){
-            if(Time.time - lazerFiringTime > lazerFireDuration){
-                lazerOrientation.gameObject.SetActive(true);
-                lazerPlaying = false;
-                reloadingLazerTime = Time.time;
-            }
+        while(Time.time - lazerFiringTime > lazerFireDuration){
+            Vector3 rand = Random.insideUnitSphere;
+            lazerOrientation.forward = rand + PlayerController.player.transform.position - lazerParent.transform.position;
+        }
+        for(float t = 0; t <= stretchToPointTime; t += Time.deltaTime){
+            lazerOrientation.gameObject.SetActive(true);
+            CapsuleCollider col = lazerOrientation.GetComponent<CapsuleCollider>();
+            Vector3 diff = PlayerController.player.transform.position - lazerParent.transform.position;
+            Quaternion rotation = Quaternion.LookRotation(diff);
+            float dis = diff.magnitude;
+            lazerParent.localScale = new Vector3(0.5f, 0.5f, Mathf.Lerp(dis, 0, t/stretchToPointTime));
+            col.center = new Vector3(0, 0, lazerParent.localScale.z / 2);
+            col.height = lazerParent.localScale.z;
             yield return new WaitForEndOfFrame();
         }
+        reloadingLazerTime = Time.time;
+        lazerPlaying = false;
+        yield return new WaitForEndOfFrame();
     }
 }

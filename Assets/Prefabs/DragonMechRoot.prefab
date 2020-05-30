@@ -304,13 +304,15 @@ MonoBehaviour:
   lazerParent: {fileID: 5423816832643831881}
   lazerOrientation: {fileID: 8768585494055019793}
   lazerCharge: {fileID: 8566240397307957527}
-  numberPerVolley: 3
-  firingPause: 4
+  numberPerVolley: 8
+  firingPause: 8
   fireInterval: 0.2
   lazerFiringDistance: 500
   stretchToPointTime: 4
-  lazerFireDuration: 3
+  lazerFireDuration: 2
+  lazerFiringDamping1: 10
   lazerFiringDamping2: 0.7
+  lazerRotationalDamp: 0.25
 --- !u!114 &6700410894058291618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5700,10 +5702,9 @@ GameObject:
   - component: {fileID: 8768585494055019793}
   - component: {fileID: 4212937050890327782}
   - component: {fileID: 6678517192306913709}
-  - component: {fileID: 7160870243531776660}
   m_Layer: 12
   m_Name: LazerOrientation
-  m_TagString: Untagged
+  m_TagString: Lazer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5753,21 +5754,6 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0.5}
---- !u!114 &7160870243531776660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7835659789376007427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c25f46e67ad19e4a8baa3f4894f6efe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitSound: laserHit
-  hitParticles: Explosion
-  damage: 1
 --- !u!1 &8048223494147649876
 GameObject:
   m_ObjectHideFlags: 0

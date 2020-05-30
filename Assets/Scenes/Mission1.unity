@@ -10607,6 +10607,26 @@ PrefabInstance:
       propertyPath: allRangeOffset.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: bossDeathOffset.z
+      value: -1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: bossDeathOffset.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: bossDeathOffset.x
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
+        type: 3}
+      propertyPath: fogDensity
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
       propertyPath: m_ShowToolkit
@@ -11179,17 +11199,17 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.6
+      value: 52.2
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 43.1
+      value: 51.7
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -579
+      value: 3657
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
@@ -13301,6 +13321,11 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 8300000, guid: ff9a0cdd753d4e64ca140e48822dbdfa, type: 3}
+    - target: {fileID: 8633039159812698705, guid: 21205e78ba7b30044beaad461d8214a9,
+        type: 3}
+      propertyPath: DopplerLevel
+      value: 0.82
+      objectReference: {fileID: 0}
     - target: {fileID: 8633039159812698710, guid: 21205e78ba7b30044beaad461d8214a9,
         type: 3}
       propertyPath: m_Name
