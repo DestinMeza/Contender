@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public static OnLifeChange onLifeChange = delegate{};
     public static FlyingModes flyingModes = FlyingModes.TransitionLock;
     public string[] pickupNames;
+    public int[] scores = new int[10];
     public int score = 0;
     public int ringScore = 0;
     public int hitScore = 0;
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     public List <GameObject> enemyObjects;
     public GameObject[] triggerObjects;
     public GameObject AllRangeModeSpawner;
+    public GameObject victoryUI;
     public GameObject gameOverSign;
     public GameObject bossUI;
     public GameObject playerUI;
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {   
         playerUI.SetActive(false);
+        victoryUI.SetActive(false);
         Cursor.visible = false;
         gameState = GameState.GameStart;
         PlayerController.onDeath += GameOver;
@@ -153,6 +156,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0;
         }
         else{
+            Cursor.visible = false;
             gameState = previousState;
             menuUI.SetActive(false);
             Time.timeScale = 1;
@@ -184,6 +188,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    IEnumerator HitFlash(){
+        while(enabled){
+            victoryUI.SetActive(false);
+            yield return new WaitForSeconds(1.5f);
+            victoryUI.SetActive(true);
+        }
+    }
+
     void BossSpawned(bool isAlive){
         bossFight = isAlive;
         StartCoroutine(SwitchSong());
@@ -199,7 +211,7 @@ public class GameManager : MonoBehaviour
     }
 
     void VictoryUpdate(){
-        if(Time.time - sceneExitTimer > timerDuration){
+        if(Input.GetButtonDown("Cancel") || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit")){
             LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
         }
     }
@@ -234,11 +246,35 @@ public class GameManager : MonoBehaviour
     }
 
     void Victory(){
+        UpdateScore();
         StartCoroutine(SwitchSong());
+        PlayerController.flyingModes = FlyingModes.TransitionLock;
         gameOverSign.GetComponent<Text>().text = "Victory!";
         gameOverSign.SetActive(true);
+        playerUI.SetActive(false);
+        bossUI.SetActive(false);
+        string pref = string.Format("Hit {0}!", hitScore);
+        victoryUI.GetComponentInChildren<Text>().text = PlayerPrefs.GetString(pref);
+        StartCoroutine(HitFlash());
         gameState = GameState.Victory;
-        sceneExitTimer = Time.time;
+    }
+
+    void UpdateScore(){
+        for(int i = 0; i < MenuManager.players.Length; i++){
+            string pref = string.Format("Player{0}", i);
+            string playerCheck= PlayerPrefs.GetString(pref, "");
+            if(playerCheck == PlayerPrefs.GetString("CurrentPlayer")){
+                pref = string.Format("Score{0}", i);
+                int currentScore = PlayerPrefs.GetInt(pref, 0);
+                PlayerPrefs.SetInt(pref, currentScore + score);
+                pref = string.Format("Hit{0}", i);
+                int currentHit = PlayerPrefs.GetInt(pref, 0);
+                PlayerPrefs.SetInt(pref, currentHit + hitScore);
+                pref = string.Format("CanPlayMission2{0}", i);
+                PlayerPrefs.SetInt(pref, 1);
+                break;
+            }
+        }
     }
 
     void IncrementScore(int score){

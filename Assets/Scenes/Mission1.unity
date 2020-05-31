@@ -15,9 +15,9 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 1
-  m_FogColor: {r: 0, g: 0, b: 0, a: 0}
+  m_FogColor: {r: 0.3207547, g: 0.14870432, b: 0, a: 0}
   m_FogMode: 2
-  m_FogDensity: 0
+  m_FogDensity: 0.0025
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -1060,7 +1060,7 @@ PrefabInstance:
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.52
+      value: -24.64
       objectReference: {fileID: 0}
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
@@ -2553,6 +2553,12 @@ GameObject:
 --- !u!1 &258754804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2653224345708142487, guid: af4eb1a0f896fa7499b776a47e5f0862,
+    type: 3}
+  m_PrefabInstance: {fileID: 258754801}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &258754805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3384895982443891405, guid: af4eb1a0f896fa7499b776a47e5f0862,
     type: 3}
   m_PrefabInstance: {fileID: 258754801}
   m_PrefabAsset: {fileID: 0}
@@ -7885,7 +7891,7 @@ PrefabInstance:
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -30.13
+      value: -28.249998
       objectReference: {fileID: 0}
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
@@ -8530,7 +8536,7 @@ PrefabInstance:
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.37
+      value: 22.77
       objectReference: {fileID: 0}
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
@@ -10625,7 +10631,7 @@ PrefabInstance:
     - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
       propertyPath: fogDensity
-      value: 0.05
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3787502501601079654, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
@@ -11199,7 +11205,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
@@ -11209,7 +11215,7 @@ PrefabInstance:
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3657
+      value: -562.8
       objectReference: {fileID: 0}
     - target: {fileID: 5716020993019448100, guid: e2d07458f924f0f40a76e308e6bee7ba,
         type: 3}
@@ -11816,7 +11822,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.7353611, b: 0.504717, a: 1}
-  m_Intensity: 0.3
+  m_Intensity: 0.8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -13017,7 +13023,7 @@ PrefabInstance:
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -26.91
+      value: -25.029999
       objectReference: {fileID: 0}
     - target: {fileID: 4021464608306804236, guid: 3f0bbe18f4571864cb2cf325c69c858e,
         type: 3}
@@ -13316,6 +13322,11 @@ PrefabInstance:
       propertyPath: soundTracks.Array.data[0]
       value: 
       objectReference: {fileID: 8300000, guid: ff9a0cdd753d4e64ca140e48822dbdfa, type: 3}
+    - target: {fileID: 8633039159812698704, guid: 21205e78ba7b30044beaad461d8214a9,
+        type: 3}
+      propertyPath: victoryUI
+      value: 
+      objectReference: {fileID: 258754805}
     - target: {fileID: 8633039159812698705, guid: 21205e78ba7b30044beaad461d8214a9,
         type: 3}
       propertyPath: m_audioClip

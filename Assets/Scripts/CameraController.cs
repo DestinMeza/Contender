@@ -19,8 +19,6 @@ public class CameraController : MonoBehaviour
     public Vector3 bossDeathOffset = new Vector3(-100, 0, 100);
     public Vector3[] panArray;
     Vector3 velocity = Vector3.zero;
-    public float fogDensity;
-    public Color fogColor;
     public static CameraController cameraMain;
     Camera cam;
     void Awake(){
@@ -34,9 +32,6 @@ public class CameraController : MonoBehaviour
     }
 
     void Start(){
-        RenderSettings.fog = true;
-        RenderSettings.fogColor = fogColor;
-        RenderSettings.fogDensity = fogDensity;
         PlayerController.onCrash += Crash;
         PlayerController.onLoop += DoingALoop;
     }

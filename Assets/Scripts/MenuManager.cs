@@ -22,9 +22,11 @@ public class MenuManager : MonoBehaviour
     public EventSystem eventSystem;
     public GameObject playGame;
     public GameObject mission1;
+    public Button mission2;
     public GameObject placeHolderText;
     public Text inputField;
-    string[] players = new string[10];
+    public static string[] players = new string[10];
+    bool level2Unlocked;
     void Awake(){
         Cursor.visible = true;
         anim = GetComponent<Animator>();
@@ -41,8 +43,10 @@ public class MenuManager : MonoBehaviour
                 break;
             }
         }
+        CheckMission2();
     }
     void Update(){
+
         if(Input.GetButtonDown("Cancel") && menuScreens == MenuScreens.MainMenu){
             PlayerPrefs.DeleteKey("CurrentPlayer");
             Application.Quit();
@@ -107,9 +111,18 @@ public class MenuManager : MonoBehaviour
             }
             
         }
-        foreach(string s in players){
-            Debug.Log(s);
+        CheckMission2();
+    }
+
+    void CheckMission2(){
+        for(int i = 0; i < players.Length; i++){
+            if(players[i] == PlayerPrefs.GetString("CurrentPlayer")){
+                string pref = string.Format("CanPlayMission2{0}", i);
+                level2Unlocked = PlayerPrefs.GetInt(pref, i) == 1;
+                break;
+            }
         }
+        anim.SetBool("L2", level2Unlocked);
     }
 
     void SetCurrentPlayer(string currentPlayer){

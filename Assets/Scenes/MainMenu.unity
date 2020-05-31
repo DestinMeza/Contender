@@ -885,19 +885,9 @@ MonoBehaviour:
   eventSystem: {fileID: 1585722452}
   playGame: {fileID: 1816595682}
   mission1: {fileID: 1805674129}
+  mission2: {fileID: 0}
   placeHolderText: {fileID: 834801398}
   inputField: {fileID: 1494160197}
-  players:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
 --- !u!95 &344330518
 Animator:
   serializedVersion: 3

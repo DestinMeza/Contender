@@ -8,9 +8,17 @@ public class AsteroidController : MonoBehaviour
     public string deathParticles = "ExplosionLargeObject";
     HealthController health;
     Rigidbody rb;
+    public bool canRotate = true;
     void Awake(){
         health = GetComponent<HealthController>();
         rb = GetComponent<Rigidbody>();
+    }
+    void Start(){
+        if(canRotate){
+            rb.AddTorque(Random.onUnitSphere, ForceMode.VelocityChange);
+            rb.AddForce(transform.forward, ForceMode.VelocityChange);
+        }
+
     }
     void OnEnable()
     {
