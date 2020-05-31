@@ -47,12 +47,14 @@ public class MissileTurretController : MonoBehaviour
             missle.SetTarget(target);
             secondLaunchDelay = Time.time;
             firedFirst = true;
+            AudioManager.Play("MissileLaunch", 1, 1, false, transform.position, 0.8f);
         }
         else if(Time.time - secondLaunchDelay > launchDelay && firedFirst){
             MissileController missle = SpawnManager.Spawn("MissileRoot", firePos2.position).GetComponent<MissileController>();
             missle.SetTarget(target);
             lastShot = Time.time;
             firedFirst = false;
+            AudioManager.Play("MissileLaunch", 1, 1, false, transform.position, 0.8f);
         }
     }
 

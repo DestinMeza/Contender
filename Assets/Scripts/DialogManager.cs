@@ -28,7 +28,7 @@ public class DialogManager : MonoBehaviour
     }
 
     void GetTrigger(int i, string characterName){
-        dialogQueue.Enqueue(ReadDialog(i, characterName));
+        dialogQueue.Enqueue(ReadDialogOutOfQueue(i, characterName));
     }
 
     void VictoryMessage(){
@@ -50,15 +50,21 @@ public class DialogManager : MonoBehaviour
         }
     }
 
-    IEnumerator ReadDialog(int i, string characterName){
+    IEnumerator ReadDialogOutOfQueue(int i, string characterName){
     string sentence = "";
 
         foreach (char letter in dialogs[i])
         {
             AudioManager.Play("TypingSound" + Random.Range(1,3));
             sentence += letter;
+            
             characterNameText.text = characterName;
             dialogBoxText.text = string.Format("{0}", sentence);
+            if(sentence.Length > 60 && sentence.EndsWith(".")){
+                yield return new WaitForSeconds(1);
+                dialogBoxText.text = "";
+                sentence = "";
+            }
             yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(textScrollInterval);
         }
@@ -74,6 +80,11 @@ public class DialogManager : MonoBehaviour
             sentence += letter;
             characterNameText.text = characterName;
             dialogBoxText.text = string.Format("{0}", sentence);
+            if(sentence.Length > 60 && sentence.EndsWith(".")){
+                yield return new WaitForSeconds(1);
+                dialogBoxText.text = "";
+                sentence = "";
+            }
             yield return new WaitForEndOfFrame();
             yield return new WaitForSeconds(textScrollInterval);
         }

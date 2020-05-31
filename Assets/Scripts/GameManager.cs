@@ -42,15 +42,14 @@ public class GameManager : MonoBehaviour
     public Text ringScoreText;
     public Text scoreText;
     public Text hitScoreText;
+    public Text hitScoreVictoryText;
     public GameState gameState = GameState.GameStart;
     public GameState previousState;
     public Vector3 initalPos = new Vector3(0, 5, 0);
     public AudioClip[] soundTracks;
     AudioSource songPlayer;
     bool bossFight = false;
-    public float timerDuration = 5;
     public MenuManager.ScenesByBuild scenesByBuild;
-    float sceneExitTimer;
     void Awake(){
         if(game == null){
             game = this;
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour
     {   
         playerUI.SetActive(false);
         victoryUI.SetActive(false);
+        if(scenesByBuild != MenuManager.ScenesByBuild.Tutorial) ringScoreText.gameObject.SetActive(false);
         Cursor.visible = false;
         gameState = GameState.GameStart;
         PlayerController.onDeath += GameOver;
@@ -254,7 +254,7 @@ public class GameManager : MonoBehaviour
         playerUI.SetActive(false);
         bossUI.SetActive(false);
         string pref = string.Format("Hit {0}!", hitScore);
-        victoryUI.GetComponentInChildren<Text>().text = PlayerPrefs.GetString(pref);
+        hitScoreVictoryText.text = PlayerPrefs.GetString(pref);
         StartCoroutine(HitFlash());
         gameState = GameState.Victory;
     }

@@ -134,7 +134,7 @@ TrailRenderer:
     textureMode: 0
     shadowBias: 0.5
     generateLightingData: 0
-  m_MinVertexDistance: 0.1
+  m_MinVertexDistance: 0.01
   m_Autodestruct: 0
   m_Emitting: 1
 --- !u!1 &659722090209642706
@@ -9893,7 +9893,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 32768
-  rotationalDamp: 4
+  rotationalDamp: 5
   acceleration: 60
   maxSpeed: 30
   lifetime: 10

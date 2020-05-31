@@ -50,14 +50,22 @@ public class AudioManager : MonoBehaviour
                 source.spatialBlend = spatialBlend;
                 source.Play();
                 audioMan.currentSound = (index + 1) % audioMan.maxSources;
-                
                 return;
+                
             }
         }
     }
     public static void DisableAll(){
         for(int i = 0; i < audioMan.sfxPool.Length; i++){
             audioMan.sfxPool[i].Pause();
+        }
+    }
+
+    public static void Stop(string clipName){
+        for(int i = 0; i < audioMan.sfxPool.Length; i++){
+            if (clipName == audioMan.sfxPool[i].clip.name){
+                audioMan.sfxPool[i].Stop();
+            }
         }
     }
 }

@@ -81,6 +81,8 @@ public class BossAttackController : MonoBehaviour
     void LazerCharge(){
         if(lazerPlaying) return;
         lazerCharge.Play();
+        AudioManager.Play("ChargedLazer", 1, 1, false, lazerOrientation.position, 0.8f);
+        AudioManager.Play("Lazer", 1, 1, true, lazerOrientation.position, 0.8f);
         anim.Play("LazerFire");
         lazerPlaying = true;
     }
@@ -120,6 +122,7 @@ public class BossAttackController : MonoBehaviour
         }
         reloadingLazerTime = Time.time;
         lazerPlaying = false;
+        AudioManager.Stop("Lazer");
         yield return new WaitForEndOfFrame();
     }
 }

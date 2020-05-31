@@ -22,16 +22,15 @@ public class MenuManager : MonoBehaviour
     public EventSystem eventSystem;
     public GameObject playGame;
     public GameObject mission1;
-    public Button mission2;
     public GameObject placeHolderText;
     public Text inputField;
     public static string[] players = new string[10];
     bool level2Unlocked;
     void Awake(){
-        Cursor.visible = true;
         anim = GetComponent<Animator>();
     }
     void Start(){
+        Cursor.visible = true;
         placeHolderText.GetComponent<Text>().text = PlayerPrefs.GetString("CurrentPlayer", "");
         if(PlayerPrefs.GetString("CurrentPlayer", "") == "") placeHolderText.GetComponent<Text>().text = "Player";
         for(int i = 0; i < players.Length; i++){
