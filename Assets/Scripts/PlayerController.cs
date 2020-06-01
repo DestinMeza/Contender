@@ -460,7 +460,7 @@ public class PlayerController : MonoBehaviour
     }
     void Hit(){
         if(looping || crash) return;
-        AudioManager.Play("BlasterHit");
+        AudioManager.Play("ObjectHit");
         anim.Play("PlayerHit");
         anim.Play("HitFlash");
     }
@@ -508,7 +508,7 @@ public class PlayerController : MonoBehaviour
     }
     void OnCollisionEnter(Collision col){
         if(!looping && !crash){
-            _rb.AddForce(targetVelocity.normalized + transform.up, ForceMode.Impulse);
+            _rb.AddForce(targetVelocity.normalized + transform.up * 2, ForceMode.Impulse);
         }
         
         if(health.health <= 0){

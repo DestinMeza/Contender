@@ -27,7 +27,6 @@ public class MissileController : MonoBehaviour
     }
     public void SetTarget(Transform target){
         this.target = target;
-        AudioManager.Play("Missile", 1, 1, true, transform.position, 0.6f);
     }
     void Update()
     {
@@ -60,7 +59,6 @@ public class MissileController : MonoBehaviour
     }
 
     void Explode(HealthController health){
-        AudioManager.Stop("Missile");
         ParticleManager.particleMan.Play("ExplosionSmallObject", transform.position);
         gameObject.SetActive(false);
     }

@@ -68,8 +68,9 @@ MonoBehaviour:
 '
   - Press the Menu Button on the Controller to leave or the Escape key to return
     to the Main Menu.
+  victoryMessage: 
   textScrollInterval: 0.05
-  closeTextDelay: 5
+  closeTextDelay: 3
   dialogArea: {fileID: 0}
   dialogBoxText: {fileID: 0}
   characterNameText: {fileID: 0}

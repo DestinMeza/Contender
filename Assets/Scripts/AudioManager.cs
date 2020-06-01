@@ -51,7 +51,6 @@ public class AudioManager : MonoBehaviour
                 source.Play();
                 audioMan.currentSound = (index + 1) % audioMan.maxSources;
                 return;
-                
             }
         }
     }

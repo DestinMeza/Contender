@@ -5,6 +5,7 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
     public TowerTrigger triggerArea;
+    public Transform tower;
     Animator anim;
     void Awake(){
         anim = GetComponent<Animator>();
@@ -16,6 +17,8 @@ public class TowerController : MonoBehaviour
         triggerArea.onTriggered -= BeginFall;
     }
     void Fell(){
+        AudioManager.Play("LargeObjectExplosion",1,1,false,transform.position,0.7f);
+        ParticleManager.particleMan.Play("Dust", tower.position);
         anim.ResetTrigger("Fall");
     }
 

@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
     IEnumerator HitFlash(){
         while(enabled){
             victoryUI.SetActive(false);
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(1);
             victoryUI.SetActive(true);
         }
     }
@@ -253,8 +253,8 @@ public class GameManager : MonoBehaviour
         gameOverSign.SetActive(true);
         playerUI.SetActive(false);
         bossUI.SetActive(false);
-        string pref = string.Format("Hit {0}!", hitScore);
-        hitScoreVictoryText.text = PlayerPrefs.GetString(pref);
+        victoryUI.SetActive(true);
+        hitScoreVictoryText.text = string.Format("Hit {0}!", hitScore);;
         StartCoroutine(HitFlash());
         gameState = GameState.Victory;
     }

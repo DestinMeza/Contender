@@ -42,9 +42,10 @@ public class CameraController : MonoBehaviour
             Vector3 targetPos = target.transform.position;
             Vector3 pos = transform.position;
             if(!target.GetComponentInParent<PlayerController>()){
-                if(target == null) return;
-                Vector3 targetOrientation = target.GetComponent<BossMovementController>().head.position;
-                transform.LookAt(targetOrientation);
+                if(target.GetComponent<BossMovementController>()){
+                    Vector3 targetOrientation = target.GetComponent<BossMovementController>().head.position;
+                    transform.LookAt(targetOrientation);
+                }
             }
             if(looping){
                 transform.LookAt(heading.position);

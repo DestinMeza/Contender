@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviour
     [TextArea]
     public string victoryMessage;
     public float textScrollInterval = 0.1f;
-    public float closeTextDelay = 5;
+    public float closeTextDelay = 3;
     public GameObject dialogArea;
     Queue<IEnumerator> dialogQueue = new Queue<IEnumerator>();
     public Text dialogBoxText;
