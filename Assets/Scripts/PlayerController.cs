@@ -144,6 +144,8 @@ public class PlayerController : MonoBehaviour
         {
             if(Time.time - crashTime > crashDuration){
                 onDeath(this);
+                ParticleManager.particleMan.Play("ExplosionSmallObject", _hitBox.transform.position);
+                AudioManager.Play("SmallObjectExplosion",1,1,false,_hitBox.transform.position,0.8f);
                 gameObject.SetActive(false);
             }
             return;
@@ -471,6 +473,7 @@ public class PlayerController : MonoBehaviour
             col.GetComponentInParent<RingController>().gameObject.SetActive(false);
         }
         if(col.name == "AllRangeModeBounds" || col.name == "BossFight"){
+            if(flyingModes == FlyingModes.TransitionLock) return;
             looping = true;
             anim.Play("PlayerLoop2");
         }
@@ -521,6 +524,8 @@ public class PlayerController : MonoBehaviour
         }
         if(crash) {
             onDeath(this);
+            ParticleManager.particleMan.Play("ExplosionSmallObject", _hitBox.transform.position);
+            AudioManager.Play("SmallObjectExplosion",1,1,false,_hitBox.transform.position,0.8f);
             gameObject.SetActive(false);
         }
         

@@ -52,7 +52,7 @@ public class MissileController : MonoBehaviour
         Explode(health);
     }
 
-    void OnCollisionEnter(Collision col){
+    void OnTriggerEnter(Collider col){
         if(col.gameObject.CompareTag("Solid")){
             Explode(health);
         }

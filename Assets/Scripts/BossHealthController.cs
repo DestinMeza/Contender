@@ -12,15 +12,17 @@ public class BossHealthController : MonoBehaviour
     public static event OnTakingDamage onTakingDamage = delegate{};
     public delegate void OnTriggerStageTwo();
     public static event OnTriggerStageTwo onTriggerStageTwo = delegate{};
+    public static BossHealthController instance;
     HealthController[] healthControllers;
-    int _bossMaxHP;
-    public int bossMaxHp{get {return _bossMaxHP; }}
-    int bossHP;
+    static int _bossMaxHP;
+    public static int bossMaxHp{get {return _bossMaxHP; }}
+    public static int bossHP;
     Animator anim;
     bool deathTrigger;
     bool explosionTrigger;
     CameraController cam;
     void Awake(){
+        instance = this;
         healthControllers = GetComponentsInChildren<HealthController>();
         anim = GetComponent<Animator>();
         cam = Camera.main.GetComponent<CameraController>();
@@ -63,6 +65,8 @@ public class BossHealthController : MonoBehaviour
     }
 
     void DeathAnimation(){
+        BossAttackController bossAttacks = GetComponent<BossAttackController>();
+        bossAttacks.Stop();
         cam.target = this.gameObject.transform;
         cam.heading = this.gameObject.transform;
         deathTrigger = true;

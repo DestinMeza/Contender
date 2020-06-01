@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public int score = 0;
     public int ringScore = 0;
     public int hitScore = 0;
+    public float victoryDuration = 10;
     public static int lives = 3;
     public static GameManager game;
     public List <GameObject> enemyObjects;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
     public AudioClip[] soundTracks;
     AudioSource songPlayer;
     bool bossFight = false;
+    float victoryStart;
     public MenuManager.ScenesByBuild scenesByBuild;
     void Awake(){
         if(game == null){
@@ -193,6 +195,7 @@ public class GameManager : MonoBehaviour
             victoryUI.SetActive(false);
             yield return new WaitForSeconds(1);
             victoryUI.SetActive(true);
+            yield return new WaitForSeconds(1);
         }
     }
 
@@ -211,7 +214,7 @@ public class GameManager : MonoBehaviour
     }
 
     void VictoryUpdate(){
-        if(Input.GetButtonDown("Cancel") || Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit")){
+        if(Input.GetButtonDown("Cancel") || Input.GetButtonDown("Submit") || Time.time - victoryStart > victoryDuration){
             LoadingScreenController.instance.LoadLevel((int)MenuManager.ScenesByBuild.MainMenu, (int)scenesByBuild);
         }
     }
@@ -256,6 +259,7 @@ public class GameManager : MonoBehaviour
         victoryUI.SetActive(true);
         hitScoreVictoryText.text = string.Format("Hit {0}!", hitScore);;
         StartCoroutine(HitFlash());
+        victoryStart = Time.time;
         gameState = GameState.Victory;
     }
 

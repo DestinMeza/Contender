@@ -129,6 +129,9 @@ public class MenuManager : MonoBehaviour
             eventSystem.SetSelectedGameObject(inputField);
             controllerNameInput.text = inputFieldText.text;
             currentName = controllerNameInput.text;
+            currentLetter = alphabet[alphabetIndexer];
+            controllerNameInput.text += currentLetter;
+            lastLetterChange = Time.time;
             usingController = true;
         }
         else if(eventSystem.currentSelectedGameObject != inputField && Input.GetAxis("KeyHorizontal") > 0){

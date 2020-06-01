@@ -730,7 +730,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57176736}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11, y: 82, z: 6667}
+  m_LocalPosition: {x: -11, y: 82, z: 6494}
   m_LocalScale: {x: 1.134169, y: 2.514, z: 0.79518}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3104,7 +3104,7 @@ PrefabInstance:
     - target: {fileID: 1769669820745491172, guid: b3613e436b644d54688dab96595a56ff,
         type: 3}
       propertyPath: dialogs.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1769669820745491172, guid: b3613e436b644d54688dab96595a56ff,
         type: 3}
@@ -3141,6 +3141,11 @@ PrefabInstance:
         type: 3}
       propertyPath: victoryMessage
       value: Well done. I couldn't ask for a better pilot to take on this mission.
+      objectReference: {fileID: 0}
+    - target: {fileID: 1769669820745491172, guid: b3613e436b644d54688dab96595a56ff,
+        type: 3}
+      propertyPath: dialogs.Array.data[3]
+      value: 'Something funky is getting picked up on my end. '
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3613e436b644d54688dab96595a56ff, type: 3}
@@ -10769,28 +10774,8 @@ PrefabInstance:
       objectReference: {fileID: 1467978780}
     - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
-      propertyPath: railOffset.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
-        type: 3}
       propertyPath: allRangeOffset.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
-        type: 3}
-      propertyPath: bossDeathOffset.z
-      value: -1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
-        type: 3}
-      propertyPath: bossDeathOffset.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
-        type: 3}
-      propertyPath: bossDeathOffset.x
-      value: -400
       objectReference: {fileID: 0}
     - target: {fileID: 3787502501601079653, guid: 79a5ba1fbf52a3e4cb80c8d024d42e33,
         type: 3}
@@ -15643,15 +15628,15 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6193025195156658783, guid: f72c0900ec05ed64f93ccda2c4a36169,
+    - target: {fileID: 4825396382970667722, guid: f72c0900ec05ed64f93ccda2c4a36169,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.17
+      propertyPath: InitialModule.maxNumParticles
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 6193025195156658783, guid: f72c0900ec05ed64f93ccda2c4a36169,
+    - target: {fileID: 4825396382970667722, guid: f72c0900ec05ed64f93ccda2c4a36169,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -2.06
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6302404752931017033, guid: f72c0900ec05ed64f93ccda2c4a36169,
         type: 3}

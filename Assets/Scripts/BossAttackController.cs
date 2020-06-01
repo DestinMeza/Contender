@@ -7,6 +7,7 @@ public class BossAttackController : MonoBehaviour
     enum BossAttackState{
         Stage1,
         Stage2,
+        Dead
     }
     BossAttackState bossAttackState = BossAttackState.Stage1;
     public Transform firePos;
@@ -45,7 +46,14 @@ public class BossAttackController : MonoBehaviour
 
         if(bossAttackState == BossAttackState.Stage2){
             LazerAttack(lazerFiringDamping2);
-        }    
+        }
+        if(bossAttackState == BossAttackState.Dead){
+            StopAllCoroutines();
+        }   
+    }
+
+    public void Stop(){
+        bossAttackState = BossAttackState.Dead;
     }
 
     void Stage2(){
@@ -82,12 +90,12 @@ public class BossAttackController : MonoBehaviour
         if(lazerPlaying) return;
         lazerCharge.Play();
         AudioManager.Play("ChargedLazer", 1, 1, false, lazerOrientation.position, 0.8f);
-        AudioManager.Play("Lazer", 1, 1, true, lazerOrientation.position, 0.8f);
         anim.Play("LazerFire");
         lazerPlaying = true;
     }
 
     void StartLazerFire(){
+        AudioManager.Play("Lazer", 1, 1, true, lazerOrientation.position, 0.8f);
         StopCoroutine(LazerFire());
         StartCoroutine(LazerFire());
     }
